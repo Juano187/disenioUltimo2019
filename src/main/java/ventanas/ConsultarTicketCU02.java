@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,7 @@ import Modelo.ClasificacionDTO;
 import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
+import Modelo.TicketDTO;
 
 
 
@@ -37,10 +39,12 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 	//agregar
 	private GestorClasificacion gestorC= new GestorClasificacion();
 	private GestorGrupoResolucion gestorG= new GestorGrupoResolucion();
+	private GestorTicket gestorT = new GestorTicket(); 
 	private String u = new String();
 	private JFrame anterior;
 	private JFrame frame;
 	JFrame panel=this;
+	DefaultTableModel TablaTickets;
 
     public ConsultarTicketCU02() {
         initComponents();
@@ -59,8 +63,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         buscar = new javax.swing.JButton();
-        //se agrego y modifico nombres
-        DefaultTableModel TablaTickets;
+       
+        
         numTicket = new javax.swing.JTextField();
         legajo = new javax.swing.JTextField();
         fechaApertura = new javax.swing.JTextField();
@@ -147,12 +151,12 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         });
         getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 540, 90, 30));
 
-        //modifique tablaj1 que estaba antes mas abajooo 
+       
         TablaTickets = new DefaultTableModel(
         	 new Object [][] {
                 },
                 new String [] {
-                    "Nro ticket", "Legajo", "Fecha Apertura", "Hora Apertura", "Operador", "Clasificaci\u00f3n", "Estado", "Ult fecha modifición", "Grupo de resolución"
+                    "Nro ticket", "Legajo", "Fecha Apertura", "Estado", "Clasificacion ", "Grupo de resolucion"
             
                 }
             );
@@ -161,7 +165,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 
    
 
-            //agregar
+            
             
             
             JComboBox<EstadoTicket> comboBox = new JComboBox<>();
@@ -243,6 +247,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         
         //funcion boton buscar 
         ErrorFormatoFecha ven = new ErrorFormatoFecha();
+        ErrorCamposVacios ven1 = new ErrorCamposVacios();
        ; 
         buscar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent ae) {
@@ -273,7 +278,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             		}else {
             			ven.setVisible(true); //muestra ventana error
             			}
-            	}
+            	} 
+        		
         		if(!fechaUltimo.getText().isEmpty()) {
         			res=GestorTicket.validarFecha(fechaUltimo.getText());
             		if(res==true){
@@ -291,7 +297,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 		}else {
 			System.out.println("bien");
 			//Aca se llama al gestorTicket para pedir los ticket 
-			/*ObtenerListaTicket(GestorTicket.consultarTicket(numTic, numLegajo,fechaABien, fechaUBien, estado, clasificacion, ultimoG ));*/
+			ObtenerListaTicket(
+					gestorT.consultarTicket(numTic, numLegajo,fechaABien/*, fechaUBien*/, estado, clasificacion, ultimoG ), true);
 		}
 
         		
@@ -451,6 +458,17 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  		this.anterior = anterior;
  	}
 
+ 	
+ 	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado , boolean a) {
+ 		
+ 		for(TicketDTO t: resultado) {
+ 			TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString(), t.getCla().getNombre().toString(), t.getEstado(), t.getGru().getNombre()});
+ 			}
+ 		if (a)
+			this.TablaTickets.fireTableDataChanged();
+ 		
+ 		}
+ 	
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

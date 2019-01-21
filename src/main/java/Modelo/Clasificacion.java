@@ -46,7 +46,7 @@ public class Clasificacion implements Serializable {
 	private List<Historial> listahistorial = new ArrayList<>();;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
+	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
 	
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="listaclasificacion")

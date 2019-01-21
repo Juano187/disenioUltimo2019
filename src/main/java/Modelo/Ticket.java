@@ -40,7 +40,7 @@ public class Ticket implements  Serializable{
 	private String descrip_problema;
 	
 	@ManyToOne
-	@JoinColumn(name = "codigo")
+	@JoinColumn(name = "CODIGO")
 	private Clasificacion clasificacion;
 	
 	@Enumerated(value = EnumType.STRING)
@@ -49,7 +49,7 @@ public class Ticket implements  Serializable{
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "legajo")
+	@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
 	@OneToMany(mappedBy = "ticket")

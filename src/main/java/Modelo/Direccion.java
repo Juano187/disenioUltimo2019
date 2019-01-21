@@ -32,7 +32,7 @@ public class Direccion implements Serializable{
 	private Integer numero;
 	
 	@ManyToOne
-	@JoinColumn(name = "legajo")
+	@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
 	public Direccion() {

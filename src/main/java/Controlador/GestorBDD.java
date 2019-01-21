@@ -121,41 +121,45 @@ public class GestorBDD {
 	}
 	/*cami*/
 
-	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
 		
-		String sql = "Select distinct t FROM Ticket t,Clasificacion cf, Estado e, Intervencion i, GrupoResolucion gr" ;
+		String sql = "Select distinct t FROM Ticket t,Clasificacion cf, Estado e, Intervencion i, GrupoResolucion gr WHERE t= i.num_ticket " ;
 		
 		
 		if(!(numTic== null)) {
-			sql+= "and t.numeroTicket =" + numTic;
+			sql+= " and t.NUM_TICKET = " + numTic;
 		}
 		
 		if(!(legajo== null)) {
-			sql+= "and t.empleado =" + legajo;
+			sql+= " and t.LEGAJO = " + legajo;
 		}
 		
 		if(!(fechaABien== null)) {
-			sql+= "and t.fecha_hora_apertura =" + fechaABien;
+			sql+= " and t.FECHA_HORA_APERTURA = " + fechaABien;
 		}
 		
-		if(!(fechaUBien== null)) {
-			sql+= "and t.fecha_hora_apertura =" + fechaUBien;
-		}
+		/*if(!(fechaUBien== null)) {
+			sql+= " and t.FECHA_HORA_CIERRE = " + fechaUBien;
+		}*/
 		
 		if(!(estado== null)) {
-			sql+= "and t.fecha_hora_apertura =" + estado;
+			sql+= " and e.estadoticket = " + estado;
 		}
 		
 		if(!(cla== null)) {
-			sql+= "and t.fecha_hora_apertura =" + cla;
+			sql+= " and cf.NOMBRE = " + cla;
 		}
 		
 		if(!(ugrupo== null)) {
-			sql+= "and t.fecha_hora_apertura =" + ugrupo;
+			sql+= " and gr.NOM_GRUPO = " + ugrupo;
 		}
+		
+		
+		System.out.println(sql);
+		
 		manager.getTransaction().begin();
 		tickets = (ArrayList<Ticket>) 
 				manager.createQuery(sql).getResultList();

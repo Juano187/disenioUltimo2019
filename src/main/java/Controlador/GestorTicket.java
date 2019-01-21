@@ -85,9 +85,9 @@ public class GestorTicket {
 		}
 	return resultado;
 }*/
-	public List<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 
-		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien, fechaUBien, estado, cla, ugrupo);
+		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien /*fechaUBien*/, estado, cla, ugrupo);
 		
 		ArrayList<TicketDTO> resultado = new ArrayList<TicketDTO>();
 		
