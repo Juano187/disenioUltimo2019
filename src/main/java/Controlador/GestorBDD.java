@@ -119,7 +119,9 @@ public class GestorBDD {
 		}
 		return a;
 	}
-public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	/*cami*/
+
+	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
@@ -127,14 +129,33 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		String sql = "Select distinct t FROM Ticket t,Clasificacion cf, Estado e, Intervencion i, GrupoResolucion gr" ;
 		
 		
-		/*if(!(numTic== null)) {
-			sql+= "and t.numeroTicket =" + Ticket.getNum_ticket();
-		}*/
+		if(!(numTic== null)) {
+			sql+= "and t.numeroTicket =" + numTic;
+		}
 		
+		if(!(legajo== null)) {
+			sql+= "and t.empleado =" + legajo;
+		}
 		
+		if(!(fechaABien== null)) {
+			sql+= "and t.fecha_hora_apertura =" + fechaABien;
+		}
 		
+		if(!(fechaUBien== null)) {
+			sql+= "and t.fecha_hora_apertura =" + fechaUBien;
+		}
 		
+		if(!(estado== null)) {
+			sql+= "and t.fecha_hora_apertura =" + estado;
+		}
 		
+		if(!(cla== null)) {
+			sql+= "and t.fecha_hora_apertura =" + cla;
+		}
+		
+		if(!(ugrupo== null)) {
+			sql+= "and t.fecha_hora_apertura =" + ugrupo;
+		}
 		manager.getTransaction().begin();
 		tickets = (ArrayList<Ticket>) 
 				manager.createQuery(sql).getResultList();
