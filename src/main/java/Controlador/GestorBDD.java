@@ -26,6 +26,7 @@ public class GestorBDD {
 			manager = emf.createEntityManager();
 		
 			/* NOSE PARA QUE ESTA
+			 * aca tenes un cambioooo
 				@SuppressWarnings("unchecked")
 				List<Empleado> empleados = (List<Empleado>) manager.createQuery("FROM Empleado").getResultList();
 				System.out.println("En esta base de datos hay " + empleados.size() + " empleados");
