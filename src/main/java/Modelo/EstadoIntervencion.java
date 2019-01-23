@@ -1,5 +1,5 @@
 package Modelo;
 
 public enum EstadoIntervencion {
-	ASIGNADO, TRABAJANDO
+	ASIGNADO, TRABAJANDO , EN_ESPERA , TERMINADA
 }
