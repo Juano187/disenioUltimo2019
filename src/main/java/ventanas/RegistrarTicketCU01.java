@@ -32,6 +32,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	String g = new String();
 	private JFrame frame;
 	private JFrame anterior;
+	
     public RegistrarTicketCU01() {  
         initComponents();
         this.setLocationRelativeTo(null); 

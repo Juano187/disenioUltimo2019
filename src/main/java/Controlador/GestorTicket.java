@@ -37,7 +37,7 @@ public class GestorTicket {
 	public static Date stringtodate(String fecha) {
 		Date f=null;
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
             formatoFecha.setLenient(false);
             f= formatoFecha.parse(fecha);
         } catch (ParseException e) {
@@ -85,7 +85,7 @@ public class GestorTicket {
 		}
 	return resultado;
 }*/
-	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ Integer estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 
 		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien /*fechaUBien*/, estado, cla, ugrupo);
 		
@@ -94,21 +94,29 @@ public class GestorTicket {
 		for (int i=0; i<gd.size(); i++) {
 			Ticket t = gd.get(i);
 			
-		
+			ClasificacionDTO cla1 = new ClasificacionDTO(t.getClasificacion().getNom_clasificacion());
 			TicketDTO tic = new TicketDTO();
 			tic.setNumeroTicket(t.getNum_ticket());
 			tic.setNumlegajo(t.getEmpleado().getLegajo());
 			tic.setFechaA(t.getFecha_apertura());
 			tic.setEstado(estado);
-			tic.setCla(cla);
-			tic.setGru(ugrupo);
+			tic.setCla(cla1);
+			tic.setGru(ugrupo);;
 			
 				
 			resultado.add(tic);
-				
+			System.out.println(tic.getNumeroTicket());
+			
 			}
+		
 		return resultado;
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	}

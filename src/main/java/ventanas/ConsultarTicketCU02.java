@@ -168,9 +168,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             
             
             
-            JComboBox<EstadoTicket> comboBox = new JComboBox<>();
-            comboBox.setModel(new DefaultComboBoxModel<>(EstadoTicket.values()));
-            getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 410, 30));
+        JComboBox<EstadoTicket> comboBox = new JComboBox<>();
+        comboBox.setModel(new DefaultComboBoxModel<>(EstadoTicket.values()));
+        getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 410, 30));
         /*
         JComboBox ComboEstado = new JComboBox();
         ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abierto Sin Derivar", "Abierto Derivado", "Solucionado a la espera del Ok", "Cerrado" , "Todos"}));*/
@@ -256,13 +256,15 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		Date fechaABien = null;
         		Date fechaUBien = null ;
         		Date fechaAct = new Date();
-        		String estado = new String();
+        		Integer estado = null;
         		ClasificacionDTO clasificacion;
         		GrupoResolucionDTO ultimoG;
         		
         		if(!numTicket.getText().isEmpty()) numTic = Long.valueOf(numTicket.getText());
         		if(!legajo.getText().isEmpty()) numLegajo = Integer.valueOf(legajo.getText());
-        		estado = comboBox.getSelectedItem().toString();
+        		estado = comboBox.getSelectedIndex();
+        		
+        		/*estado= comboBox.getSelectedItem();*/
         		clasificacion = (ClasificacionDTO) combocalif.getSelectedItem();
         		ultimoG = (GrupoResolucionDTO) combogrupo.getSelectedItem();
         		
@@ -291,18 +293,21 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             	}
         		
         		
-        ErrorDatosIncorrectos ven2= new ErrorDatosIncorrectos();
+    			
+       /* ErrorDatosIncorrectos ven2= new ErrorDatosIncorrectos();
 		if(((fechaABien.compareTo(fechaAct) >= 0) || (!fechaApertura.getText().isEmpty()) ) && (fechaUBien.compareTo(fechaAct)>=0) || (!fechaUltimo.getText().isEmpty())){
 			ven2.setVisible(true);
-		}else {
-			System.out.println("bien");
+		}else {*/
+			
+			
 			//Aca se llama al gestorTicket para pedir los ticket 
 			ObtenerListaTicket(
 					gestorT.consultarTicket(numTic, numLegajo,fechaABien/*, fechaUBien*/, estado, clasificacion, ultimoG ), true);
+			//System.out.println("num tic" + numTic + " legajo " + numLegajo + " fechaABien " + fechaABien + " estado " + estado + " clasificacion " + clasificacion + "ultimo " + ultimoG);
 		}
 
         		
-        	}
+        	/*}*/
         	
         	
         	
@@ -461,8 +466,10 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  	
  	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado , boolean a) {
  		
+ 		
+ 		//System.out.println("num tic" + numTic + " legajo " + resultado.getNumlegajo().toString() + " fechaABien " + fechaABien + " estado " + estado + " clasificacion " + clasificacion + "ultimo " + ultimoG);
  		for(TicketDTO t: resultado) {
- 			TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString(), t.getCla().getNombre().toString(), t.getEstado(), t.getGru().getNombre()});
+ 			TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString(), t.getCla().getNombre().toString(), t.getEstado().toString(), t.getGru().getNombre()});
  			}
  		if (a)
 			this.TablaTickets.fireTableDataChanged();

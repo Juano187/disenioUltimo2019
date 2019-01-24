@@ -1,6 +1,8 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,13 +30,19 @@ public class Ticket implements  Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
-	private int num_ticket;
+	private Integer num_ticket;
 	
-	@Column(name = "FECHA_HORA_APERTURA")
-	private Date fecha_hora_apertura;
+	@Column(name = "HORA_APERTURA")
+	private LocalTime hora_apertura;
 
-	@Column(name = "FECHA_HORA_CIERRE")
-	private Date fecha_hora_cierre;
+	@Column(name = "FECHA_APERTURA")
+	private LocalDate fecha_apertura;
+	
+	@Column(name = "FECHA_CIERRE")
+	private LocalDate fecha_cierre;
+	
+	@Column(name = "HORA_CIERRE")
+	private LocalTime hora_cierre;
 	
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
 	private String descrip_problema;
@@ -53,7 +61,8 @@ public class Ticket implements  Serializable{
 	private Empleado empleado;
 	
 	@OneToMany(mappedBy = "ticket")
-	private List<Intervencion> listainterveniones = new ArrayList<>();;
+	//@JoinColumn(name = "numero")
+	private List<Intervencion> listaintervenciones = new ArrayList<>();;
 	
 	@OneToMany(mappedBy = "ticket")
 	private List<Historial> listahistorial = new ArrayList<>();;
@@ -63,20 +72,24 @@ public class Ticket implements  Serializable{
 	}
 	
 
-	public Ticket(int num_ticket, Date fecha_apertura,Date fecha_cierre, String descrip_problema,
+	public Ticket(Integer num_ticket, LocalDate fecha_apertura,LocalDate fecha_cierre, String descrip_problema,
 			Clasificacion clasificacion, EstadoTicket estadoticket, Empleado empleado,
-			List<Intervencion> listainterveniones, List<Historial> listahistorial) {
+			List<Intervencion> listaintervenciones, List<Historial> listahistorial, LocalTime hora_apertura, LocalTime hora_cierre) {
 		
 		this.num_ticket = num_ticket;
-		this.fecha_hora_apertura = fecha_apertura;
-		this.fecha_hora_cierre = fecha_cierre;
+		this.fecha_apertura = fecha_apertura;
+		this.fecha_cierre = fecha_cierre;
+		this.hora_apertura = hora_apertura;
+		this.hora_cierre = hora_cierre;
 		this.descrip_problema = descrip_problema;
 		this.clasificacion = clasificacion;
 		this.estadoticket = estadoticket;
 		this.empleado = empleado;
-		this.listainterveniones = listainterveniones;
+		this.listaintervenciones = listaintervenciones;
 		this.listahistorial = listahistorial;
 	}
+	
+	
 
 
 	public int getNum_ticket() {
@@ -84,28 +97,12 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public void setNum_ticket(int num_ticket) {
+	public void setNum_ticket(Integer num_ticket) {
 		this.num_ticket = num_ticket;
 	}
 
 
-	public Date getFecha_apertura() {
-		return fecha_hora_apertura;
-	}
 
-
-	public void setFecha_apertura(Date fecha_cierre) {
-		this.fecha_hora_apertura = fecha_cierre;
-	}
-	
-	public Date getFecha_cierre() {
-		return fecha_hora_cierre;
-	}
-
-
-	public void setFecha_cierre(Date fecha_cierre){
-		this.fecha_hora_cierre = fecha_cierre;
-	}
 
 
 	public String getDescrip_problema() {
@@ -133,7 +130,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public void setEstadoticket(int i) {
+	public void setEstadoticket(Integer i) {
 		if ( i == 1) {
 		this.estadoticket = EstadoTicket.ABIERTODERIVADO ;}
 		else {
@@ -166,12 +163,72 @@ public class Ticket implements  Serializable{
 
 
 	public List<Intervencion> getListainterveniones() {
-		return listainterveniones;
+		return listaintervenciones;
+	}
+	
+	/*public Intervencion ultimaI() {
+		Intervencion u = listaintervenciones.get(0);
+		for(Intervencion i: listaintervenciones) {
+			if(i.getFecha_inicio().compareTo(u.getFecha_inicio())>0) {
+				if(i.getEstadointervencion()!= EstadoIntervencion.TERMINADA) {
+					u=i;
+				} else {
+					if(!) {
+						u=i;
+					}
+				}
+			}
+		}
+	return u;	
+	}	*/
+			
+	
+
+	public LocalTime getHora_apertura() {
+		return hora_apertura;
 	}
 
 
+	public void setHora_apertura(LocalTime hora_apertura) {
+		this.hora_apertura = hora_apertura;
+	}
+
+
+	public LocalDate getFecha_apertura() {
+		return fecha_apertura;
+	}
+
+
+	public void setFecha_apertura(LocalDate fecha_apertura) {
+		this.fecha_apertura = fecha_apertura;
+	}
+
+
+	public LocalDate getFecha_cierre() {
+		return fecha_cierre;
+	}
+
+
+	public void setFecha_cierre(LocalDate fecha_cierre) {
+		this.fecha_cierre = fecha_cierre;
+	}
+
+
+	public LocalTime getHora_cierre() {
+		return hora_cierre;
+	}
+
+
+	public void setHora_cierre(LocalTime hora_cierre) {
+		this.hora_cierre = hora_cierre;
+	}
+	
+
+
+
+
 	public void setListainterveniones(List<Intervencion> listainterveniones) {
-		this.listainterveniones = listainterveniones;
+		this.listaintervenciones = listainterveniones;
 	}
 
 
@@ -185,14 +242,15 @@ public class Ticket implements  Serializable{
 	}
 
 
-	@Override
+	/*@Override
 	public String toString() {
-		return "Ticket [num_ticket=" + num_ticket + ", fecha_hora_apertura=" + fecha_hora_apertura + ", fecha_hora_cierre=" + fecha_hora_cierre +
+		return "Ticket [num_ticket=" + num_ticket + ", fecha_apertura=" + fecha_apertura + "hora_apertura" + hora_apertura +", fecha_cierre=" + fecha_cierre +
 				", descrip_problema=" + descrip_problema + ", clasificacion=" + clasificacion
 				+ ", estadoticket=" + estadoticket + ", empleado=" + empleado + ", listainterveniones="
-				+ listainterveniones + ", listahistorial=" + listahistorial + "]";
+				+ listaintervenciones + ", listahistorial=" + listahistorial + "]";
 	}
-	
+
+*/
 	
 	
 }

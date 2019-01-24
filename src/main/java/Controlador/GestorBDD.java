@@ -24,17 +24,21 @@ public class GestorBDD {
 	public GestorBDD() {
 			emf = Persistence.createEntityManagerFactory("Persistencia");
 			manager = emf.createEntityManager();
+			
+			/*@SuppressWarnings("unchecked")
+			ArrayList<Ticket> tickets = (ArrayList<Ticket>) manager.createQuery("FROM Ticket").getResultList();
 		
-			/* NOSE PARA QUE ESTA
-			 * aca tenes un cambioooo
-				@SuppressWarnings("unchecked")
-				List<Empleado> empleados = (List<Empleado>) manager.createQuery("FROM Empleado").getResultList();
-				System.out.println("En esta base de datos hay " + empleados.size() + " empleados");
-				
-				@SuppressWarnings("unchecked")
-				List<Clasificacion> clasificaciones = (List<Clasificacion>) manager.createQuery("FROM Clasificacion").getResultList();
+		
+			manager.getTransaction().begin();
+			ArrayList<Empleado> e = (ArrayList<Empleado>) manager.createQuery("FROM Empleado").getResultList();
+			manager.getTransaction().commit();
+			
+			
+			*/
+				/*@SuppressWarnings("unchecked")
+				ArrayList<Clasificacion> clasificaciones = (ArrayList<Clasificacion>) manager.createQuery("FROM Clasificacion").getResultList();
 				System.out.println("En esta base de datos hay " + clasificaciones.size() + " clan"  + clasificaciones);*/
-				
+			
 	}
 	
 	
@@ -44,9 +48,21 @@ public class GestorBDD {
 		manager.getTransaction().begin();
 		clasificaciones = (ArrayList<Clasificacion>) manager.createQuery("FROM Clasificacion").getResultList();
 		manager.getTransaction().commit();
+		
 		return clasificaciones;
 	}
 	
+	private void imprimirtodo(ArrayList<Empleado> e) {
+		// TODO Auto-generated method stub
+		/*ArrayList<Empleado> emps = (ArrayList<Empleado>) manager.createQuery("FROM Empleado").getResultList();*/
+		System.out.println("En esta base de datos hay " + e.size() + " empleados");
+		for (Empleado emp : e ) {
+			System.out.println(emp.getNombre());
+		}
+		
+	}
+
+
 	@SuppressWarnings("unchecked")
 	public ArrayList<Empleado>getEmpleado(){
 		ArrayList<Empleado> empleado;
@@ -121,12 +137,12 @@ public class GestorBDD {
 	}
 	/*cami*/
 
-	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ Integer estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
 		
-		String sql = "Select distinct t FROM Ticket t,Clasificacion cf, Estado e, Intervencion i, GrupoResolucion gr WHERE t= i.num_ticket " ;
+		String sql = "Select distinct t FROM Ticket t,Clasificacion cf, Estado e, GrupoResolucion gr WHERE " ;
 		
 		
 		if(!(numTic== null)) {
@@ -146,19 +162,17 @@ public class GestorBDD {
 		}*/
 		
 		if(!(estado== null)) {
-			sql+= " and e.estadoticket = " + estado;
+			sql+= " and e.estadoticket = '" + estado+ "'";
 		}
 		
 		if(!(cla== null)) {
-			sql+= " and cf.NOMBRE = " + cla;
+			sql+= " and cf.NOMBRE = '" + cla+ "'";
 		}
 		
 		if(!(ugrupo== null)) {
-			sql+= " and gr.NOM_GRUPO = " + ugrupo;
+			sql+= " and gr.NOM_GRUPO = '" + ugrupo+ "'";
 		}
 		
-		
-		System.out.println(sql);
 		
 		manager.getTransaction().begin();
 		tickets = (ArrayList<Ticket>) 
@@ -166,7 +180,10 @@ public class GestorBDD {
 		manager.getTransaction().commit();
 		
 		
-		
+		for (int i=0; i<tickets.size(); i++ ) {
+			System.out.println(tickets.get(i).getNum_ticket());
+			System.out.println(tickets.get(i).getEstadoticket());
+		}
 		
 		return tickets;
 	}
