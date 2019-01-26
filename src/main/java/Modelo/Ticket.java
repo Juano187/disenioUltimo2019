@@ -36,10 +36,10 @@ public class Ticket implements  Serializable{
 	private LocalTime hora_apertura;
 
 	@Column(name = "FECHA_APERTURA")
-	private LocalDate fecha_apertura;
+	private Date fecha_apertura;
 	
 	@Column(name = "FECHA_CIERRE")
-	private LocalDate fecha_cierre;
+	private Date fecha_cierre;
 	
 	@Column(name = "HORA_CIERRE")
 	private LocalTime hora_cierre;
@@ -69,10 +69,13 @@ public class Ticket implements  Serializable{
 	
 	public Ticket() {
 		
+		listaintervenciones = new ArrayList<>();
+		listahistorial = new ArrayList<>();
+		
 	}
 	
 
-	public Ticket(Integer num_ticket, LocalDate fecha_apertura,LocalDate fecha_cierre, String descrip_problema,
+	public Ticket(Integer num_ticket, Date fecha_apertura,Date fecha_cierre, String descrip_problema,
 			Clasificacion clasificacion, EstadoTicket estadoticket, Empleado empleado,
 			List<Intervencion> listaintervenciones, List<Historial> listahistorial, LocalTime hora_apertura, LocalTime hora_cierre) {
 		
@@ -89,7 +92,10 @@ public class Ticket implements  Serializable{
 		this.listahistorial = listahistorial;
 	}
 	
-	
+	public void setListainterveniones(List<Intervencion> listainterveniones) {
+		this.listaintervenciones = listainterveniones;
+	}
+
 
 
 	public int getNum_ticket() {
@@ -172,13 +178,11 @@ public class Ticket implements  Serializable{
 			if(i.getFecha_inicio().compareTo(u.getFecha_inicio())>0) {
 				if(i.getEstadointervencion()!= EstadoIntervencion.TERMINADA) {
 					u=i;
-				} else {
-					if(!) {
-						u=i;
+				}   
 					}
 				}
-			}
-		}
+			
+		
 	return u;	
 	}	*/
 			
@@ -194,22 +198,22 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public LocalDate getFecha_apertura() {
+	public Date getFecha_apertura() {
 		return fecha_apertura;
 	}
 
 
-	public void setFecha_apertura(LocalDate fecha_apertura) {
+	public void setFecha_apertura(Date fecha_apertura) {
 		this.fecha_apertura = fecha_apertura;
 	}
 
 
-	public LocalDate getFecha_cierre() {
+	public Date getFecha_cierre() {
 		return fecha_cierre;
 	}
 
 
-	public void setFecha_cierre(LocalDate fecha_cierre) {
+	public void setFecha_cierre(Date fecha_cierre) {
 		this.fecha_cierre = fecha_cierre;
 	}
 
@@ -227,10 +231,7 @@ public class Ticket implements  Serializable{
 
 
 
-	public void setListainterveniones(List<Intervencion> listainterveniones) {
-		this.listaintervenciones = listainterveniones;
-	}
-
+	
 
 	public List<Historial> getListahistorial() {
 		return listahistorial;

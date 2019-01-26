@@ -26,15 +26,20 @@ public class GestorBDD {
 			manager = emf.createEntityManager();
 			
 			/*@SuppressWarnings("unchecked")
-			ArrayList<Ticket> tickets = (ArrayList<Ticket>) manager.createQuery("FROM Ticket").getResultList();
-		
-		
+			ArrayList<Ticket> tickets = (ArrayList<Ticket>) manager.createQuery("Select NUM_TICKET FROM Ticket t, Clasificacion cf WHERE t.NUM_TICKET = 3 and t.estadoticket = 'CERRADO' and \r\n" + 
+					"cf.NOMBRE = 'Problemas en el funcionamiento del Sistema Operativo de PC y utilitarios' ").getResultList();
+			System.out.println("En esta base de datos hay " + tickets.size() + " empleados");
+			for (Ticket emp : tickets ) {
+				System.out.println(emp.getNum_ticket());
+			}
+		*/
+			/*
 			manager.getTransaction().begin();
 			ArrayList<Empleado> e = (ArrayList<Empleado>) manager.createQuery("FROM Empleado").getResultList();
-			manager.getTransaction().commit();
+			manager.getTransaction().commit();*/
 			
 			
-			*/
+		
 				/*@SuppressWarnings("unchecked")
 				ArrayList<Clasificacion> clasificaciones = (ArrayList<Clasificacion>) manager.createQuery("FROM Clasificacion").getResultList();
 				System.out.println("En esta base de datos hay " + clasificaciones.size() + " clan"  + clasificaciones);*/
@@ -137,24 +142,28 @@ public class GestorBDD {
 	}
 	/*cami*/
 
-	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ Integer estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/, String estado, ClasificacionDTO cla  /*GrupoResolucionDTO ugrupo*/){
+		
+		
+		System.out.println("fecha : " + fechaABien);
+		
 		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
 		
-		String sql = "Select distinct t FROM Ticket t,Clasificacion cf, Estado e, GrupoResolucion gr WHERE " ;
+		String sql = "Select distinct t FROM Ticket t, Clasificacion cf WHERE" ;
 		
 		
 		if(!(numTic== null)) {
-			sql+= " and t.NUM_TICKET = " + numTic;
+			sql+= " t.num_ticket = " + numTic;
 		}
 		
 		if(!(legajo== null)) {
-			sql+= " and t.LEGAJO = " + legajo;
+			sql+= " and t.empleado = " + legajo;
 		}
 		
 		if(!(fechaABien== null)) {
-			sql+= " and t.FECHA_HORA_APERTURA = " + fechaABien;
+			sql+= " and t.fecha_apertura = '" + fechaABien + "'";
 		}
 		
 		/*if(!(fechaUBien== null)) {
@@ -162,16 +171,18 @@ public class GestorBDD {
 		}*/
 		
 		if(!(estado== null)) {
-			sql+= " and e.estadoticket = '" + estado+ "'";
+			sql+= " and t.estadoticket = '" + estado + "'";
 		}
 		
 		if(!(cla== null)) {
-			sql+= " and cf.NOMBRE = '" + cla+ "'";
+			sql+= " and cf.nom_clasificacion = '" + cla+ "'";
 		}
 		
-		if(!(ugrupo== null)) {
-			sql+= " and gr.NOM_GRUPO = '" + ugrupo+ "'";
-		}
+		
+		System.out.println(sql);
+		/*if(!(ugrupo== null)) {
+			sql+= " and g.nom_grupo = '" + ugrupo+ "'";
+		}*/
 		
 		
 		manager.getTransaction().begin();
@@ -179,11 +190,6 @@ public class GestorBDD {
 				manager.createQuery(sql).getResultList();
 		manager.getTransaction().commit();
 		
-		
-		for (int i=0; i<tickets.size(); i++ ) {
-			System.out.println(tickets.get(i).getNum_ticket());
-			System.out.println(tickets.get(i).getEstadoticket());
-		}
 		
 		return tickets;
 	}

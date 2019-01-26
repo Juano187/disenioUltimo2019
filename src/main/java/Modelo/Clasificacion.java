@@ -53,6 +53,9 @@ public class Clasificacion implements Serializable {
 	private List<GrupoResolucion> gruporesolucion = new ArrayList<>();
 	
 	public Clasificacion() {
+		listaTickets = new ArrayList<>();
+		listahistorial = new ArrayList<>();
+		gruporesolucion = new ArrayList<>();
 		
 	}
 

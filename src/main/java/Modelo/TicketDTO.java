@@ -10,7 +10,7 @@ public class TicketDTO {
 
 	private Integer numeroTicket;
 	private Integer numlegajo;
-	private LocalDate fechaA;
+	private Date fechaA;
 	
 	private ClasificacionDTO cla;
 	private GrupoResolucionDTO gru;
@@ -20,7 +20,7 @@ public class TicketDTO {
 		
 	}
 	
-	public TicketDTO(Integer numeroTicket, Integer numlegajo, LocalDate fechaA, ClasificacionDTO cla,
+	public TicketDTO(Integer numeroTicket, Integer numlegajo, Date fechaA, ClasificacionDTO cla,
 			GrupoResolucionDTO gru, EstadoTicket estado) {
 		
 		this.numeroTicket = numeroTicket;
@@ -45,10 +45,10 @@ public class TicketDTO {
 	public void setNumlegajo(Integer numlegajo) {
 		this.numlegajo = numlegajo;
 	}
-	public LocalDate getFechaA() {
+	public Date getFechaA() {
 		return fechaA;
 	}
-	public void setFechaA(LocalDate fechaA) {
+	public void setFechaA(Date fechaA) {
 		this.fechaA = fechaA;
 	}
 
@@ -87,6 +87,13 @@ public class TicketDTO {
 		}
 		
 	}
+
+	public void setEstado2(EstadoTicket estado) {
+		this.estado = estado;
+	}
+	
+
+
 	
 	
 	

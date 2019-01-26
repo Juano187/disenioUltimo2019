@@ -8,6 +8,7 @@ import java.util.List;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.Ticket;
 import Modelo.TicketDTO;
@@ -24,7 +25,7 @@ public class GestorTicket {
 	//todos metodos creados para interfazConsultarticket
 	public static boolean validarFecha(String fecha) {
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             formatoFecha.setLenient(false);
             formatoFecha.parse(fecha);
         } catch (ParseException e) {
@@ -37,7 +38,7 @@ public class GestorTicket {
 	public static Date stringtodate(String fecha) {
 		Date f=null;
         try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             formatoFecha.setLenient(false);
             f= formatoFecha.parse(fecha);
         } catch (ParseException e) {
@@ -85,28 +86,28 @@ public class GestorTicket {
 		}
 	return resultado;
 }*/
-	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien, /*Date fechaUBien,*/ Integer estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/ , String estado,  ClasificacionDTO cla/*, GrupoResolucionDTO ugrupo*/){
 
-		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien /*fechaUBien*/, estado, cla, ugrupo);
+		
+		
+		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien, /*fechaUBien, */ estado ,cla /*ugrupo*/);
 		
 		ArrayList<TicketDTO> resultado = new ArrayList<TicketDTO>();
 		
 		for (int i=0; i<gd.size(); i++) {
 			Ticket t = gd.get(i);
-			
+			//GrupoResolucionDTO ug = new GrupoResolucionDTO(t.ultimaI().getGruporesolucion().getNom_grupo());
 			ClasificacionDTO cla1 = new ClasificacionDTO(t.getClasificacion().getNom_clasificacion());
 			TicketDTO tic = new TicketDTO();
 			tic.setNumeroTicket(t.getNum_ticket());
 			tic.setNumlegajo(t.getEmpleado().getLegajo());
 			tic.setFechaA(t.getFecha_apertura());
-			tic.setEstado(estado);
+			tic.setEstado2(t.getEstadoticket());
 			tic.setCla(cla1);
-			tic.setGru(ugrupo);;
+			//tic.setGru(ug);
 			
 				
 			resultado.add(tic);
-			System.out.println(tic.getNumeroTicket());
-			
 			}
 		
 		return resultado;
