@@ -13,7 +13,7 @@ abstract class HistorialABS {
 		
 	}
 	public HistorialABS(String u, Date fecha) {
-		this.id_historial = ((gbdd.getHistoriales().size())+1);
+	
 		this.user=u;
 		this.hora_fecha_ini= fecha;
 		this.hora_fecha_fin = null;

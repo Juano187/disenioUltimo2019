@@ -8,36 +8,59 @@ import java.util.List;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.Empleado;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.Ticket;
 import Modelo.TicketDTO;
+import Modelo.Usuario;
+import ventanas.EjemploError;
 
 public class GestorTicket {
-
+	public GestorClasificacion gc = new GestorClasificacion();
+	public GestorEmpleado ge = new GestorEmpleado();
 	public GestorBDD gestorBDD= new GestorBDD();
-	
+	public GestorUsuario gu = new GestorUsuario();
+	public GestorGrupoResolucion ggr = new GestorGrupoResolucion();
 	public GestorTicket() {
 		
 	}
 	
 	
 	//todos metodos creados para interfazConsultarticket
+	
 	public static boolean validarFecha(String fecha) {
         try {
             SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
             formatoFecha.setLenient(false);
             formatoFecha.parse(fecha);
+            
         } catch (ParseException e) {
             return false;
         }
         return true;
     }
-	//(legajo,id_clasificacion,descripcion, u,fechaHoraString);
-	public Ticket registrarTicket(int legajo,int id_cla, String descripcion,String user,Date f) {
+	
+	public int registrarTicket(int legajo,String clasific, String descripcion,String user,Date f) {
+		
 		Ticket t = new Ticket();
-		//codigo
-		return t;
+		try {
+		Clasificacion c = gc.getClasificacion(clasific);
+		Empleado e = ge.validarLegajo(legajo);
+		Usuario u = gu.getUsuario(user);
+		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
+		
+		
+		
+		}catch(Exception ex) {
+        	
+    		EjemploError error = new EjemploError(ex.getMessage());
+    		error.setVisible(true); 
+    	}
+		
+		
+		
+		return 1;
 		
 	}
 	public static Date stringtodate(String fecha) {

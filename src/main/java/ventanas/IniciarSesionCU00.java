@@ -175,8 +175,6 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
     
         		MenuMesaDeAyuda m = new MenuMesaDeAyuda((jTextFieldUser.getText()));
         		m.setAnterior(frame);   
-        		m.addUser(jTextFieldUser.getText());
-        		m.addGrupo(gbdd.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNom_grupo());
         		this.setVisible(false);
             	m.setVisible(true);
             	

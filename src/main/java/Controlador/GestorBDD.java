@@ -120,20 +120,15 @@ public ArrayList<Historial>getHistoriales(){
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Usuario getUsuario(String user) {
-		Usuario u =new Usuario();
+	public ArrayList<Usuario>  getUsuarios() {
+	
 		ArrayList<Usuario> U = new ArrayList<Usuario>();
 		
 		manager.getTransaction().begin();
 		U = (ArrayList<Usuario>)manager.createQuery("Select t FROM Usuario t").getResultList();
 		manager.getTransaction().commit();
-		
-		for(int i= 0 ;i< U.size();i++) {
-			if(user.equalsIgnoreCase(U.get(i).getUsuario()) ){
-				u = U.get(i);
-			}
-		}
-		return u;
+	
+		return U;
 	}
 	@SuppressWarnings("unchecked")
 	public boolean iniciarSesion (String user, String pass ){

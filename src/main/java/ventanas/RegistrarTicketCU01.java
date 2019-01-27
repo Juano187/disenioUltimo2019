@@ -38,7 +38,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	SimpleDateFormat fecha_hora =new SimpleDateFormat ( "dd-MM-yyyy HH:mm");
     SimpleDateFormat fecha = new SimpleDateFormat ("dd-MM-yyyy");
     SimpleDateFormat hora = new SimpleDateFormat ("HH:mm");
-    Date date= new Date();
+    Date date = new Date();
     String fechaString = fecha.format(date);
     String horaString = hora.format(date);
     String fechaHoraString = fecha_hora.format(date);
@@ -350,20 +350,21 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 String descripcion = jTextArea1.getText();
         	 int legajo = Integer.parseInt(jTextField4.getText());
         	 int longLegajo= String.valueOf(legajo).length();
-        	 int id_clasificacion = gc.getClasificacion(claSeleccionada).getCodigo();
+       
         	 
       
         	 System.out.println("long legajo: "+ longLegajo + " descripcion: " + descripcion + " clasificacion: " + claSeleccionada );
         	 
-        	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...")  || descripcion.equalsIgnoreCase("Ingrese descripcion")) {
+        	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...") || descripcion.equalsIgnoreCase("Ingrese descripcion")) {
         	 		EjemploError error = new EjemploError("Datos invalidos");
     			  	error.setVisible(true); 
+    		
     			  	
     			  		
         	 }
         	 else {
         		 	  	  
-        		 	gt.registrarTicket(legajo,id_clasificacion,descripcion, u,date);
+        		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date);
         		 	
                     CerrarTicketCU03 c = new CerrarTicketCU03();
                     c.setAnterior(frame);
