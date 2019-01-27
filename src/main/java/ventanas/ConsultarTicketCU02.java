@@ -334,6 +334,20 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
+        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+        	
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jButton3.doClick();
+                }
+                
+            }
+        });
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 140, 30));
 
         jButton4.setBackground(new java.awt.Color(0, 51, 102));
@@ -373,6 +387,20 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         public void focusLost(java.awt.event.FocusEvent e) {
         	jButton5.setBackground(new java.awt.Color(0, 51, 102));	
           }
+        });
+        jButton5.addKeyListener(new java.awt.event.KeyAdapter(){
+        	
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jButton5.doClick();
+                }
+                
+            }
+        });
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 830, 180, 30));
 
@@ -430,6 +458,19 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     }
     
   
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try {
+            CerrarTicketCU03 r = new CerrarTicketCU03();
+            r.setAnterior(frame);
+            r.setVisible(true);
+            this.setVisible(false);
+            
+            }catch(Exception ex) {
+            	
+            	EjemploError error = new EjemploError(ex.getMessage());
+        	  	error.setVisible(true); }
+            }      
+    
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             DetalleTicketCU02 r = new DetalleTicketCU02();
@@ -442,6 +483,20 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             	EjemploError error = new EjemploError(ex.getMessage());
         	  	error.setVisible(true); }
             }     
+    
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try {
+            ConfigurarReporteCU05 r = new ConfigurarReporteCU05();
+            r.setAnterior(frame);
+            r.setVisible(true);
+            this.setVisible(false);
+            
+            }catch(Exception ex) {
+            	
+            	EjemploError error = new EjemploError(ex.getMessage());
+        	  	error.setVisible(true); }
+            }      
+    
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
@@ -466,6 +521,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  	public void setAnterior(JFrame anterior) {
  		this.anterior = anterior;
  	}
+ 	
+ 	
 
  	
  	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado) {

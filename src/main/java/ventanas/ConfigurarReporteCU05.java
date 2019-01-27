@@ -1,8 +1,14 @@
 
 package ventanas;
 
+import java.awt.event.KeyEvent;
+
+import javax.swing.JFrame;
 
 public class ConfigurarReporteCU05 extends javax.swing.JFrame {
+	private JFrame frame;
+	private JFrame anterior;
+	JFrame panel=this;
 
     public ConfigurarReporteCU05() {
         initComponents();
@@ -55,12 +61,52 @@ public class ConfigurarReporteCU05 extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Cancelar");
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                	jButton1.doClick();
+                }
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+        	public void focusGained(java.awt.event.FocusEvent e) {
+        		jButton1.setBackground(new java.awt.Color(0, 10	, 30));
+        	}
+        public void focusLost(java.awt.event.FocusEvent e) {
+        	jButton1.setBackground(new java.awt.Color(0, 51, 102));	
+          }
+        });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 560, 110, 30));
 
         jButton2.setBackground(new java.awt.Color(0, 51, 102));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14));
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Aceptar");
+        jButton2.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                	jButton2.doClick();
+                }
+            }
+        });
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	jButton2ActionPerformed(evt);
+            }
+        });
+        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+        	public void focusGained(java.awt.event.FocusEvent e) {
+        		jButton2.setBackground(new java.awt.Color(0, 10	, 30));
+        	}
+        public void focusLost(java.awt.event.FocusEvent e) {
+        	jButton2.setBackground(new java.awt.Color(0, 51, 102));	
+          }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 560, 120, 30));
 
         jRadioButton6.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -99,7 +145,15 @@ public class ConfigurarReporteCU05 extends javax.swing.JFrame {
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
+	public void setAnterior(JFrame anterior) {
+		this.anterior = anterior;
+	}
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        anterior.setVisible(true);
+        this.dispose();
+    }
+	
     public static void main(String args[]) {
     
         try {

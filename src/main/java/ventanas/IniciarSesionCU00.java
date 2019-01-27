@@ -17,6 +17,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
 	private GestorBDD gbdd = new GestorBDD();
 	private JFrame frame;
 
+
     public IniciarSesionCU00() {
             frame = this;
             initComponents();
@@ -103,8 +104,6 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
                 }
                 
             }
-
-		
         });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

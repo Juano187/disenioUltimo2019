@@ -122,7 +122,8 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.exit(0);
+        anterior.setVisible(true);
+        this.dispose();
     }
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {

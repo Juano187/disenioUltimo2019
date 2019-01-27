@@ -1,5 +1,6 @@
 
 package ventanas;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -61,6 +62,13 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+        jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                	jButton1.doClick();
+                }
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 565, 100, 30));
@@ -179,7 +187,8 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        System.exit(0);
+        anterior.setVisible(true);
+        this.dispose();
     }
 
     private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditableActionPerformed

@@ -1,5 +1,7 @@
 package ventanas;
 
+import java.awt.event.KeyEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -48,6 +50,21 @@ import Modelo.GrupoResolucion;
 	                jButton3ActionPerformed(evt);
 	            }
 	        });
+	        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+	            public void keyPressed(java.awt.event.KeyEvent ke) {
+	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+	                	jButton3.doClick();
+	                }
+	            }
+	        });
+	        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+	        	public void focusGained(java.awt.event.FocusEvent e) {
+	        		jButton3.setBackground(new java.awt.Color(0, 10	, 30));
+	        	}
+	        public void focusLost(java.awt.event.FocusEvent e) {
+	        	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
+	          }
+	        });
 	        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 50));
 
 	        jButton4.setBackground(new java.awt.Color(0, 51, 102));
@@ -58,6 +75,21 @@ import Modelo.GrupoResolucion;
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
 	                jButton4ActionPerformed(evt);
 	            }
+	        });
+	        jButton4.addKeyListener(new java.awt.event.KeyAdapter(){
+	            public void keyPressed(java.awt.event.KeyEvent ke) {
+	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+	                	jButton4.doClick();
+	                }
+	            }
+	        });
+	        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+	        	public void focusGained(java.awt.event.FocusEvent e) {
+	        		jButton4.setBackground(new java.awt.Color(0, 10	, 30));
+	        	}
+	        public void focusLost(java.awt.event.FocusEvent e) {
+	        	jButton4.setBackground(new java.awt.Color(0, 51, 102));	
+	          }
 	        });
 	        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 360, 50));
 
@@ -70,6 +102,21 @@ import Modelo.GrupoResolucion;
 	                jButton6ActionPerformed(evt);
 	            }
 	        });
+	        jButton6.addKeyListener(new java.awt.event.KeyAdapter(){
+	            public void keyPressed(java.awt.event.KeyEvent ke) {
+	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+	                	jButton6.doClick();
+	                }
+	            }
+	        });
+	        jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
+	        	public void focusGained(java.awt.event.FocusEvent e) {
+	        		jButton6.setBackground(new java.awt.Color(0, 10	, 30));
+	        	}
+	        public void focusLost(java.awt.event.FocusEvent e) {
+	        	jButton6.setBackground(new java.awt.Color(0, 51, 102));	
+	          }
+	        });
 	        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 360, 50));
 
 	        jLabel3.setFont(new java.awt.Font("Californian FB", 3, 24)); 
@@ -81,6 +128,26 @@ import Modelo.GrupoResolucion;
 	        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14));
 	        jButton1.setForeground(new java.awt.Color(255, 255, 255));
 	        jButton1.setText("Salir");
+	        jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
+	            public void keyPressed(java.awt.event.KeyEvent ke) {
+	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+	                	jButton1.doClick();
+	                }
+	            }
+	        });
+	        jButton1.addActionListener(new java.awt.event.ActionListener() {
+	            public void actionPerformed(java.awt.event.ActionEvent evt) {
+	            	jButton1ActionPerformed(evt);
+	            }
+	        });
+	        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+	        	public void focusGained(java.awt.event.FocusEvent e) {
+	        		jButton1.setBackground(new java.awt.Color(0, 10	, 30));
+	        	}
+	        public void focusLost(java.awt.event.FocusEvent e) {
+	        	jButton1.setBackground(new java.awt.Color(0, 51, 102));	
+	          }
+	        });
 	        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 500, 80, 30));
 
 	        jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg")));
@@ -88,6 +155,15 @@ import Modelo.GrupoResolucion;
 
 	        pack();
 	    }
+	    
+	    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+	    	
+	    	IniciarSesionCU00 i = new IniciarSesionCU00();
+	    	i.setVisible(true);
+
+	        this.dispose();
+	    }
+	    
 	    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	      
 	    }                                        
@@ -110,6 +186,8 @@ import Modelo.GrupoResolucion;
 		public void setAnterior(JFrame ant) {
 			this.anterior = ant;
 		}
+		
+		
 		
 	    public static void main(String args[]) {
 

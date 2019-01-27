@@ -127,7 +127,10 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
     }             
     
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {
-        anterior.setVisible(true);
+    	
+    	IniciarSesionCU00 i = new IniciarSesionCU00();
+    	i.setVisible(true);
+
         this.dispose();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
