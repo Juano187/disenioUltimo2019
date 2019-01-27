@@ -144,6 +144,11 @@ public class ConfigurarReporteCU05 extends javax.swing.JFrame {
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {
     }
+    
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+    
+    
 
 	public void setAnterior(JFrame anterior) {
 		this.anterior = anterior;

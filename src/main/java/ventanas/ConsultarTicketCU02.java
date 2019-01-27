@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.AbstractButton;
+import javax.swing.ButtonModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -169,6 +170,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             
             
         JComboBox<EstadoTicket> comboBox = new JComboBox<>();
+        
         comboBox.setModel(new DefaultComboBoxModel<>(EstadoTicket.values()));
         getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 410, 30));
         /*
@@ -176,14 +178,18 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abierto Sin Derivar", "Abierto Derivado", "Solucionado a la espera del Ok", "Cerrado" , "Todos"}));*/
         
         List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
-        JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>(); 
+        JComboBox<ClasificacionDTO> jComboBox1= new JComboBox<ClasificacionDTO>();
+        jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Todas" }));
+               
         for(int i=0 ; i < clasificaciones.size(); i++) {
-        	combocalif.addItem(clasificaciones.get(i));
-        }
-        getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 360, 30));
+            	jComboBox1.addItem(clasificaciones.get(i));}
+        
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 360, 30));
 
-         List<GrupoResolucionDTO> ultgrupos= gestorG.getGrupoResolucion();
+        List<GrupoResolucionDTO> ultgrupos= gestorG.getGrupoResolucion();
         JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();
+        combogrupo.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
+
         for(int i=0 ; i < ultgrupos.size(); i++) {
         	combogrupo.addItem(ultgrupos.get(i));
         }

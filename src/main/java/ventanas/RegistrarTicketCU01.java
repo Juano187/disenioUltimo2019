@@ -229,13 +229,12 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         
         JComboBox<String> jComboBox1= new JComboBox<String>();
         
+        jComboBox1.addItem("Seleccione un tipo...");
         
         for(int i=0 ; i < clasificaciones.size(); i++) {
         	
-        	if ( i== 0) {
-        		jComboBox1.addItem("Seleccione un tipo...");}
-        	else {
-        	jComboBox1.addItem(clasificaciones.get(i).getNombre());}}
+   
+      	jComboBox1.addItem(clasificaciones.get(i).getNombre());}
         
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             @Override
