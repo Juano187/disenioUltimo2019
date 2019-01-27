@@ -284,7 +284,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		estado = comboBox.getSelectedItem().toString();
         		
         		/*estado= comboBox.getSelectedItem();*/
-        		clasificacion = (ClasificacionDTO) combocalif.getSelectedItem();
+        		clasificacion = (ClasificacionDTO) jComboBox1.getSelectedItem();
         		ultimoG = (GrupoResolucionDTO) combogrupo.getSelectedItem();
         		
         		boolean res=true;
