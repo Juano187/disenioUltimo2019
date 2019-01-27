@@ -4,11 +4,14 @@ package ventanas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonModel;
@@ -46,7 +49,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 	private JFrame frame;
 	JFrame panel=this;
 	DefaultTableModel TablaTickets;
-
+	ArrayList<TicketDTO> listaTencontrados;
+	private int seleccion;
+	
     public ConsultarTicketCU02() {
         initComponents();
         this.setLocationRelativeTo(null); 
@@ -165,7 +170,15 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             jScrollPane1.setViewportView(jTable1);
 
    
+            jTable1.addMouseListener(new MouseAdapter() {
+    			@Override
+    			public void mouseReleased(MouseEvent e) {
+    				int r = jTable1.rowAtPoint(e.getPoint());
+    				seleccion = r;
 
+    			}
+
+    		});
             
             
             
@@ -304,26 +317,36 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		
         		
     			
-       /* ErrorDatosIncorrectos ven2= new ErrorDatosIncorrectos();
-		if(((fechaABien.compareTo(fechaAct) >= 0) || (!fechaApertura.getText().isEmpty()) ) && (fechaUBien.compareTo(fechaAct)>=0) || (!fechaUltimo.getText().isEmpty())){
-			ven2.setVisible(true);
-		}else {*/
-			
-			
-			//Aca se llama al gestorTicket para pedir los ticket 
-		ObtenerListaTicket(
-		gestorT.consultarTicket(numTic, numLegajo,fechaABien, /*fechaUBien ,*/  estado, clasificacion  /*ultimoG */ ));
-			//System.out.println("num tic" + numTic + " legajo " + numLegajo + " fechaABien " + fechaABien + " estado " + estado + " clasificacion " + clasificacion + "ultimo " + ultimoG);
-		}
-
+        		/*ErrorDatosIncorrectos ven2= new ErrorDatosIncorrectos();
+        		if(((fechaABien.compareTo(fechaAct) >= 0) || (!fechaApertura.getText().isEmpty()) ) && (fechaUBien.compareTo(fechaAct)>=0) || (!fechaUltimo.getText().isEmpty())){
+        			ven2.setVisible(true);
+        		}else {*/
+        			
+        		listaTencontrados = gestorT.consultarTicket(numTic, numLegajo,fechaABien, /*fechaUBien ,*/  estado, clasificacion  /*ultimoG */ );	
+        			
         		
-        	/*}*/
-        	
-        	
-        	
-        	
-        	
-        });
+        			//System.out.println("num tic" + numTic + " legajo " + numLegajo + " fechaABien " + fechaABien + " estado " + estado + " clasificacion " + clasificacion + "ultimo " + ultimoG);
+        		//}
+
+                		
+                	/*}*/
+                	
+                	if(listaTencontrados.size() > 0) {
+                		ObtenerListaTicket(listaTencontrados);
+        			}
+        			
+        			else {
+        				JOptionPane.showMessageDialog(null, "No existen tickets que cumplan con los criterios ingresados.");
+        			}
+                	
+                	
+                	
+                	
+                	}
+                	
+                	
+                	
+                });
         
         
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 630, 970, 160));
@@ -416,6 +439,17 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jButton6.setText("Derivar Ticket");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+            	if(jTable1.getSelectedRow() != -1 || jTable1.getSelectedRow() < listaTencontrados.size()) {
+            		Integer numeroTicketSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
+            		System.out.println(numeroTicketSeleccionado);
+            	}
+            	//TicketDTO t = TablaTickets.get ;
+            	
+            	
+            	
+            	
+            	
                 jButton6ActionPerformed(evt);
             }
         });
