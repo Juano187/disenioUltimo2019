@@ -13,6 +13,7 @@ import Modelo.ClasificacionDTO;
 import Modelo.Empleado;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
+import Modelo.Historial;
 import Modelo.Ticket;
 import Modelo.Usuario;
 
@@ -66,7 +67,16 @@ public class GestorBDD {
 		}
 		
 	}
-
+	
+@SuppressWarnings("unchecked")
+public ArrayList<Historial>getHistoriales(){
+	
+	ArrayList<Historial> h ;
+	manager.getTransaction().begin();
+	h = (ArrayList<Historial>) manager.createQuery("FROM Historial").getResultList();
+	manager.getTransaction().commit();
+	return h;
+}
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Empleado>getEmpleado(){

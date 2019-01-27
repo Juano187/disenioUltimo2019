@@ -10,11 +10,11 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
 	private JFrame frame;
 	private JFrame anterior;
 	private String u = new String();
-	private String grupo = new String();
 	JFrame panel=this;
     
-	public MenuMesaDeAyuda() { 
-    	initComponents();
+	public MenuMesaDeAyuda(String user) { 
+		u=user;
+		initComponents();
         this.setLocationRelativeTo(null);
         frame = this;
     } 
@@ -132,10 +132,8 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            RegistrarTicketCU01 r = new RegistrarTicketCU01();
+            RegistrarTicketCU01 r = new RegistrarTicketCU01(u);
             r.setAnterior(frame);
-            r.addUser(u);
-            r.addGrupo(grupo);
             r.setVisible(true);
             this.setVisible(false);
             
@@ -158,14 +156,7 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
             	EjemploError error = new EjemploError(ex.getMessage());
         	  	error.setVisible(true); }
             }                  
-    public void addUser(String user) {
-    	u = user;
-    }
-    public void addGrupo ( String g) {
-    	grupo = g;
-    }
     
-
 	public void setAnterior(JFrame anterior) {
 		this.anterior = anterior;
 	}
@@ -189,11 +180,6 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MenuMesaDeAyuda.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuMesaDeAyuda().setVisible(true);
-            }
-        });
     }
    
                

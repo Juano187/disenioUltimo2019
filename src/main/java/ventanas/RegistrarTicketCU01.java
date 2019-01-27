@@ -1,6 +1,7 @@
 
 package ventanas;
 
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 
 import Controlador.GestorClasificacion;
 import Controlador.GestorEmpleado;
+import Controlador.GestorTicket;
 import Modelo.ClasificacionDTO;
 import Modelo.Empleado;
 import Modelo.GrupoResolucionDTO;
@@ -26,14 +28,23 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	private GestorEmpleado ge = new GestorEmpleado();
 	private GestorBDD gbdd = new GestorBDD();
 	private GestorClasificacion gc = new GestorClasificacion();
+	private GestorTicket gt = new GestorTicket();
 	String claSeleccionada = new String("Seleccione un tipo...");
 	String descripcion = new String();
 	String  u = new String();
 	String g = new String();
 	private JFrame frame;
 	private JFrame anterior;
-	
-    public RegistrarTicketCU01() {  
+	SimpleDateFormat fecha_hora =new SimpleDateFormat ( "dd-MM-yyyy HH:mm");
+    SimpleDateFormat fecha = new SimpleDateFormat ("dd-MM-yyyy");
+    SimpleDateFormat hora = new SimpleDateFormat ("HH:mm");
+    Date date= new Date();
+    String fechaString = fecha.format(date);
+    String horaString = hora.format(date);
+    String fechaHoraString = fecha_hora.format(date);
+    
+    public RegistrarTicketCU01(String user) {  
+    	u=user;
         initComponents();
         this.setLocationRelativeTo(null); 
     }
@@ -43,13 +54,8 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 
     private void initComponents() {
     	
-    	SimpleDateFormat fecha_hora =new SimpleDateFormat ( "dd-MM-yyyy HH:mm");
-    	SimpleDateFormat fecha = new SimpleDateFormat ("dd-MM-yyyy");
-       	SimpleDateFormat hora = new SimpleDateFormat ("HH:mm");
-    	String fechaString = fecha.format(new Date());
-    	String horaString = hora.format(new Date());
-    	String fechaHoraString = fecha_hora.format(new Date());
-        
+    	
+       
     	jLabelTitulo = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextFielNoEditable = new javax.swing.JTextField();
@@ -89,7 +95,13 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 
         jTextFielNoEditable.setEditable(false);
         jTextFielNoEditable.setText((String.valueOf(gbdd.getTicket().size()+1)));
+        jTextFielNoEditable.addFocusListener(new java.awt.event.FocusAdapter() {
+        	public void focusGained(java.awt.event.FocusEvent e) {
+        		jTextField4.requestFocus();
+        	}
+        	});
         getContentPane().add(jTextFielNoEditable, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 230, 30));
+        
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,6 +126,21 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jTextField2.setEditable(false);
         jTextField2.setText(horaString);
         jTextField2.setPreferredSize(new java.awt.Dimension(52, 22));
+        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        	public void focusGained(java.awt.event.FocusEvent e) {
+
+        		try { 
+        		    Robot robot = new Robot(); 
+
+        		    robot.keyPress(KeyEvent.VK_TAB); 
+        		} catch(Exception ex) {
+                	
+            		EjemploError error = new EjemploError(ex.getMessage());
+            		error.setVisible(true); 
+            	}
+        	}
+        	});
+        
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 240, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18));
@@ -200,17 +227,17 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
       
         ArrayList<ClasificacionDTO> clasificaciones= gc.getClasificaciones();
         
-        JComboBox<String> jcomboBox1= new JComboBox<String>();
+        JComboBox<String> jComboBox1= new JComboBox<String>();
         
         
         for(int i=0 ; i < clasificaciones.size(); i++) {
         	
         	if ( i== 0) {
-        		jcomboBox1.addItem("Seleccione un tipo...");}
+        		jComboBox1.addItem("Seleccione un tipo...");}
         	else {
-        	jcomboBox1.addItem(clasificaciones.get(i).getNombre());}}
+        	jComboBox1.addItem(clasificaciones.get(i).getNombre());}}
         
-        jcomboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                     JComboBox<String> clasificaciones = (JComboBox<String>) e.getSource();
@@ -218,14 +245,28 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
                 }
             
         });
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jTextArea1.requestFocus();
+                }
+            }
+        });
         
-        getContentPane().add(jcomboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 360, 30));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, 360, 30));
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); 
         jTextArea1.setRows(5);
         jTextArea1.setText("Ingrese descripcion");
- 
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER || ke.getKeyCode() == KeyEvent.VK_TAB) {
+                    jButton1.requestFocus();
+                }
+            }
+        });
+        
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 880, 150));
@@ -309,9 +350,10 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 String descripcion = jTextArea1.getText();
         	 int legajo = Integer.parseInt(jTextField4.getText());
         	 int longLegajo= String.valueOf(legajo).length();
+        	 int id_clasificacion = gc.getClasificacion(claSeleccionada).getCodigo();
         	 
-        	 //prueba para ver los datos
-        	 //System.out.println("long legajo: "+ longLegajo + " descripcion: " + descripcion + " clasificacion: " + claSeleccionada );
+      
+        	 System.out.println("long legajo: "+ longLegajo + " descripcion: " + descripcion + " clasificacion: " + claSeleccionada );
         	 
         	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...")  || descripcion.equalsIgnoreCase("Ingrese descripcion")) {
         	 		EjemploError error = new EjemploError("Datos invalidos");
@@ -320,13 +362,8 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     			  		
         	 }
         	 else {
-        		 	Empleado emp = ge.validarLegajo(legajo);    	  
-        		 	TicketDTO t = new TicketDTO();
-        		 	GrupoResolucionDTO g = new GrupoResolucionDTO();
-        		 	
-        		 	//Date fecha_ini = ;
-        		 	
-        		 	int num_ticket = (gbdd.getTicket().size()+1);
+        		 	  	  
+        		 	gt.registrarTicket(legajo,id_clasificacion,descripcion, u,date);
         		 	
                     CerrarTicketCU03 c = new CerrarTicketCU03();
                     c.setAnterior(frame);
@@ -426,12 +463,6 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         }
     
     
-        java.awt.EventQueue.invokeLater(new Runnable() {
-        
-            public void run() {
-                new RegistrarTicketCU01().setVisible(true);
-            }
-        });
     }
 
   

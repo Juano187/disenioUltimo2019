@@ -17,7 +17,18 @@ public GestorBDD gestorBDD= new GestorBDD();
 public GestorClasificacion() {
 	
 }
-
+public Clasificacion getClasificacion (String c) {
+	ArrayList<Clasificacion> gd = gestorBDD.getClasificacion();
+	
+	Clasificacion  a = new Clasificacion();
+	for (int i=0; i<gd.size(); i++) {
+		if(gd.get(i).getNom_clasificacion() == c) {
+			a = gd.get(i);
+		}
+			
+		}
+	return a;
+}
 
 public ArrayList<ClasificacionDTO> getClasificaciones() {
 	

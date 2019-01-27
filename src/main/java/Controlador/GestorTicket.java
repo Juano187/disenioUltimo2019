@@ -33,8 +33,13 @@ public class GestorTicket {
         }
         return true;
     }
-	
-	
+	//(legajo,id_clasificacion,descripcion, u,fechaHoraString);
+	public Ticket registrarTicket(int legajo,int id_cla, String descripcion,String user,Date f) {
+		Ticket t = new Ticket();
+		//codigo
+		return t;
+		
+	}
 	public static Date stringtodate(String fecha) {
 		Date f=null;
         try {

@@ -12,7 +12,8 @@ import Modelo.GrupoResolucion;
 		String grupo = new String ();
 		private JFrame anterior;
 		JFrame panel;
-	    public MenuGrupoResolucion() {
+	    public MenuGrupoResolucion(String user) {
+	    	u=user;
 	    	panel = this;
 	        initComponents();
 	        this.setLocationRelativeTo(null);
@@ -129,11 +130,6 @@ import Modelo.GrupoResolucion;
 	            java.util.logging.Logger.getLogger(MenuGrupoResolucion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 	        }
 
-	        java.awt.EventQueue.invokeLater(new Runnable() {
-	            public void run() {
-	                new MenuGrupoResolucion().setVisible(true);
-	            }
-	        });
 	    }
 	   
              

@@ -170,7 +170,10 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
     	  try {
         if( gbdd.iniciarSesion(jTextFieldUser.getText(),contra )) {
         	if(gbdd.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNivel() == 0) {
-        		MenuMesaDeAyuda m = new MenuMesaDeAyuda();
+        		
+        		
+    
+        		MenuMesaDeAyuda m = new MenuMesaDeAyuda((jTextFieldUser.getText()));
         		m.setAnterior(frame);   
         		m.addUser(jTextFieldUser.getText());
         		m.addGrupo(gbdd.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNom_grupo());
@@ -179,7 +182,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
             	
         	}
         	else {
-        		MenuGrupoResolucion m = new MenuGrupoResolucion();
+        		MenuGrupoResolucion m = new MenuGrupoResolucion((jTextFieldUser.getText()));
         		
         	m.addUser(jTextFieldUser.getText());
         	
