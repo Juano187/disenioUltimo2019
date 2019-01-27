@@ -8,11 +8,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import Controlador.GestorBDD;
+import Controlador.GestorUsuario;
 
 
 @SuppressWarnings("serial")
 public class IniciarSesionCU00 extends javax.swing.JFrame {
-	
+	private GestorUsuario gu = new GestorUsuario ();
 	private GestorBDD gbdd = new GestorBDD();
 	private JFrame frame;
 
@@ -169,7 +170,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
     	  
     	  try {
         if( gbdd.iniciarSesion(jTextFieldUser.getText(),contra )) {
-        	if(gbdd.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNivel() == 0) {
+        	if(gu.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNivel() == 0) {
         		
         		
     
@@ -185,7 +186,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	m.addUser(jTextFieldUser.getText());
         	
         	m.setAnterior(frame);
-        	m.addGrupo(gbdd.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNom_grupo());
+        	m.addGrupo(gu.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNom_grupo());
         	this.setVisible(false);
         	m.setVisible(true);
         	
