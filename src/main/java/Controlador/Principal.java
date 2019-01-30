@@ -1,6 +1,12 @@
 package Controlador;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
+import Modelo.HistorialTicket;
 import ventanas.ActualizarEstadoIntervencionCU08;
 import ventanas.EjemploError;
 import ventanas.Inicializador01;
@@ -12,7 +18,7 @@ public class Principal {
     public static void main(String[] args) throws InterruptedException {
     	
     	
-    Inicializador01 cp = new Inicializador01();
+    	Inicializador01 cp = new Inicializador01();
     
         cp.setVisible(true);
      

@@ -34,8 +34,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/wamp64/www/UltimoTP/lib/AbsoluteLayout.jar"/>
-	<classpathentry kind="lib" path="C:/wamp64/www/UltimoTP/lib/mysql-connector-java-8.0.13.jar"/>
-	<classpathentry kind="lib" path="C:/wamp64/www/UltimoTP/lib/mysql-connector-java-8.0.13-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juan/Desktop/Proyectos Eclipse/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juan/Desktop/Proyectos Eclipse/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Juan/Desktop/Proyectos Eclipse/org-netbeans-modules-swingapp.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

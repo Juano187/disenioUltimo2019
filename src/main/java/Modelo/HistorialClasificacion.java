@@ -2,18 +2,26 @@ package Modelo;
 
 import java.util.Date;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+@Entity
+@DiscriminatorValue(value = "Clasificacion")
 public class HistorialClasificacion extends HistorialABS{
 	
-	private int codigoClas;
+	@ManyToOne
+	@JoinColumn(name = "codigo")
+	private Clasificacion clasificacion ;
 	
 
-	public HistorialClasificacion(String u, Date f,int c) {
+	public HistorialClasificacion(Usuario u, Date f,Clasificacion c) {
 		super (u,f);
-		this.codigoClas= c;
+		this.clasificacion= c;
 	}
 	
 
-	public int getCodClasif() {
-		return this.codigoClas;
+	public Clasificacion getCodClasif() {
+		return this.clasificacion;
 	}
 }

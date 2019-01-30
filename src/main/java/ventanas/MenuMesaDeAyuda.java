@@ -1,27 +1,41 @@
 package ventanas;
 
 import java.awt.event.KeyEvent;
+import java.util.Date;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.swing.JFrame;
+
+import Controlador.GestorBDD;
+import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
+import Modelo.HistorialTicket;
+import Modelo.Ticket;
+import Modelo.Usuario;
 
 
 @SuppressWarnings("serial")
 public class MenuMesaDeAyuda extends javax.swing.JFrame {
+	GestorUsuario gu = new GestorUsuario();
+	GestorTicket gt = new GestorTicket();
+	GestorBDD gbdd = new GestorBDD ();
 	private JFrame frame;
 	private JFrame anterior;
-	private String u = new String();
+	private Usuario u;
 	JFrame panel=this;
     
-	public MenuMesaDeAyuda(String user) { 
-		u=user;
-		initComponents();
+	public MenuMesaDeAyuda() { 
+		initComponents( u);
         this.setLocationRelativeTo(null);
         frame = this;
     } 
 
     @SuppressWarnings("unchecked")
                         
-    private void initComponents() {
+    private void initComponents(Usuario user) {
 
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -126,6 +140,10 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
         pack();
     }             
     
+    public void addUser ( Usuario user) {
+    	u = user;
+    }
+
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {
     	
     	IniciarSesionCU00 i = new IniciarSesionCU00();
@@ -135,7 +153,8 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            RegistrarTicketCU01 r = new RegistrarTicketCU01(u);
+            RegistrarTicketCU01 r = new RegistrarTicketCU01();
+            r.addUser(u);
             r.setAnterior(frame);
             r.setVisible(true);
             this.setVisible(false);
@@ -150,7 +169,6 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
         try {
             ConsultarTicketCU02 r = new ConsultarTicketCU02();
             r.setAnterior(frame);
-            r.addUser(u);
             r.setVisible(true);
             this.setVisible(false);
             

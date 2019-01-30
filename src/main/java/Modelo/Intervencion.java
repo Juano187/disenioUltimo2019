@@ -1,7 +1,9 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -46,10 +49,12 @@ public class Intervencion implements Serializable {
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
 	
+	@OneToMany(mappedBy = "intervencion")
+	private List<Historial_Intervencion> listahistorial = new ArrayList<>();;
 	
-	@JoinColumn(name = "id_estadointerv")
-	@Enumerated(value = EnumType.STRING) /*VER*/
-	private EstadoIntervencion estadointervencion; /*clase enumeration VEEER */
+	@JoinColumn(name = "estadointerv")
+	@Enumerated(value = EnumType.STRING) 
+	private EstadoIntervencion estadointervencion; 
 	
 	
 	public Intervencion () {
@@ -57,14 +62,14 @@ public class Intervencion implements Serializable {
 	}
 	
 	public Intervencion(Integer id_intervencion, Date fecha_inicio, Date fecha_fin, String observaciones,
-			GrupoResolucion gruporesolucion, Ticket ticket, EstadoIntervencion estadointervencion) {
+			GrupoResolucion gruporesolucion/*, Ticket ticket*/, EstadoIntervencion estadointervencion) {
 		
 		this.id_intervencion = id_intervencion;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		this.observaciones = observaciones;
 		this.gruporesolucion = gruporesolucion;
-		this.ticket = ticket;
+	//	this.ticket = ticket;
 		this.estadointervencion = estadointervencion;
 	}
 
@@ -114,6 +119,10 @@ public class Intervencion implements Serializable {
 
 	public void setTicket(Ticket ticket) {
 		this.ticket = ticket;
+		ticket.addIntervencion(this);
+	}
+	public void addHistorial(Historial_Intervencion hi) {
+		this.listahistorial.add(hi);
 	}
 
 	public EstadoIntervencion getEstadointervencion() {
@@ -123,6 +132,10 @@ public class Intervencion implements Serializable {
 	public void setEstadointervencion(EstadoIntervencion estadointervencion) {
 		this.estadointervencion = estadointervencion;
 	}
+	public List<Historial_Intervencion> getListahistorial() {
+		return listahistorial;
+	}
+
 
 	@Override
 	public String toString() {

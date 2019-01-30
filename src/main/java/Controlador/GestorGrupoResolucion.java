@@ -26,6 +26,7 @@ public class GestorGrupoResolucion {
 			}
 		}
 		
+		
 		return g;
 	}
 	
