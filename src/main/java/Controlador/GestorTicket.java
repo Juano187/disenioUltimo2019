@@ -168,6 +168,7 @@ public class GestorTicket {
 			tic.setFechaA(t.getFecha_apertura());
 			tic.setEstado2(t.getEstadoticket());
 			tic.setCla(cla1);
+			tic.setDescripcion(t.getDescrip_problema());
 			//tic.setGru(ug);
 			
 				
@@ -178,7 +179,16 @@ public class GestorTicket {
 	}
 	
 	
-	
+	public TicketDTO consultarTicket(Integer numTSeleccionado, ArrayList<TicketDTO> listaTencontrados){
+		TicketDTO tic = new TicketDTO();
+		for(TicketDTO t: listaTencontrados) {
+			if(t.getNumeroTicket() == numTSeleccionado) {
+				tic = t;
+			}
+		}
+		return tic;
+	}
+
 	
 	
 	

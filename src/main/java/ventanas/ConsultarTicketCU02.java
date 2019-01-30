@@ -31,6 +31,7 @@ import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.TicketDTO;
+import Modelo.Usuario;
 
 
 
@@ -44,7 +45,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 	private GestorClasificacion gestorC= new GestorClasificacion();
 	private GestorGrupoResolucion gestorG= new GestorGrupoResolucion();
 	private GestorTicket gestorT = new GestorTicket(); 
-	private String u = new String();
+	private Usuario u ;
 	private JFrame anterior;
 	private JFrame frame;
 	JFrame panel=this;
@@ -52,15 +53,19 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 	ArrayList<TicketDTO> listaTencontrados;
 	private int seleccion;
 	
+	TicketDTO ticketselec;
+
+	
     public ConsultarTicketCU02() {
-        initComponents();
+    	  
+        initComponents(u);
         this.setLocationRelativeTo(null); 
         frame = this;
     }
 
 
   
-    private void initComponents() {
+    private void initComponents(Usuario u) {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -336,7 +341,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         			}
         			
         			else {
-        				JOptionPane.showMessageDialog(null, "No existen tickets que cumplan con los criterios ingresados.");
+        				EjemploError e = new EjemploError("No existen tickets que cumplan con los criterios ingresados.");
+                		e.setVisible(true);  
+
         			}
                 	
                 	
@@ -438,21 +445,36 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Derivar Ticket");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	
-            	if(jTable1.getSelectedRow() != -1 || jTable1.getSelectedRow() < listaTencontrados.size()) {
-            		Integer numeroTicketSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
-            		System.out.println(numeroTicketSeleccionado);
-            	}
-            	//TicketDTO t = TablaTickets.get ;
-            	
-            	
-            	
-            	
-            	
-                jButton6ActionPerformed(evt);
-            }
-        });
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        	if(jTable1.getSelectedRow() != -1 || jTable1.getSelectedRow() < listaTencontrados.size()) {
+        		
+        		Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
+        		
+        		ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
+        		System.out.println(ticketselec.getNumeroTicket());
+        		
+        		if((ticketselec.getEstado() == EstadoTicket.SOLUCIONADOALAESPERAOK) || (ticketselec.getEstado()== EstadoTicket.ABIERTOSINDERIVAR)) {
+        			jButton6ActionPerformed(evt);
+        		}
+        		else {
+        			EstadoTicket estado = ticketselec.getEstado();
+        			String e= "No se puede derivar en estado\n";
+        			String a= e + estado;
+        			System.out.println(a);
+        			EjemploError i = new EjemploError(a);
+            		i.setVisible(true);
+        		}
+        	}
+        	//TicketDTO t = TablaTickets.get ;
+        	
+        	
+        	
+        	
+        	
+           
+        }
+    });
+
         jButton6.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -493,7 +515,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
     
-    public void addUser (String user) {
+    public void addUser (Usuario user) {
     	u= user;
     }
     
@@ -540,7 +562,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            DerivarTicketCU04 d = new DerivarTicketCU04();
+        	DerivarTicketCU04 d = new DerivarTicketCU04(ticketselec, u);
             d.setAnterior(frame);
             d.setVisible(true);
             this.setVisible(false);
@@ -614,11 +636,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConsultarTicketCU02().setVisible(true);
-            }
-        });
+       
         
       
     }

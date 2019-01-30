@@ -168,6 +168,7 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             ConsultarTicketCU02 r = new ConsultarTicketCU02();
+            r.addUser(u);
             r.setAnterior(frame);
             r.setVisible(true);
             this.setVisible(false);

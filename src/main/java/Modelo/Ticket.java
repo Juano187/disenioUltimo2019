@@ -189,6 +189,7 @@ public class Ticket implements  Serializable{
 	}	*/
 			
 	
+	
 
 	public Date getHora_apertura() {
 		return hora_apertura;

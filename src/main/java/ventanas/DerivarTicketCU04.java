@@ -10,17 +10,20 @@ import Controlador.GestorClasificacion;
 import Controlador.GestorGrupoResolucion;
 import Modelo.ClasificacionDTO;
 import Modelo.GrupoResolucionDTO;
+import Modelo.TicketDTO;
+import Modelo.Usuario;
 public class DerivarTicketCU04 extends javax.swing.JFrame {
 	
 	private JFrame anterior;
+	private Usuario u ;
 
-    public DerivarTicketCU04() {
-        initComponents();
+    public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
+        initComponents(ticketselec, u);
         this.setLocationRelativeTo(null);
     }
 GestorClasificacion gestorC = new GestorClasificacion();
 GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
-    private void initComponents() {
+    private void initComponents(TicketDTO ticketselec, Usuario u) {
     	
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -106,7 +109,7 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); 
         jLabel3.setForeground(new java.awt.Color(0, 51, 102));
-        jLabel3.setText("'Estado actual'");
+        jLabel3.setText(ticketselec.getEstado().toString());   
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, -1, 30));
 
         jTextFielNoEditable.setEditable(false);
@@ -227,11 +230,7 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DerivarTicketCU04().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
