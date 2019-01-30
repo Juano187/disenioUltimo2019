@@ -308,7 +308,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            DerivarTicketCU04 d = new DerivarTicketCU04();
+            DerivarTicketCU04 d = new DerivarTicketCU04(null, null);
             d.setAnterior(frame);
             d.setVisible(true);
             this.setVisible(false);

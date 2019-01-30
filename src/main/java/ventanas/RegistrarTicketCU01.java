@@ -422,7 +422,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     		 	
     		 	int num_ticket = (gbdd.getTickets().size()+1);
     		 	
-                DerivarTicketCU04 r = new DerivarTicketCU04();
+                DerivarTicketCU04 r = new DerivarTicketCU04(t, u);
                 r.setAnterior(frame);
                 r.setVisible(true);
                 this.setVisible(false);

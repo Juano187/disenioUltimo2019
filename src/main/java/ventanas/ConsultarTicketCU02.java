@@ -289,7 +289,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		estado = comboBox.getSelectedItem().toString();
         		
         		/*estado= comboBox.getSelectedItem();*/
-        		clasificacion = (ClasificacionDTO) combocalif.getSelectedItem();
+        		clasificacion = (ClasificacionDTO) jComboBox1.getSelectedItem();
         		ultimoG = (GrupoResolucionDTO) combogrupo.getSelectedItem();
         		
         		boolean res=true;
@@ -490,7 +490,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	jButton6.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 830, 140, 30));
+        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20 /*830*/, 140, 30));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg"))); 
         jLabelFondo.setPreferredSize(new java.awt.Dimension(1100, 650));

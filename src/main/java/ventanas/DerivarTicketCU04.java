@@ -147,13 +147,29 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         jLabel10.setText("Observaciones:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
-        
-		List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
-        JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>(); 
-        for(int i=0 ; i < clasificaciones.size(); i++) {
-        	combocalif.addItem(clasificaciones.get(i));
-        }
+        System.out.println(ticketselec.getCla().getCodCla());
+        List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
+        JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>();
+        for (ClasificacionDTO c : clasificaciones) {
+        	combocalif.addItem(c);
+			if(c.getCodCla()==ticketselec.getCla().getCodCla()) combocalif.setSelectedItem(c);
+			
+		}
         getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
+    	System.out.println(combocalif.getSelectedIndex());
+                
+        
+        /*combocalif.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent a) {
+        		
+        		combocalif.setModel(new DefaulComboBoxModel <Clasificacion> combocalif);
+        		
+        		
+        	}
+        	
+        	
+        	
+        });*/
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
