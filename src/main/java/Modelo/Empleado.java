@@ -23,7 +23,7 @@ public class Empleado implements Serializable{
 	
 	@Id
 	/*@GeneratedValue(strategy = GenerationType.IDENTITY)*/
-	@Column(name = "LEGAJO", length = 20)
+	@Column(name = "LEGAJO", length = 5)
 	private Integer legajo;
 	
 	@Column(name = "NOMBRE", length = 150, nullable= false)
@@ -41,7 +41,7 @@ public class Empleado implements Serializable{
 	@Column(name = "TELEFONO",nullable= false)
 	private Long telefono;
 	
-	@Column(name = "TELEFONO_INTERNO",nullable= false)
+	@Column(name = "TELEFONO_INTERNO",nullable= true)
 	private Long telefonoint;
 	
 	@Column(name = "DESCRIPCION_DEL_CARGO",nullable= false)
