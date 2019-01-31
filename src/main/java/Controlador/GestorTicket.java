@@ -71,22 +71,22 @@ public class GestorTicket {
 		Ticket t = new Ticket(id_t,fecha,descripcion,c,EstadoTicket.ABIERTODERIVADO,e,hora);
 		
 		HistorialTicket ht=new HistorialTicket(u,f,t);	
-	
-		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-	
+		t.addHistorial(ht);
+		
+	/*	GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		HistorialClasificacion hc = new HistorialClasificacion (u,f,c);
 		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
 		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,gr,EstadoIntervencion.TRABAJANDO);
 		Historial_Intervencion hi = new Historial_Intervencion(u,f,i);
-		
-		System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
+		*/
+	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
 
 		
 	
 
 		gestorBDD.cargarTicket(t);
-		gestorBDD.cargarHistorialI(hi);
-		gestorBDD.cargarHistorialC(hc);
+		//gestorBDD.cargarHistorialI(hi);
+		//gestorBDD.cargarHistorialC(hc);
 	
 		}catch(Exception ex) {
         	System.out.println(ex.getMessage());
@@ -119,37 +119,8 @@ public class GestorTicket {
 		return true;
 		
 	}
-	/*public ArrayList<TicketDTO> getTickets ( ){
-		ArrayList<TicketDTO> gd = gestorBDD.getTicket();
-		
-		ArrayList<TicketDTO> a = new ArrayList<TicketDTO>();
-		TicketDTO t = new TicketDTO();
-		
-		for (int i=0; i<gd.size(); i++) {
-		a.add();
-		}
-		return a;
-	}*/
 	
-	//terminar cuando se termina la funcion en GestorBDD 	
-	
-	/*public List<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 
-	List<TicketDTO> gd = gestorBDD.getTickets();
-	
-	ArrayList<TicketDTO> resultado = new ArrayList<TicketDTO>();
-	
-	for (int i=0; i<gd.size(); i++) {
-		
-		
-		String nom = gd.get(i).getNum_ticket();
-		TicketDTO tic = new TicketDTO(gd.ge);
-			
-		resultado.add(clas);
-			
-		}
-	return resultado;
-}*/
 	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/ , String estado,  ClasificacionDTO cla/*, GrupoResolucionDTO ugrupo*/){
 
 		

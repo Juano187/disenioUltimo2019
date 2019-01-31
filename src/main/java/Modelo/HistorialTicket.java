@@ -7,6 +7,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ import javax.persistence.MappedSuperclass;
 
 public class HistorialTicket extends HistorialABS {
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
 	
@@ -30,10 +31,12 @@ public class HistorialTicket extends HistorialABS {
 	public HistorialTicket() {
 		
 	}
+	public void setTicket(Ticket t){
+		this.ticket =t;
+	}
 	public HistorialTicket(Usuario u, Date f,Ticket t) {
 		super (u,f);
 		this.ticket= t;
-		t.addHistorial(this);
 	}
 	
 	public void setEstadoT(EstadoTicket a) {

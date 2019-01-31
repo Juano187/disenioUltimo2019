@@ -11,6 +11,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -47,7 +48,7 @@ public class Ticket implements  Serializable{
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
 	private String descrip_problema;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODIGO")
 	private Clasificacion clasificacion;
 	
@@ -56,7 +57,7 @@ public class Ticket implements  Serializable{
 	private EstadoTicket estadoticket;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
@@ -168,6 +169,8 @@ public class Ticket implements  Serializable{
 	}
 	public void addHistorial(HistorialTicket ht) {
 		this.listahistorial.add(ht);
+		ht.setTicket(this);
+		
 	}
 	public void addIntervencion(Intervencion i) {
 		this.listaintervenciones.add(i);

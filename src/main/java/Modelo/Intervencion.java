@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Access;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,7 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
+
 @Table(name = "INTERVENCION")
+
 public class Intervencion implements Serializable {
 	
 	
@@ -41,11 +45,11 @@ public class Intervencion implements Serializable {
 	private String observaciones;
 	
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_grupo")
 	private GrupoResolucion gruporesolucion;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
 	
