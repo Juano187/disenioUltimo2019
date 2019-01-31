@@ -9,8 +9,14 @@ import java.util.List;
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
 import Modelo.Empleado;
+import Modelo.EstadoIntervencion;
+import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
+import Modelo.HistorialClasificacion;
+import Modelo.HistorialTicket;
+import Modelo.Historial_Intervencion;
+import Modelo.Intervencion;
 import Modelo.Ticket;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
@@ -28,6 +34,16 @@ public class GestorTicket {
 	
 	
 	//todos metodos creados para interfazConsultarticket
+	public Ticket getTicket(int t) {
+		Ticket a = new Ticket();
+		List<Ticket> gd = gestorBDD.getTickets();
+		for (int i =0 ; i< gd.size() ;i++) {
+			if(gd.get(i).getNum_ticket() == t) {
+				 a = gd.get(i);
+			}	
+		}
+		return a;
+	}
 	
 	public static boolean validarFecha(String fecha) {
         try {
@@ -41,19 +57,39 @@ public class GestorTicket {
         return true;
     }
 	
-	public int registrarTicket(int legajo,String clasific, String descripcion,String user,Date f) {
+	public int registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
-		Ticket t = new Ticket();
+		
 		try {
+			
 		Clasificacion c = gc.getClasificacion(clasific);
+		Date a = new Date();
 		Empleado e = ge.validarLegajo(legajo);
-		Usuario u = gu.getUsuario(user);
+		Usuario u = user;
+		int id_t = (gestorBDD.getTickets().size() +1);
+		System.out.println("hasta aca todo bien");
+		Ticket t = new Ticket(id_t,fecha,descripcion,c,EstadoTicket.ABIERTODERIVADO,e,hora);
+		
+		HistorialTicket ht=new HistorialTicket(u,f,t);	
+	
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
+	
+		HistorialClasificacion hc = new HistorialClasificacion (u,f,c);
+		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
+		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,gr,EstadoIntervencion.TRABAJANDO);
+		Historial_Intervencion hi = new Historial_Intervencion(u,f,i);
 		
+		System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
+
 		
-		
+	
+
+		gestorBDD.cargarTicket(t);
+		gestorBDD.cargarHistorialI(hi);
+		gestorBDD.cargarHistorialC(hc);
+	
 		}catch(Exception ex) {
-        	
+        	System.out.println(ex.getMessage());
     		EjemploError error = new EjemploError(ex.getMessage());
     		error.setVisible(true); 
     	}
@@ -132,6 +168,7 @@ public class GestorTicket {
 			tic.setFechaA(t.getFecha_apertura());
 			tic.setEstado2(t.getEstadoticket());
 			tic.setCla(cla1);
+			tic.setDescripcion(t.getDescrip_problema());
 			//tic.setGru(ug);
 			
 				
@@ -142,7 +179,16 @@ public class GestorTicket {
 	}
 	
 	
-	
+	public TicketDTO consultarTicket(Integer numTSeleccionado, ArrayList<TicketDTO> listaTencontrados){
+		TicketDTO tic = new TicketDTO();
+		for(TicketDTO t: listaTencontrados) {
+			if(t.getNumeroTicket() == numTSeleccionado) {
+				tic = t;
+			}
+		}
+		return tic;
+	}
+
 	
 	
 	

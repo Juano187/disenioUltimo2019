@@ -4,19 +4,26 @@ package ventanas;
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 
+import Modelo.TicketDTO;
+import Modelo.Usuario;
+
 public class DetalleTicketCU02 extends javax.swing.JFrame {
 	private JFrame frame;
 	private JFrame anterior;
 	JFrame panel=this;
+	private Usuario u;
 	
-    public DetalleTicketCU02() {
-        initComponents();
+	public DetalleTicketCU02(Usuario u, TicketDTO ticketselec) {
+		
+        initComponents(u, ticketselec);
         this.setLocationRelativeTo(null);
         frame = this;
     }
-
-    private void initComponents() {
-
+	
+    private void initComponents(Usuario u, TicketDTO ticketselec) {
+    	
+    	System.out.println(ticketselec.getNumlegajo().toString());
+    	
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -53,7 +60,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); 
         jLabel2.setForeground(new java.awt.Color(0, 51, 102));
-        jLabel2.setText("Datos usuarios");
+        jLabel2.setText("Datos usuarios");    
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); 
@@ -69,6 +76,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jTextField4.setEditable(false);
         jTextField4.setForeground(new java.awt.Color(51, 51, 51));
         jTextField4.setPreferredSize(new java.awt.Dimension(52, 22));
+        jTextField4.setText((ticketselec.getNumlegajo().toString()));
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -87,6 +95,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
 
         jTextFielNoEditable.setEditable(false);
+        jTextFielNoEditable.setText("Numero ticket");
         jTextFielNoEditable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditableActionPerformed(evt);
@@ -111,6 +120,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
 
         jTextFielNoEditable1.setEditable(false);
+        jTextFielNoEditable1.setText("Telefono interno");
         jTextFielNoEditable1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable1ActionPerformed(evt);
@@ -119,6 +129,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jTextFielNoEditable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 260, 30));
 
         jTextFielNoEditable2.setEditable(false);
+        jTextFielNoEditable2.setText("Telefono");
         jTextFielNoEditable2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable2ActionPerformed(evt);
@@ -127,6 +138,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jTextFielNoEditable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, 290, 30));
 
         jTextFielNoEditable3.setEditable(false);
+        jTextFielNoEditable3.setText("Ubicacion	");
         jTextFielNoEditable3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable3ActionPerformed(evt);
@@ -136,6 +148,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
+        jTextArea1.setText("Descripcion del cargo");
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); 
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -218,6 +231,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, 30));
 
         jTextFielNoEditable8.setEditable(false);
+        jTextFielNoEditable8.setText("Apellido y Nombre");
         jTextFielNoEditable8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable8ActionPerformed(evt);
@@ -308,7 +322,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            DerivarTicketCU04 d = new DerivarTicketCU04();
+            DerivarTicketCU04 d = new DerivarTicketCU04(null, null);
             d.setAnterior(frame);
             d.setVisible(true);
             this.setVisible(false);
@@ -352,12 +366,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new DetalleTicketCU02().setVisible(true);
-            }
-        });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

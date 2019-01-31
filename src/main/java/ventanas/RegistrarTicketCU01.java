@@ -31,8 +31,8 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	private GestorTicket gt = new GestorTicket();
 	String claSeleccionada = new String("Seleccione un tipo...");
 	String descripcion = new String();
-	String  u = new String();
-	String g = new String();
+	private Usuario u ;
+
 	private JFrame frame;
 	private JFrame anterior;
 	SimpleDateFormat fecha_hora =new SimpleDateFormat ( "dd-MM-yyyy HH:mm");
@@ -43,16 +43,15 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     String horaString = hora.format(date);
     String fechaHoraString = fecha_hora.format(date);
     
-    public RegistrarTicketCU01(String user) {  
-    	u=user;
-        initComponents();
+    public RegistrarTicketCU01() {  
+        initComponents(u);
         this.setLocationRelativeTo(null); 
     }
 
 
     @SuppressWarnings({ "unchecked"})
 
-    private void initComponents() {
+    private void initComponents(Usuario user) {
     	
     	
        
@@ -94,7 +93,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
 
         jTextFielNoEditable.setEditable(false);
-        jTextFielNoEditable.setText((String.valueOf(gbdd.getTicket().size()+1)));
+        jTextFielNoEditable.setText((String.valueOf(gbdd.getTickets().size()+1)));
         jTextFielNoEditable.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
         		jTextField4.requestFocus();
@@ -326,11 +325,9 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 
         pack();
     }
-    public void addUser(String user) {
+
+    public void addUser ( Usuario user) {
     	u = user;
-    }
-    public void addGrupo ( String grupo) {
-    	g = grupo;
     }
 
 
@@ -363,12 +360,12 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 }
         	 else {
         		 	  	  
-        		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date);
+        		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
         		 	
-                    CerrarTicketCU03 c = new CerrarTicketCU03();
-                    c.setAnterior(frame);
-                    c.setVisible(true);
-                    this.setVisible(false);
+                   // CerrarTicketCU03 c = new CerrarTicketCU03();
+                    //c.setAnterior(frame);
+                    //c.setVisible(true);
+                    //this.setVisible(false);
         		 	
       		}
         	 
@@ -423,9 +420,9 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     		 	
     		 	//Date fecha_ini = ;
     		 	
-    		 	int num_ticket = (gbdd.getTicket().size()+1);
+    		 	int num_ticket = (gbdd.getTickets().size()+1);
     		 	
-                DerivarTicketCU04 r = new DerivarTicketCU04();
+                DerivarTicketCU04 r = new DerivarTicketCU04(t, u);
                 r.setAnterior(frame);
                 r.setVisible(true);
                 this.setVisible(false);

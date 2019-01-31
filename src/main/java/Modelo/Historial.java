@@ -49,12 +49,12 @@ public class Historial implements Serializable {
 	private Ticket ticket;
 	
 	
-	@JoinColumn(name = "id_estadointerv")
+	@JoinColumn(name = "estadointerv")
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoIntervencion estadointervencion;
 	
 	
-	@JoinColumn(name = "id_estadoticket")
+	@JoinColumn(name = "estadoticket")
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoTicket estadoticket; 
 

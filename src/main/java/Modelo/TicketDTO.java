@@ -15,6 +15,7 @@ public class TicketDTO {
 	private ClasificacionDTO cla;
 	private GrupoResolucionDTO gru;
 	private EstadoTicket estado;
+	private String descrip_problema; 
 	
 	public TicketDTO() {
 		
@@ -93,7 +94,15 @@ public class TicketDTO {
 	}
 	
 
+	public String getDescripcion() {
+		return descrip_problema;
+	}
 
+	public void setDescripcion(String descrip_problema) {
+		this.descrip_problema = descrip_problema;
+	}
+
+	
 	
 	
 	

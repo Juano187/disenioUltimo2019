@@ -14,6 +14,10 @@ import Modelo.Empleado;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.Historial;
+import Modelo.HistorialClasificacion;
+import Modelo.HistorialTicket;
+import Modelo.Historial_Intervencion;
+import Modelo.Intervencion;
 import Modelo.Ticket;
 import Modelo.Usuario;
 
@@ -46,7 +50,27 @@ public class GestorBDD {
 				System.out.println("En esta base de datos hay " + clasificaciones.size() + " clan"  + clasificaciones);*/
 			
 	}
+	public void cargarTicket ( Ticket t) {
+		manager.getTransaction().begin();
+		manager.persist(t);
+		manager.getTransaction().commit();
+	}
+	public void cargarHistorialT(HistorialTicket a) {
+		manager.getTransaction().begin();
+		manager.persist(a);
+		manager.getTransaction().commit();
+	}
 	
+	public void cargarHistorialI(Historial_Intervencion I) {
+		manager.getTransaction().begin();
+		manager.persist(I);
+		manager.getTransaction().commit();
+	}
+	public void cargarHistorialC(HistorialClasificacion c) {
+		manager.getTransaction().begin();
+		manager.persist(c);
+		manager.getTransaction().commit();
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Clasificacion> getClasificacion(){
@@ -98,7 +122,7 @@ public ArrayList<Historial>getHistoriales(){
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Ticket> getTicket(){
+	public ArrayList<Ticket> getTickets(){
 	ArrayList<Ticket> T = new ArrayList<Ticket>();
 	manager.getTransaction().begin();
 	T = (ArrayList<Ticket>)	manager.createQuery("Select t FROM Ticket t").getResultList();
@@ -106,6 +130,15 @@ public ArrayList<Historial>getHistoriales(){
 	
 	
 	return T;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ArrayList<Intervencion> getIntervenciones(){
+		ArrayList<Intervencion> i = new ArrayList<Intervencion>();
+		manager.getTransaction().begin();
+		i = (ArrayList<Intervencion>)	manager.createQuery("Select i FROM Intervencion i").getResultList();
+		manager.getTransaction().commit();
+		return i;
 	}
 	
 	@SuppressWarnings("unchecked")

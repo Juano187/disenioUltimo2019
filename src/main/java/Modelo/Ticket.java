@@ -33,7 +33,7 @@ public class Ticket implements  Serializable{
 	private Integer num_ticket;
 	
 	@Column(name = "HORA_APERTURA")
-	private LocalTime hora_apertura;
+	private Date hora_apertura;
 
 	@Column(name = "FECHA_APERTURA")
 	private Date fecha_apertura;
@@ -42,7 +42,7 @@ public class Ticket implements  Serializable{
 	private Date fecha_cierre;
 	
 	@Column(name = "HORA_CIERRE")
-	private LocalTime hora_cierre;
+	private Date hora_cierre;
 	
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
 	private String descrip_problema;
@@ -52,7 +52,7 @@ public class Ticket implements  Serializable{
 	private Clasificacion clasificacion;
 	
 	@Enumerated(value = EnumType.STRING)
-	@JoinColumn(name = "id_estadoticket")
+	@JoinColumn(name = "estadoticket")
 	private EstadoTicket estadoticket;
 	
 	
@@ -65,7 +65,7 @@ public class Ticket implements  Serializable{
 	private List<Intervencion> listaintervenciones = new ArrayList<>();;
 	
 	@OneToMany(mappedBy = "ticket")
-	private List<Historial> listahistorial = new ArrayList<>();;
+	private List<HistorialTicket> listahistorial = new ArrayList<>();;
 	
 	public Ticket() {
 		
@@ -75,27 +75,22 @@ public class Ticket implements  Serializable{
 	}
 	
 
-	public Ticket(Integer num_ticket, Date fecha_apertura,Date fecha_cierre, String descrip_problema,
+	public Ticket(Integer num_ticket, Date fecha_apertura, String descrip_problema,
 			Clasificacion clasificacion, EstadoTicket estadoticket, Empleado empleado,
-			List<Intervencion> listaintervenciones, List<Historial> listahistorial, LocalTime hora_apertura, LocalTime hora_cierre) {
+	 Date hora_apertura) {
 		
 		this.num_ticket = num_ticket;
 		this.fecha_apertura = fecha_apertura;
-		this.fecha_cierre = fecha_cierre;
 		this.hora_apertura = hora_apertura;
-		this.hora_cierre = hora_cierre;
 		this.descrip_problema = descrip_problema;
 		this.clasificacion = clasificacion;
 		this.estadoticket = estadoticket;
 		this.empleado = empleado;
-		this.listaintervenciones = listaintervenciones;
-		this.listahistorial = listahistorial;
 	}
 	
 	public void setListainterveniones(List<Intervencion> listainterveniones) {
 		this.listaintervenciones = listainterveniones;
 	}
-
 
 
 	public int getNum_ticket() {
@@ -171,6 +166,13 @@ public class Ticket implements  Serializable{
 	public List<Intervencion> getListainterveniones() {
 		return listaintervenciones;
 	}
+	public void addHistorial(HistorialTicket ht) {
+		this.listahistorial.add(ht);
+	}
+	public void addIntervencion(Intervencion i) {
+		this.listaintervenciones.add(i);
+		i.setTicket(this);
+	}
 	
 	/*public Intervencion ultimaI() {
 		Intervencion u = listaintervenciones.get(0);
@@ -187,13 +189,14 @@ public class Ticket implements  Serializable{
 	}	*/
 			
 	
+	
 
-	public LocalTime getHora_apertura() {
+	public Date getHora_apertura() {
 		return hora_apertura;
 	}
 
 
-	public void setHora_apertura(LocalTime hora_apertura) {
+	public void setHora_apertura(Date hora_apertura) {
 		this.hora_apertura = hora_apertura;
 	}
 
@@ -218,12 +221,12 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public LocalTime getHora_cierre() {
+	public Date getHora_cierre() {
 		return hora_cierre;
 	}
 
 
-	public void setHora_cierre(LocalTime hora_cierre) {
+	public void setHora_cierre(Date hora_cierre) {
 		this.hora_cierre = hora_cierre;
 	}
 	
@@ -233,12 +236,12 @@ public class Ticket implements  Serializable{
 
 	
 
-	public List<Historial> getListahistorial() {
+	public List<HistorialTicket> getListahistorial() {
 		return listahistorial;
 	}
 
 
-	public void setListahistorial(List<Historial> listahistorial) {
+	public void setListahistorial(List<HistorialTicket> listahistorial) {
 		this.listahistorial = listahistorial;
 	}
 

@@ -43,7 +43,7 @@ public class Clasificacion implements Serializable {
 	private List<Ticket> listaTickets = new ArrayList<>();;
 	
 	@OneToMany(mappedBy = "clasificacion")
-	private List<Historial> listahistorial = new ArrayList<>();;
+	private List<HistorialClasificacion> listahistorial = new ArrayList<>();;
 	
 	@ManyToOne
 	@JoinColumn(name = "ID_USUARIO")
@@ -51,6 +51,7 @@ public class Clasificacion implements Serializable {
 	
 	@ManyToMany(cascade = {CascadeType.ALL},mappedBy="listaclasificacion")
 	private List<GrupoResolucion> gruporesolucion = new ArrayList<>();
+
 	
 	public Clasificacion() {
 		listaTickets = new ArrayList<>();
@@ -60,7 +61,7 @@ public class Clasificacion implements Serializable {
 	}
 
 	public Clasificacion(int codigo, Date fecha_Creacion, String descripcion, String nom_clasificacion,
-			List<Ticket> listaTickets, List<Historial> listahistorial, Usuario usuario) {
+			List<Ticket> listaTickets, List<HistorialClasificacion> listahistorial, Usuario usuario) {
 		
 		this.codigo = codigo;
 		this.fecha_Creacion = fecha_Creacion;
@@ -111,11 +112,11 @@ public class Clasificacion implements Serializable {
 		this.listaTickets = listaTickets;
 	}
 
-	public List<Historial> getListahistorial() {
+	public List<HistorialClasificacion> getListahistorial() {
 		return listahistorial;
 	}
 
-	public void setListahistorial(List<Historial> listahistorial) {
+	public void setListahistorial(List<HistorialClasificacion> listahistorial) {
 		this.listahistorial = listahistorial;
 	}
 

@@ -41,6 +41,12 @@ public class Empleado implements Serializable{
 	@Column(name = "TELEFONO",nullable= false)
 	private Long telefono;
 	
+	@Column(name = "TELEFONO_INTERNO",nullable= false)
+	private Long telefonoint;
+	
+	@Column(name = "DESCRIPCION_DEL_CARGO",nullable= false)
+	private String descripcioncargo;
+	
 	@Column(name = "EMAIL", length = 150)
 	private String email;
 	
@@ -59,7 +65,7 @@ public class Empleado implements Serializable{
 	 
 	
 
-	public Empleado(Integer legajo, Integer documento, String nombre, String apellido, Long cuil, Long telefono, String email,
+	public Empleado(Integer legajo, Integer documento, String nombre, String apellido, Long cuil, Long telefono, Long telefonoint, String descripcioncargo, String email,
 			List<Direccion> listadireccion, Usuario usuario, List<Ticket> listaTickets) {
 		this.legajo = legajo;
 		this.documento = documento;
@@ -67,6 +73,8 @@ public class Empleado implements Serializable{
 		this.apellido = apellido;
 		this.cuil = cuil;
 		this.telefono = telefono;
+		this.telefonoint = telefonoint;
+		this.descripcioncargo = descripcioncargo;
 		this.email = email;
 		this.listadireccion = listadireccion;
 		this.usuario = usuario;
@@ -135,10 +143,29 @@ public class Empleado implements Serializable{
 
 
 
-	public void setTelefono(Long telefono) {
+	public void setTelefono(Long telefonoint) {
 		this.telefono = telefono;
 	}
+	
+	public Long getTelefonoint() {
+		return telefonoint;
+	}
 
+
+
+	public void setTelefonoint(Long telefonoint) {
+		this.telefonoint = telefonoint;
+	}
+
+	public String getDescripcioncargo() {
+		return descripcioncargo;
+	}
+
+
+
+	public void setDescricioncargo(String descripcioncargo) {
+		this.descripcioncargo = descripcioncargo;
+	}
 
 
 	public String getEmail() {
@@ -192,7 +219,7 @@ public class Empleado implements Serializable{
 	@Override
 	public String toString() {
 		return "Empleado [legajo= " + legajo + ", documento=" + documento + ", nombre=" + nombre + ", apellido=" + apellido + ", cuil=" + cuil
-				+ ", telefono=" + telefono + ", email=" + email + ", listadireccion=" + listadireccion + ", usuario="
+				+ ", telefono=" + telefono + ", telefonount=" + telefonoint + ", descripcioncargo=" + descripcioncargo + ", email=" + email + ", listadireccion=" + listadireccion + ", usuario="
 				+ usuario + ", listaTickets=" + listaTickets + "]";
 	}
 	

@@ -3,21 +3,44 @@ package Modelo;
 import java.util.Date;
 import Modelo.EstadoTicket;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
+
+@Entity
+@DiscriminatorValue(value = "Ticket")
+
 public class HistorialTicket extends HistorialABS {
-	private int num_ticket;
+
+	@ManyToOne
+	@JoinColumn(name = "num_ticket")
+	private Ticket ticket;
+	
+	@JoinColumn(name = "estadoticket")
+	@Enumerated(value = EnumType.STRING) 
 	private EstadoTicket estado;
 	
-	
-	public HistorialTicket(String u, Date f,int id) {
+	public HistorialTicket() {
+		
+	}
+	public HistorialTicket(Usuario u, Date f,Ticket t) {
 		super (u,f);
-		this.num_ticket= id;
+		this.ticket= t;
+		t.addHistorial(this);
 	}
 	
 	public void setEstadoT(EstadoTicket a) {
 		this.estado =a;		
 	}
-	public int getNum_ticket() {
-		return this.num_ticket;
+	public Ticket getNum_ticket() {
+		return this.ticket;
 	}
 
 	public static void main(String[] args) {

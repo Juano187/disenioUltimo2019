@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 
 import Controlador.GestorBDD;
 import Controlador.GestorUsuario;
+import Modelo.Usuario;
 
 
 @SuppressWarnings("serial")
@@ -172,8 +173,10 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	if(gu.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNivel() == 0) {
         		
         		
-    
-        		MenuMesaDeAyuda m = new MenuMesaDeAyuda((jTextFieldUser.getText()));
+        		System.out.println(jTextFieldUser.getText());
+        		MenuMesaDeAyuda m = new MenuMesaDeAyuda();
+        		Usuario u= gu.getUsuario(jTextFieldUser.getText());
+        		m.addUser(u);
         		m.setAnterior(frame);   
         		this.setVisible(false);
             	m.setVisible(true);
@@ -197,7 +200,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	EjemploError e = new EjemploError("Datos invalidos");
         		e.setVisible(true);
         }}	catch(Exception ex) {
-        	
+        	System.out.println(ex.getMessage());
         	EjemploError e = new EjemploError(ex.getMessage());
         	e.setVisible(true);
         }
