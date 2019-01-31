@@ -49,7 +49,7 @@ public class GestorGrupoResolucion {
 	}
 	
 	
-	public GrupoResolucionDTO getGrupo(int codcla) {   
+	/*public GrupoResolucionDTO getGrupo(int codcla) {   
 
 		List<GrupoResolucion> listagrupos = gBDD.getGrupoResolucion();
 		for(GrupoResolucion g : listagrupos) {
@@ -64,7 +64,7 @@ public class GestorGrupoResolucion {
 			}
 		}
 		return null;
-	}
+	}*/
 			
 	
 	

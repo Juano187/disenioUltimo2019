@@ -133,14 +133,14 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
 
         
-        GrupoResolucionDTO ultgrupos= gestorG.getGrupoResolucion(ticketselec.getCla().getCodCla());  //ACA
+        /*GrupoResolucionDTO ultgrupos= gestorG.getGrupoResolucion(ticketselec.getCla().getCodCla());  //ACA
         JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();
         
         for(int i=0 ; i < ultgrupos.size(); i++) {
         	combogrupo.addItem(ultgrupos.get(i));
         }
 
-        getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));
+        getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));*/
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Grupo de resoluci\u00f3n:");
