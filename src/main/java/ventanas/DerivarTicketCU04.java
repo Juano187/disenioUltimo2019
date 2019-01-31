@@ -89,7 +89,7 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText("\n");
+        jTextArea1.setText(ticketselec.getDescripcion());
         jScrollPane1.setViewportView(jTextArea1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 880, 110));
@@ -113,6 +113,7 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 90, -1, 30));
 
         jTextFielNoEditable.setEditable(false);
+        jTextFielNoEditable.setText(ticketselec.getNumeroTicket().toString());
         jTextFielNoEditable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditableActionPerformed(evt);
@@ -131,11 +132,14 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         jLabel8.setText("Clasificaci\u00f3n:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
 
-        List<GrupoResolucionDTO> ultgrupos= gestorG.getGrupoResolucion();
+        
+        GrupoResolucionDTO ultgrupos= gestorG.getGrupoResolucion(ticketselec.getCla().getCodCla());  //ACA
         JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();
+        
         for(int i=0 ; i < ultgrupos.size(); i++) {
         	combogrupo.addItem(ultgrupos.get(i));
         }
+
         getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,29 +151,24 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         jLabel10.setText("Observaciones:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
-        System.out.println(ticketselec.getCla().getCodCla());
-        List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
-        JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>();
-        for (ClasificacionDTO c : clasificaciones) {
-        	combocalif.addItem(c);
-			if(c.getCodCla()==ticketselec.getCla().getCodCla()) combocalif.setSelectedItem(c);
-			
-		}
-        getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
-    	System.out.println(combocalif.getSelectedIndex());
-                
+        JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>(cambiarCla(ticketselec.getCla()));  // ACA
         
-        /*combocalif.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent a) {
-        		
+        getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
+       /* combocalif.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+        		remove(comboBox);
         		combocalif.setModel(new DefaulComboBoxModel <Clasificacion> combocalif);
         		
         		
         	}
+                
+        
+    
         	
         	
         	
         });*/
+
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
@@ -204,6 +203,35 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
 
         pack();
     }
+    
+    private ClasificacionDTO[] cambiarCla(ClasificacionDTO cla) {  //ACA
+		// TODO Auto-generated method stub
+    	ClasificacionDTO[] clas = new ClasificacionDTO[gestorC.getClasificaciones().size()];
+    	    	
+    	ClasificacionDTO n;
+   
+    	
+    	Integer i = 0;
+    	for(int j=0 ; j <gestorC.getClasificaciones().size() ; j++) {
+    		
+    		clas[j] = gestorC.getClasificaciones().get(j);
+    		
+   
+    		if(clas[j].getNombre().equalsIgnoreCase(cla.getNombre())) {
+    			i= j;
+    		}
+    	}
+    	n=clas[0];
+    	clas[i] = n;
+    	clas[0]= cla;
+    	
+    	
+    	
+    	
+    	
+		return clas;
+	}
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         anterior.setVisible(true);

@@ -3,6 +3,7 @@ package Controlador;
 import java.util.ArrayList;
 import java.util.List;
 
+import Modelo.Clasificacion;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 
@@ -46,4 +47,27 @@ public class GestorGrupoResolucion {
 			}
 		return resultado;
 	}
+	
+	
+	public GrupoResolucionDTO getGrupo(int codcla) {   
+
+		List<GrupoResolucion> listagrupos = gBDD.getGrupoResolucion();
+		for(GrupoResolucion g : listagrupos) {
+			List<Clasificacion> clasificaciones = g.getListaclasificacion();
+			for(Clasificacion c:clasificaciones) {
+				if(c.getCodigo()==codcla) {
+					GrupoResolucionDTO a = new GrupoResolucionDTO(g.getNom_grupo());
+							
+							
+					return a;
+				}
+			}
+		}
+		return null;
+	}
+			
+	
+	
+
+
 }
