@@ -22,7 +22,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	
     private void initComponents(Usuario u, TicketDTO ticketselec) {
     	
-    	System.out.println(ticketselec.getNumlegajo().toString());
+    	System.out.println(ticketselec.getEmpleado().getDescripcioncargo().toString());
     	
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -120,7 +120,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
 
         jTextFielNoEditable1.setEditable(false);
-        jTextFielNoEditable1.setText("Telefono interno");
+        //jTextFielNoEditable1.setText((ticketselec.getEmpleado().getDescripcioncargo().toString()));
         jTextFielNoEditable1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable1ActionPerformed(evt);

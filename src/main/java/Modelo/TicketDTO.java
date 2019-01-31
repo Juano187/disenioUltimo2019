@@ -11,7 +11,7 @@ public class TicketDTO {
 	private Integer numeroTicket;
 	private Integer numlegajo;
 	private Date fechaA;
-	
+	private Empleado empleado;
 	private ClasificacionDTO cla;
 	private GrupoResolucionDTO gru;
 	private EstadoTicket estado;
@@ -51,6 +51,13 @@ public class TicketDTO {
 	}
 	public void setFechaA(Date fechaA) {
 		this.fechaA = fechaA;
+	}
+	
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
 	}
 
 	public ClasificacionDTO getCla() {
