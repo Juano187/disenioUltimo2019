@@ -17,7 +17,6 @@ public class EntidadB {
 	
 	
 	  @ManyToOne
-	    @JoinColumn(name = "A_ID", referencedColumnName = "ID")
 	    private EntidadA a;
 	    @Id
 	    @Column(nullable = false)

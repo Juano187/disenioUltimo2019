@@ -8,6 +8,7 @@ import java.util.List;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.Direccion;
 import Modelo.Empleado;
 import Modelo.EstadoIntervencion;
 import Modelo.EstadoTicket;
@@ -18,6 +19,7 @@ import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.Ticket;
+import Modelo.Ticket2;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
 import ventanas.EjemploError;
@@ -66,23 +68,27 @@ public class GestorTicket {
 		Empleado e = ge.validarLegajo(legajo);
 		Date a = new Date();
 		Usuario u = user;
-
+		Direccion d = new Direccion (1,"diaz velez",1061);
+		e.addDir(d);
 		int id_t = (gestorBDD.getTickets().size() +1);
 		
 		System.out.println("hasta aca todo bien");
 		Ticket t = new Ticket(id_t,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
 		t.setEmp(e);
 		t.setClasificacion(c);
-		t.setEmp(e);
 		
 		HistorialTicket ht=new HistorialTicket(f);	
-		t.addH(ht);
+		ht.setUser(u);
 		
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		
+		if(gr == null ) {
+			System.out.println("esta vacio el gr");
+		}
 		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
 		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,EstadoIntervencion.TRABAJANDO);
 		i.setGr(gr);
+		
+		c.addGr(gr);
 		HistorialClasificacion hc = new HistorialClasificacion (f);
 		hc.setUser(u);
 		
@@ -90,7 +96,7 @@ public class GestorTicket {
 		hi.setUser(u);
 		i.addHi(hi);
 		t.addH(ht);
-		
+		t.addInt(i);
 	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
 
 		

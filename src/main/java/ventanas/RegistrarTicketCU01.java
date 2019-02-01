@@ -372,7 +372,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 
         
         	}catch(Exception ex) {
-        	
+        		System.out.println(ex.getMessage());
         		EjemploError error = new EjemploError(ex.getMessage());
         		error.setVisible(true); 
         	}

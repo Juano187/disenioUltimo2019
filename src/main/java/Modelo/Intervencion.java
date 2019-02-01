@@ -52,6 +52,7 @@ public class Intervencion implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
+
 	
 	@OneToMany(mappedBy = "intervencion")
 	private List<Historial_Intervencion> listahistorial = new ArrayList<>();;
@@ -75,6 +76,10 @@ public class Intervencion implements Serializable {
 
 		this.estadointervencion = estadointervencion;
 	}
+	
+
+	
+	
 	public void setGr(GrupoResolucion gr) {
 		this.setGr(gr,true);
 	}

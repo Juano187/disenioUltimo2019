@@ -19,6 +19,7 @@ import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.Ticket;
+import Modelo.Ticket2;
 import Modelo.Usuario;
 
 public class GestorBDD {

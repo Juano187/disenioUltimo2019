@@ -59,6 +59,10 @@ public class Empleado implements Serializable{
 	@OneToMany(mappedBy = "empleado")
 	private List<Ticket> listaTickets = new ArrayList<>();;
 	
+	@OneToMany(mappedBy = "empleado")
+	private List<Ticket2> listaTickets2 = new ArrayList<>();;
+	
+	
 	public Empleado(){
 	
 	 }
@@ -79,6 +83,43 @@ public class Empleado implements Serializable{
 		this.listadireccion = listadireccion;
 		this.usuario = usuario;
 		this.listaTickets = listaTickets;
+	}
+	
+	public void addDir(Direccion d) {
+		this.addDir(d,true);
+	}
+	public void addDir(Direccion d,boolean a) {
+		if(d!=null) {
+			if(this.getListaDir().contains(d)) {
+				this.getListaDir().set(this.getListaDir().indexOf(d), d);
+			}
+			else {
+				this.getListaDir().add(d);
+			}
+			if(a) {
+			d.setEmp(this, false);
+			}
+		}
+	}
+	public void addTicket2(Ticket2 t) {
+		this.addTicket2(t, true);
+	}
+	public void addTicket2(Ticket2 t, boolean a) {
+		if(t!=null ) {
+			if(this.getlistaT2().contains(t)) {
+				this.getlistaT2().set(this.getlistaT2().indexOf(t), t);
+			}
+			else {
+				this.getlistaT2().add(t);
+			}
+			if(a) {
+				t.setEmp(this,false);
+			}
+				
+		}
+	}
+	public List<Ticket2> getlistaT2(){
+		return this.listaTickets2;
 	}
 	public void addTicket(Ticket t) {
 		this.addTicket(t, true);
@@ -217,8 +258,10 @@ public class Empleado implements Serializable{
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-
-
+	
+	public List<Direccion> getListaDir(){
+		return listadireccion;
+	}
 
 	public List<Ticket> getListaTickets() {
 		return listaTickets;

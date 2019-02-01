@@ -16,20 +16,20 @@ import ventanas.IniciarSesionCU00;
 
 
 public class Principal {
-	//private static EntityManager manager;
-	//private static EntityManagerFactory emf;
+	private static EntityManager manager;
+	private static EntityManagerFactory emf;
 
     public static void main(String[] args) throws InterruptedException {
     	/*emf = Persistence.createEntityManagerFactory("Persistencia");
     	
 		manager = emf.createEntityManager();
-    	EntidadA a=new EntidadA((long) 3130);
-    	EntidadB b=new EntidadB((long) 231);    	
+    	EntidadA a=new EntidadA((long) 310);
+    	EntidadB b=new EntidadB((long) 21);    	
     	a.addB(b);
     	manager.getTransaction().begin();
 		manager.persist(a);
-		manager.getTransaction().commit();*/
-    	
+		manager.getTransaction().commit();
+    	*/
     	Inicializador01 cp = new Inicializador01();
     
         cp.setVisible(true);

@@ -39,12 +39,20 @@ public class Direccion implements Serializable{
 		
 	}
 	
-	public Direccion(Integer id_direccion, String calle, Integer numero, Empleado empleado) {
+	public Direccion(Integer id_direccion, String calle, Integer numero) {
 		
 		this.id_direccion = id_direccion;
 		this.calle = calle;
 		this.numero = numero;
-		this.empleado = empleado;
+	}
+	public void setEmp(Empleado e) {
+		this.setEmp(e,true);
+	}
+	public void setEmp(Empleado e,boolean a) {
+		this.empleado=e;
+		if(e!=null && a) {
+			e.addDir(this, false);
+		}
 	}
 
 	public Integer getId_direccion() {

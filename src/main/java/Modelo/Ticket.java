@@ -91,12 +91,12 @@ public class Ticket implements  Serializable{
 	}
 	public void addInt(Intervencion i, boolean a) {
 		if(i != null) {
-			if(this.getListainterveniones().contains(i)) {
-				this.getListainterveniones().set(this.getListainterveniones().indexOf(i), i);
+			if(this.getListaintervenciones().contains(i)) {
+				this.getListaintervenciones().set(this.getListaintervenciones().indexOf(i), i);
 				
 			}
 			else {
-				this.getListainterveniones().add(i);
+				this.getListaintervenciones().add(i);
 			}
 			if(a) {
 				i.setTicket(this, false);
@@ -217,7 +217,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public List<Intervencion> getListainterveniones() {
+	public List<Intervencion> getListaintervenciones() {
 		return listaintervenciones;
 	}
 
