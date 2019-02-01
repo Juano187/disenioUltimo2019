@@ -63,22 +63,34 @@ public class GestorTicket {
 		try {
 			
 		Clasificacion c = gc.getClasificacion(clasific);
-		Date a = new Date();
 		Empleado e = ge.validarLegajo(legajo);
+		Date a = new Date();
 		Usuario u = user;
+
 		int id_t = (gestorBDD.getTickets().size() +1);
+		
 		System.out.println("hasta aca todo bien");
-		Ticket t = new Ticket(id_t,fecha,descripcion,c,EstadoTicket.ABIERTODERIVADO,e,hora);
+		Ticket t = new Ticket(id_t,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
+		t.setEmp(e);
+		t.setClasificacion(c);
+		t.setEmp(e);
 		
-		HistorialTicket ht=new HistorialTicket(u,f,t);	
-		t.addHistorial(ht);
+		HistorialTicket ht=new HistorialTicket(f);	
+		t.addH(ht);
 		
-	/*	GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		HistorialClasificacion hc = new HistorialClasificacion (u,f,c);
+		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
+		
 		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
-		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,gr,EstadoIntervencion.TRABAJANDO);
-		Historial_Intervencion hi = new Historial_Intervencion(u,f,i);
-		*/
+		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,EstadoIntervencion.TRABAJANDO);
+		i.setGr(gr);
+		HistorialClasificacion hc = new HistorialClasificacion (f);
+		hc.setUser(u);
+		
+		Historial_Intervencion hi = new Historial_Intervencion(f);
+		hi.setUser(u);
+		i.addHi(hi);
+		t.addH(ht);
+		
 	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
 
 		
@@ -131,7 +143,7 @@ public class GestorTicket {
 		
 		for (int i=0; i<gd.size(); i++) {
 			Ticket t = gd.get(i);
-			//GrupoResolucionDTO ug = new GrupoResolucionDTO(t.ultimaI().getGruporesolucion().getNom_grupo());
+		//	GrupoResolucionDTO ug = new GrupoResolucionDTO(t.ultimaI().getGruporesolucion().getNom_grupo());
 			ClasificacionDTO cla1 = new ClasificacionDTO(t.getClasificacion().getNom_clasificacion());
 			TicketDTO tic = new TicketDTO();
 			tic.setNumeroTicket(t.getNum_ticket());

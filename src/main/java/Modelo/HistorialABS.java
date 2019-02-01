@@ -35,16 +35,14 @@ abstract class HistorialABS {
 	@Column(name = "FECHA_HORA__FIN", nullable= true)
 	private Date hora_fecha_fin;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_usuario")
-	private Usuario user;
+
 
 	public HistorialABS() {
 		
 	}
-	public HistorialABS(Usuario u, Date fecha) {
+	public HistorialABS( Date fecha) {
 	
-		this.user=u;
+	
 		
 		this.hora_fecha_ini= fecha;
 		this.hora_fecha_fin = null;
@@ -61,9 +59,6 @@ abstract class HistorialABS {
 		}
 	}
 	
-	public Usuario getUsuario() {
-		return this.user;
-	}
 	
 	public int getIdHistorial() {
 		return this.id_historial;

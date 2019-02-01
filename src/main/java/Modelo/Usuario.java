@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,16 +47,88 @@ public class Usuario implements Serializable{
 	@JoinColumn(name = "legajo")
 	private Empleado empleado;
 
-	@OneToMany(mappedBy = "usuario")
-	private List<Historial> listahistorial = new ArrayList<>();
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
+	private List<HistorialTicket> listaHistorialT = new ArrayList<>();;
+	
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
+	private List<HistorialClasificacion> listaHistorialC = new ArrayList<>();;
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
+	private List<Historial_Intervencion> listaHistorial_I = new ArrayList<>();;
 	
 	public Usuario() {
 			
 		
 	}
-
+	
+	public void addHI(Historial_Intervencion hi ) {
+		this.addHI(hi,true);
+	}
+	public void addHI(Historial_Intervencion hi, boolean a) {
+		if(hi!=null) {
+			if(this.getListaHi().contains(hi)) {
+				this.getListaHi().set(this.getListaHi().indexOf(hi), hi);
+			}
+			else {
+				this.getListaHi().add(hi);
+			}
+			if(a) {
+				hi.setUser(this, false);
+			}
+		}
+	}
+	
+	public void addHC(HistorialClasificacion hc ) {
+		this.addHC(hc,true);
+	}
+	public void addHC(HistorialClasificacion hc, boolean a) {
+		if(hc!=null) {
+			if(this.getListaHc().contains(hc)) {
+				this.getListaHc().set(this.getListaHc().indexOf(hc), hc);
+			}
+			else {
+				this.getListaHc().add(hc);
+			}
+			if(a) {
+				hc.setUser(this, false);
+			}
+		}
+	}
+	public void addHT(HistorialTicket ht ) {
+		this.addHT(ht,true);
+	}
+	public void addHT(HistorialTicket ht, boolean a) {
+		if(ht!=null) {
+			if(this.getListaHt().contains(ht)) {
+				this.getListaHt().set(this.getListaHt().indexOf(ht), ht);
+			}
+			else {
+				this.getListaHt().add(ht);
+			}
+			if(a) {
+				ht.setUser(this, false);
+			}
+		}
+	}
+		
+	
+	public void addClasif(Clasificacion c) {
+		this.addClasif(c, true);
+	}
+	public void addClasif(Clasificacion c, boolean a) {
+		if(c!= null) {
+			if(this.getListaclasificacion().contains(c)) {
+				this.getListaclasificacion().set(this.getListaclasificacion().indexOf(c), c);
+			}
+			else {
+				this.getListaclasificacion().add(c);
+			}
+			if(a) {
+				c.setUser(this, false);
+			}
+		}
+	}
 	public Usuario(Integer id_usuario, String usuario, String contraseña, List<Clasificacion> listaclasificacion,
-			GrupoResolucion gruporesolucion, Empleado empleado, List<Historial> listahistorial) {
+			GrupoResolucion gruporesolucion, Empleado empleado) {
 		
 		this.id_usuario = id_usuario;
 		this.usuario = usuario;
@@ -63,7 +136,7 @@ public class Usuario implements Serializable{
 		this.listaclasificacion = listaclasificacion;
 		this.gruporesolucion = gruporesolucion;
 		this.empleado = empleado;
-		this.listahistorial = listahistorial;
+
 	}
 
 	public Integer getId_usuario() {
@@ -89,7 +162,15 @@ public class Usuario implements Serializable{
 	public void setContraseña(String contraseña) {
 		Contraseña = contraseña;
 	}
-
+	public List<HistorialClasificacion> getListaHc(){
+		return this.listaHistorialC;
+	}
+	public List<HistorialTicket> getListaHt(){
+		return listaHistorialT;
+	}
+	public List<Historial_Intervencion> getListaHi(){
+		return listaHistorial_I;
+	}
 	public List<Clasificacion> getListaclasificacion() {
 		return listaclasificacion;
 	}
@@ -114,19 +195,13 @@ public class Usuario implements Serializable{
 		this.empleado = empleado;
 	}
 
-	public List<Historial> getListahistorial() {
-		return listahistorial;
-	}
 
-	public void setListahistorial(List<Historial> listahistorial) {
-		this.listahistorial = listahistorial;
-	}
 
 	@Override
 	public String toString() {
 		return "Usuario [id_usuario=" + id_usuario + ", usuario=" + usuario + ", Contraseña=" + Contraseña
 				+ ", listaclasificacion=" + listaclasificacion + ", gruporesolucion=" + gruporesolucion + ", empleado="
-				+ empleado + ", listahistorial=" + listahistorial + "]";
+				+ empleado + ", listahistorial=" + "]";
 	}
 	
 	

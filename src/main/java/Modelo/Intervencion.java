@@ -65,18 +65,52 @@ public class Intervencion implements Serializable {
 		
 	}
 	
-	public Intervencion(Integer id_intervencion, Date fecha_inicio, Date fecha_fin, String observaciones,
-			GrupoResolucion gruporesolucion/*, Ticket ticket*/, EstadoIntervencion estadointervencion) {
+	public Intervencion(Integer id_intervencion, Date fecha_inicio, Date fecha_fin, String observaciones
+			, EstadoIntervencion estadointervencion) {
 		
 		this.id_intervencion = id_intervencion;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		this.observaciones = observaciones;
-		this.gruporesolucion = gruporesolucion;
-	//	this.ticket = ticket;
+
 		this.estadointervencion = estadointervencion;
 	}
-
+	public void setGr(GrupoResolucion gr) {
+		this.setGr(gr,true);
+	}
+	public void setGr(GrupoResolucion gr, boolean a) {
+		this.gruporesolucion=gr;
+		if(gr != null && a) {
+			gr.addI(this,false);
+		}
+	}
+	public void setTicket(Ticket t) {
+		setTicket (t,true);
+	}
+	public void setTicket(Ticket t , boolean a) {
+		this.ticket=t;
+		if(t!= null && a) {
+			t.addInt(this,false);
+		}
+	}
+	public void addHi(Historial_Intervencion hi) {
+		addHi(hi,true);
+	}
+	public void addHi(Historial_Intervencion hi, boolean a) {
+		if(hi != null ) {
+			if(this.getListahistorial().contains(hi)) {
+				this.getListahistorial().set(this.getListahistorial().indexOf(hi), hi);
+			}
+			else {
+				this.getListahistorial().add(hi);
+			}
+			if(a) {
+				hi.setIntervencion(this,false);
+			}
+				
+		}
+	}
+	
 	public Integer getId_intervencion() {
 		return id_intervencion;
 	}
@@ -121,10 +155,6 @@ public class Intervencion implements Serializable {
 		return ticket;
 	}
 
-	public void setTicket(Ticket ticket) {
-		this.ticket = ticket;
-		ticket.addIntervencion(this);
-	}
 	public void addHistorial(Historial_Intervencion hi) {
 		this.listahistorial.add(hi);
 	}

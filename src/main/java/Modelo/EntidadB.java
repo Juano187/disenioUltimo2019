@@ -52,19 +52,6 @@ public class EntidadB {
 	        return id;
 	    }
 	     
-	    public boolean equals(Object object) {
-	        if (object == this)
-	            return true;
-	        if ((object == null) || !(object instanceof EntidadB))
-	            return false;
-	 
-	        final EntidadB b = (EntidadB)object;
-	 
-	        if (id != null && b.getId() != null) {
-	            return id.equals(b.getId());
-	        }
-	        return false;
-	    }
 
 	
 

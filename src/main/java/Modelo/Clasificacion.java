@@ -71,7 +71,56 @@ public class Clasificacion implements Serializable {
 		this.listahistorial = listahistorial;
 		this.usuario = usuario;
 	}
+	public void setUser(Usuario u) {
+		this.setUser(u,true);
+	}
+	public void setUser(Usuario u, boolean a) {
+		this.usuario=u;
+		if(u!=null && a) {
+			u.addClasif(this, false);
+		}
+	}
 
+	public void addHistorial(HistorialClasificacion hc) {
+		addHistorial(hc, true);
+	}
+	
+	public void addHistorial(HistorialClasificacion hc,boolean a) {
+		if(hc != null ) {
+			if(this.getListahistorial().contains(hc)) {
+				this.getListahistorial().set(this.getListahistorial().indexOf(hc), hc);
+			}
+			else {
+				this.getListahistorial().add(hc);
+			}
+			if(a) {
+				hc.setClasificacion(this, false);
+			}
+		}
+	}
+	
+	public void addTicket(Ticket t) {
+	this.addTicket(t, true);
+	}
+	public void addTicket(Ticket t,boolean a) {
+		if(t!=null ) {
+			if(this.getListaTickets().contains(t)) {
+				this.getListaTickets().set(this.getListaTickets().indexOf(t),t);			
+			}
+			else {
+				this.getListaTickets().add(t);
+			}
+			if(a) {
+				t.setClasificacion(this,false);
+			}
+		}
+	}
+	public void addGr(GrupoResolucion gr ) {
+		this.getListaGr().add(gr);
+		gr.getlistaC().add(this);
+	}
+
+	
 	public int getCodigo() {
 		return codigo;
 	}
@@ -103,7 +152,12 @@ public class Clasificacion implements Serializable {
 	public void setNom_clasificacion(String nom_clasificacion) {
 		this.nom_clasificacion = nom_clasificacion;
 	}
-
+	public List<GrupoResolucion> getListaGr(){
+		return gruporesolucion;
+	}
+	public void setListaGr(List<GrupoResolucion> gr) {
+		this.gruporesolucion=gr;
+	}
 	public List<Ticket> getListaTickets() {
 		return listaTickets;
 	}

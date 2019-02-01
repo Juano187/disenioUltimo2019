@@ -16,30 +16,30 @@ import ventanas.IniciarSesionCU00;
 
 
 public class Principal {
-	private static EntityManager manager;
-	private static EntityManagerFactory emf;
+	//private static EntityManager manager;
+	//private static EntityManagerFactory emf;
 
     public static void main(String[] args) throws InterruptedException {
-    	emf = Persistence.createEntityManagerFactory("Persistencia");
+    	/*emf = Persistence.createEntityManagerFactory("Persistencia");
     	
 		manager = emf.createEntityManager();
-    	EntidadA a=new EntidadA((long) 31312130);
-    	EntidadB b=new EntidadB((long) 232121321);    	
+    	EntidadA a=new EntidadA((long) 3130);
+    	EntidadB b=new EntidadB((long) 231);    	
     	a.addB(b);
     	manager.getTransaction().begin();
 		manager.persist(a);
-		manager.getTransaction().commit();
+		manager.getTransaction().commit();*/
     	
-    	//Inicializador01 cp = new Inicializador01();
+    	Inicializador01 cp = new Inicializador01();
     
-        //cp.setVisible(true);
+        cp.setVisible(true);
      
-    // IniciarSesionCU00 a = new IniciarSesionCU00();
+     IniciarSesionCU00 a = new IniciarSesionCU00();
    
-      //ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08();
-      // 	cp.dispose();
+    //  ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08();
+      	cp.dispose();
        	
-      //a.setVisible(true);
+      a.setVisible(true);
 
     }
     

@@ -27,16 +27,34 @@ public class HistorialTicket extends HistorialABS {
 	@JoinColumn(name = "estadoticket")
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoTicket estado;
-	
+	@ManyToOne
+	@JoinColumn(name = "id_usuario")
+	private Usuario user;
 	public HistorialTicket() {
 		
 	}
-	public void setTicket(Ticket t){
-		this.ticket =t;
+	
+	public void setUser(Usuario u) {
+		this.setUser(u, true);
 	}
-	public HistorialTicket(Usuario u, Date f,Ticket t) {
-		super (u,f);
-		this.ticket= t;
+	public void setUser(Usuario u, boolean a) {
+		this.user=u;
+		if(u!=null && a){
+			u.addHT(this, false);
+			}
+		}
+	
+	public void setTicket(Ticket t){
+		setTicket(t,true);
+	}
+	public void setTicket(Ticket t, boolean a) {
+		this.ticket=t;
+		if(t!= null && a) {
+			t.addH(this, false);
+		}
+	}
+	public HistorialTicket( Date f) {
+		super (f);
 	}
 	
 	public void setEstadoT(EstadoTicket a) {

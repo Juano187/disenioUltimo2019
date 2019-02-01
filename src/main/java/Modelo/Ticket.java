@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -65,7 +66,7 @@ public class Ticket implements  Serializable{
 	//@JoinColumn(name = "numero")
 	private List<Intervencion> listaintervenciones = new ArrayList<>();;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "ticket")
 	private List<HistorialTicket> listahistorial = new ArrayList<>();;
 	
 	public Ticket() {
@@ -74,19 +75,77 @@ public class Ticket implements  Serializable{
 		listahistorial = new ArrayList<>();
 		
 	}
+	public void setEmp(Empleado e) {
+		this.setEmp(e, true);
+	}
+	public void setEmp(Empleado e, boolean a) {
+		this.empleado=e;
+		if(e!=null && a) {
+			e.addTicket(this, false);
+		}
+		
+	}
+	
+	public void addInt(Intervencion i) {
+		this.addInt(i,true);
+	}
+	public void addInt(Intervencion i, boolean a) {
+		if(i != null) {
+			if(this.getListainterveniones().contains(i)) {
+				this.getListainterveniones().set(this.getListainterveniones().indexOf(i), i);
+				
+			}
+			else {
+				this.getListainterveniones().add(i);
+			}
+			if(a) {
+				i.setTicket(this, false);
+			}
+		}
+	}
+	
+	public void  addH(HistorialTicket ht) {
+		this.addH(ht,true);
+		
+	}
+	
+	public void addH(HistorialTicket ht, boolean set ) {
+		if(ht != null) {
+		if(this.getListahistorial().contains(ht)) {
+			this.getListahistorial().set(this.getListahistorial().indexOf(ht), ht);
+		}
+		else {
+			this.getListahistorial().add(ht);
+		}
+		if(set) {
+			ht.setTicket(this, false);
+		}
+		}
+	}
+	
 	
 
+	public void setClasificacion(Clasificacion c) {
+		setClasificacion (c,true);
+	}
+	
+	public void setClasificacion(Clasificacion c,boolean a) {
+		this.clasificacion= c;
+			if(c != null && a) {
+				c.addTicket(this,false);
+		}
+	}
+
 	public Ticket(Integer num_ticket, Date fecha_apertura, String descrip_problema,
-			Clasificacion clasificacion, EstadoTicket estadoticket, Empleado empleado,
+			EstadoTicket estadoticket,
 	 Date hora_apertura) {
 		
 		this.num_ticket = num_ticket;
 		this.fecha_apertura = fecha_apertura;
 		this.hora_apertura = hora_apertura;
 		this.descrip_problema = descrip_problema;
-		this.clasificacion = clasificacion;
 		this.estadoticket = estadoticket;
-		this.empleado = empleado;
+
 	}
 	
 	public void setListainterveniones(List<Intervencion> listainterveniones) {
@@ -120,12 +179,6 @@ public class Ticket implements  Serializable{
 	public Clasificacion getClasificacion() {
 		return clasificacion;
 	}
-
-
-	public void setClasificacion(Clasificacion clasificacion) {
-		this.clasificacion = clasificacion;
-	}
-
 
 	public EstadoTicket getEstadoticket() {
 		return estadoticket;
@@ -167,15 +220,8 @@ public class Ticket implements  Serializable{
 	public List<Intervencion> getListainterveniones() {
 		return listaintervenciones;
 	}
-	public void addHistorial(HistorialTicket ht) {
-		this.listahistorial.add(ht);
-		ht.setTicket(this);
-		
-	}
-	public void addIntervencion(Intervencion i) {
-		this.listaintervenciones.add(i);
-		i.setTicket(this);
-	}
+
+
 	
 	/*public Intervencion ultimaI() {
 		Intervencion u = listaintervenciones.get(0);

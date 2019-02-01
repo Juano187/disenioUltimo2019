@@ -61,19 +61,6 @@ public class EntidadA {
 	        return bList;
 	    }
 	     
-	    public boolean equals(Object object) {
-	        if (object == this)
-	            return true;
-	        if ((object == null) || !(object instanceof EntidadA))
-	            return false;
-	 
-	        final EntidadA a = (EntidadA)object;
-	 
-	        if (id != null && a.getId() != null) {
-	            return id.equals(a.getId());
-	        }
-	        return false;
-	    }
 	 
 	    public void setId(Long id) {
 	        this.id = id;

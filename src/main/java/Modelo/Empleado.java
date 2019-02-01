@@ -80,7 +80,23 @@ public class Empleado implements Serializable{
 		this.usuario = usuario;
 		this.listaTickets = listaTickets;
 	}
-
+	public void addTicket(Ticket t) {
+		this.addTicket(t, true);
+	}
+	public void addTicket(Ticket t, boolean a) {
+		if(t!=null ) {
+			if(this.getListaTickets().contains(t)) {
+				this.getListaTickets().set(this.getListaTickets().indexOf(t), t);
+			}
+			else {
+				this.getListaTickets().add(t);
+			}
+			if(a) {
+				t.setEmp(this,false);
+			}
+				
+		}
+	}
 
 	public Integer getDocumento() {
 		return documento;
