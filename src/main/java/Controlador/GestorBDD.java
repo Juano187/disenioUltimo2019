@@ -121,6 +121,16 @@ public ArrayList<Historial>getHistoriales(){
 		manager.getTransaction().commit();
 		return grupos;
 	}
+	@SuppressWarnings("unchecked")
+	public ArrayList<GrupoResolucionDTO> getGrupoResoluciondto(){
+		ArrayList<GrupoResolucionDTO> grupos;
+		manager.getTransaction().begin();
+		grupos = (ArrayList<GrupoResolucionDTO>) 
+				manager.createQuery("FROM GrupoResolucion").getResultList();
+		manager.getTransaction().commit();
+		return grupos;
+	}
+
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Ticket> getTickets(){

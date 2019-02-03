@@ -48,7 +48,26 @@ public class GestorGrupoResolucion {
 		return resultado;
 	}
 	
+public List<GrupoResolucion> getGrupoR() {
+		
+		
+		List<GrupoResolucion> gd = gBDD.getGrupoResolucion();
+		
+		ArrayList<GrupoResolucion> resultado = new ArrayList<GrupoResolucion>();
+		for (int i=0; i<gd.size(); i++) {
+			String nom = gd.get(i).getNom_grupo();
+			GrupoResolucion clas = new GrupoResolucion(nom);
+				
+			resultado.add(clas);
+				
+			}
+		return resultado;
+	}
 	
+	
+
+
+
 	/*public GrupoResolucionDTO getGrupo(int codcla) {   
 
 		List<GrupoResolucion> listagrupos = gBDD.getGrupoResolucion();

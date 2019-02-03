@@ -1,30 +1,39 @@
-
 package ventanas;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 
 import Controlador.GestorClasificacion;
 import Controlador.GestorGrupoResolucion;
+import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
+
+
+
 public class DerivarTicketCU04 extends javax.swing.JFrame {
 	
 	private JFrame anterior;
 	private Usuario u ;
+	private GrupoResolucion[] g;
 
     public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
         initComponents(ticketselec, u);
         this.setLocationRelativeTo(null);
     }
-GestorClasificacion gestorC = new GestorClasificacion();
-GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
-    private void initComponents(TicketDTO ticketselec, Usuario u) {
-    	
+	GestorClasificacion gestorC = new GestorClasificacion();
+	GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
+    
+	private void initComponents(TicketDTO ticketselec, Usuario u) {
+		
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -134,13 +143,15 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
 
         
         /*GrupoResolucionDTO ultgrupos= gestorG.getGrupoResolucion(ticketselec.getCla().getCodCla());  //ACA
-        JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();
+        JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();*/
         
-        for(int i=0 ; i < ultgrupos.size(); i++) {
-        	combogrupo.addItem(ultgrupos.get(i));
-        }
-
-        getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));*/
+      
+        JComboBox<GrupoResolucion> ultgrupos= new JComboBox<GrupoResolucion>();  //ACA
+        ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg(ticketselec.getCla())));
+        getContentPane().add(ultgrupos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));
+        
+        
+        
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("Grupo de resoluci\u00f3n:");
@@ -152,22 +163,24 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
         JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>(cambiarCla(ticketselec.getCla()));  // ACA
-        
         getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
-       /* combocalif.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent a) {
-        		remove(comboBox);
-        		combocalif.setModel(new DefaulComboBoxModel <Clasificacion> combocalif);
-        		
+       
+        
+    	 
+        ActionListener cbActionListener = new ActionListener() {
+        	@Override
+        	public void actionPerformed(ActionEvent a) {
+        	
+        		remove(ultgrupos);
+        		remove(combocalif);
+        		combocalif.setModel(new DefaultComboBoxModel<ClasificacionDTO> (cambiarCla((ClasificacionDTO)combocalif.getSelectedItem())));
+        		ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg((ClasificacionDTO)combocalif.getSelectedItem())));
+        		add(ultgrupos);
+        		add(combocalif);
         		
         	}
-                
-        
-    
-        	
-        	
-        	
-        });*/
+         };
+        combocalif.addActionListener(cbActionListener);
 
 
         jTextArea2.setEditable(false);
@@ -215,8 +228,7 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
     	for(int j=0 ; j <gestorC.getClasificaciones().size() ; j++) {
     		
     		clas[j] = gestorC.getClasificaciones().get(j);
-    		
-   
+ 
     		if(clas[j].getNombre().equalsIgnoreCase(cla.getNombre())) {
     			i= j;
     		}
@@ -231,6 +243,170 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
     	
 		return clas;
 	}
+    
+    
+    
+    private GrupoResolucion[] cargarg(ClasificacionDTO cl) {
+    	int n =0;
+    	GrupoResolucion[] g = new GrupoResolucion[n] ;
+    	String c = cl.getNombre();
+    	
+    	
+    	if(c == "'Mal funcionamiento de Hardware'") {
+    		System.out.println("Mal funcionamiento de Hardware");
+    			
+    		
+			n=7;
+			g = new GrupoResolucion[n+1];
+			g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
+			g[2] = gestorG.getGrupo("'Unidades de soporte'");	
+			g[3] = gestorG.getGrupo("'Servicio tecnico'");
+			g[4] = gestorG.getGrupo("'Administrador SUSE Linux'");
+			g[5] = gestorG.getGrupo("'Administrador DEBIAN'");
+			g[6] = gestorG.getGrupo("'Redes LAN'");	
+			g[7] = gestorG.getGrupo("'Comunicaciones'");	
+			
+			
+		} else {
+			
+				if((c == "Cambios de Configuración de Sistema Operativo de PC") || c == ("Problemas en el funcionamiento del Sistema Operativo de PC y utilitarios")){
+					n=4;
+					g = new GrupoResolucion[n+1];
+					g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
+					g[2] = gestorG.getGrupo("'Unidades de soporte'");
+					g[3] = gestorG.getGrupo("'Administrador SUSE Linux'");
+					g[4] = gestorG.getGrupo("'Administrador DEBIAN'");}
+    					
+    	
+				else {
+						if(c == "Solicitud de instalación de aplicaciones"){
+							n=7;
+							g = new GrupoResolucion[n+1];
+							g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
+							g[2] = gestorG.getGrupo("'Unidades de soporte'");
+							g[3] = gestorG.getGrupo("'Administrador SUSE Linux'");
+							g[4] = gestorG.getGrupo("'Administrador de Base de Datos'");
+							g[5] = gestorG.getGrupo("'Desarrollo Sistema Comercial'");
+							g[6] = gestorG.getGrupo("'Desarrollo Sistema RRHH'");
+							g[7] = gestorG.getGrupo("'Desarrollo Sistema de Reclamos'");
+    			
+							}
+						else {
+							if((c=="Solicitud de Cambio de Contrasenias") || (c=="Modificacion en los perfiles de usuarios")) {
+								n=7;
+								g = new GrupoResolucion[n+1];
+								g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
+								g[2] = gestorG.getGrupo("'Unidades de soporte'");
+								g[3] = gestorG.getGrupo("'Administrador SUSE Linux'");
+								g[4] = gestorG.getGrupo("'Administrador Proxy y correo electronico'");
+								g[5] = gestorG.getGrupo("'Desarrollo Sistema Comercial'");
+								g[6] = gestorG.getGrupo("'Desarrollo Sistema RRHH'");
+								g[7] = gestorG.getGrupo("'Desarrollo Sistema de Reclamos'");
+							}
+							else {
+								if(c == "Mal funcionamiento de Hardware") {
+									n=7;
+									g = new GrupoResolucion[n+1];
+									g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
+									g[2] = gestorG.getGrupo("'Unidades de soporte'");	
+									g[3] = gestorG.getGrupo("'Servicio tecnico'");
+									g[4] = gestorG.getGrupo("'Administrador SUSE Linux'");
+									g[5] = gestorG.getGrupo("'Administrador DEBIAN'");
+									g[6] = gestorG.getGrupo("'Redes LAN'");	
+									g[7] = gestorG.getGrupo("'Comunicaciones'");	
+        			
+        			
+    			}
+								else {
+									if(c=="Problemas en la autenticacion en los distintos sistemas") {
+										n=6;
+										g = new GrupoResolucion[n+1];
+										g[1] = gestorG.getGrupo("Mesa de Ayuda");
+										g[2] = gestorG.getGrupo("Unidades de soporte");
+										g[3] = gestorG.getGrupo("Servicio tecnico");	
+										g[4] = gestorG.getGrupo("Desarrollo Sistema Comercial");
+										g[5] = gestorG.getGrupo("Desarrollo Sistema RRHH");
+										g[6] = gestorG.getGrupo("Desarrollo Sistema de Reclamos");
+									}
+									else{
+										if(c == "Problemas de acceso a la red local o remota"){
+											n=6;
+											g = new GrupoResolucion[n+1];
+											g[1] = gestorG.getGrupo("Mesa de Ayuda");
+											g[2] = gestorG.getGrupo("Unidades de soporte");
+											g[3] = gestorG.getGrupo("Servicio tecnico");
+											g[4] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+											g[5] = gestorG.getGrupo("Redes LAN");	
+											g[6] = gestorG.getGrupo("Comunicaciones");	
+										}
+										else {
+											if(c == "Solicitud de usuarios de red") {
+												n=4;	
+												g = new GrupoResolucion[n+1];	
+												g[1] = gestorG.getGrupo("Mesa de Ayuda");
+												g[2] = gestorG.getGrupo("Unidades de soporte");
+                    							g[3] = gestorG.getGrupo("Administrador SUSE Linux");
+                    							g[4] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+											}
+    		
+											else {
+												if(c == "Problemas con el correo electronico") {
+													n=3;
+													g = new GrupoResolucion[n+1];
+													g[1] = gestorG.getGrupo("Mesa de Ayuda");
+													g[2] = gestorG.getGrupo("Unidades de soporte");
+													g[3] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+												}	
+												else {
+													if(c == "Solicitud de cuentas de correo electronico") {
+														n=2;
+														g = new GrupoResolucion[n+1];
+														g[1] = gestorG.getGrupo("Mesa de Ayuda");
+														g[2] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+													}
+													else {
+														if(c == "Solicitud de nuevos puestos de trabajo") {
+															n=2;
+															g = new GrupoResolucion[n+1];
+															g[1] = gestorG.getGrupo("Mesa de Ayuda");
+															g[2] = gestorG.getGrupo("Unidades de soporte");
+														}
+														else {
+															if(c == "Solicitud de soporte en el uso de alguna aplicacion o sistema") {
+																n=2;
+																g = new GrupoResolucion[n+1];
+																g[1] = gestorG.getGrupo("Mesa de Ayuda");
+																g[2] = gestorG.getGrupo("Unidades de soporte");
+																g[3] = gestorG.getGrupo("Administrador de Base de Datos");
+																g[4] = gestorG.getGrupo("Administrador SUSE Linux");
+																g[5] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+																g[5] = gestorG.getGrupo("Desarrollo Sistema Comercial");
+																g[6] = gestorG.getGrupo("Desarrollo Sistema RRHH");
+																g[7] = gestorG.getGrupo("Desarrollo Sistema de Reclamos");
+                                			
+                                			
+    									}
+	    									else {
+	    										g = new GrupoResolucion[gestorG.getGrupoR().size()+1];
+	    										for(int i=0; i < gestorG.getGrupoR().size(); i++) {
+	    											g[i+1]= gestorG.getGrupoR().get(i);
+	    										}
+	    									}
+    									}
+    								}		
+    							}		
+                              }
+    						}
+    					}
+    				}
+    			}
+    			}
+    		}}
+    	
+    				
+    		g[0] = new GrupoResolucion("Seleccione una opcion...");
+    		return g;
+    }
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -304,3 +480,5 @@ GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
     private javax.swing.JTextField jTextFielNoEditable;
     // End of variables declaration//GEN-END:variables
 }
+
+

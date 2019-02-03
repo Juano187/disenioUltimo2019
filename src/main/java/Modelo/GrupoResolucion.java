@@ -56,6 +56,11 @@ public class GrupoResolucion implements  Serializable{
 	public GrupoResolucion () {
 		
 	}
+	public GrupoResolucion (String n) {
+		this.nom_grupo=n;
+		
+	}
+
 	
 	public GrupoResolucion(Integer id_grupo, String nom_grupo, Integer nivel, List<Usuario> listausuario,
 			List<Intervencion> listaintervenciones) {
@@ -66,6 +71,8 @@ public class GrupoResolucion implements  Serializable{
 		this.listausuario = listausuario;
 		this.listaintervenciones = listaintervenciones;
 	}
+	
+
 	public void addI(Intervencion i) {
 		addI(i,true);
 	}
@@ -126,8 +133,7 @@ public class GrupoResolucion implements  Serializable{
 
 	@Override
 	public String toString() {
-		return "GrupoResolucion [id_grupo=" + id_grupo + ", nom_grupo=" + nom_grupo + ", nivel=" + nivel
-				+ ", listausuario=" + listausuario + ", listaintervenciones=" + listaintervenciones + "]";
+		return nom_grupo;
 	}
 
 	
