@@ -25,7 +25,7 @@ public class Ticket2 implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
 	private Integer num_ticket;
 	
@@ -51,7 +51,7 @@ public class Ticket2 implements Serializable{
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "LEGAJO")
+	//@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
 	/*@OneToMany(cascade={CascadeType.ALL}, mappedBy = "ticket2")
@@ -59,13 +59,13 @@ public class Ticket2 implements Serializable{
 	private List<Intervencion> listaintervenciones = new ArrayList<>();;
 	*/
 	
+	
 	public Ticket2() {
 		
 		//listaintervenciones = new ArrayList<>();	
 	}
-	public Ticket2(Integer num_ticket, Date fecha_apertura, String descrip_problema,
-			EstadoTicket estadoticket,
-	 Date hora_apertura) {
+	
+	public Ticket2(Integer num_ticket, Date fecha_apertura, String descrip_problema, EstadoTicket estadoticket, Date hora_apertura) {
 		
 		this.num_ticket = num_ticket;
 		this.fecha_apertura = fecha_apertura;
@@ -74,16 +74,18 @@ public class Ticket2 implements Serializable{
 		this.estadoticket = estadoticket;
 
 	}
+	
 	public void setEmp(Empleado e) {
 		this.setEmp(e, true);
 	}
+	
 	public void setEmp(Empleado e, boolean a) {
 		this.empleado=e;
 		if(e!=null && a) {
-			e.addTicket2(this, false);
-		}
-		
+			//e.addTicket2(this, false);
+		}	
 	}
+	
 	/*public void addInt(Intervencion i) {
 		this.addInt(i,true);
 	}

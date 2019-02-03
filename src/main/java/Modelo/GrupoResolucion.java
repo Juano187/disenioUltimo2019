@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 @Table(name = "GRUPORESOLUCION")
 public class GrupoResolucion implements  Serializable{
@@ -24,7 +28,7 @@ public class GrupoResolucion implements  Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_GRUPO")
 	private Integer id_grupo;
 	
@@ -35,10 +39,12 @@ public class GrupoResolucion implements  Serializable{
 	@Column(name = "NIVEL")
 	private Integer nivel;
 
-	@OneToMany(mappedBy = "gruporesolucion")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "gruporesolucion")
+	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Usuario> listausuario = new ArrayList<>(); 
 	
-	@OneToMany(mappedBy = "gruporesolucion")
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "gruporesolucion")
+	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Intervencion> listaintervenciones = new ArrayList<>();
 	
 	

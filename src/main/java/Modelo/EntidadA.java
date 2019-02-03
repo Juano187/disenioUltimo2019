@@ -16,19 +16,29 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+
+
 @Entity 
+
 @Table (name = "Tabla_del_A")
+
 public class EntidadA {
 	
 	 @OneToMany(cascade={CascadeType.ALL}, mappedBy="a")
-	    private List<EntidadB> bList =new ArrayList<EntidadB>();
-	    @Id
-	    @Column(nullable = false)
-	    private Long id;
-	    public EntidadA() {
-	    }
-	    public EntidadA(Long id) {
-	    	this.id=id;
+	
+	 private List<EntidadB> bList =new ArrayList<EntidadB>();
+	 
+	 @Id
+	 @Column(nullable = false)
+	 
+	 private Long id;
+	 
+	 public EntidadA() { 
+	 }
+
+	 public EntidadA(Long id) { 
+	 this.id=id;
 	    }
 	    public void addB(EntidadB b) {
 	        addB(b, true);

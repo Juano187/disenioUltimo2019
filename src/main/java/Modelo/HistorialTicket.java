@@ -27,6 +27,7 @@ public class HistorialTicket extends HistorialABS {
 	@JoinColumn(name = "estadoticket")
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoTicket estado;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario user;

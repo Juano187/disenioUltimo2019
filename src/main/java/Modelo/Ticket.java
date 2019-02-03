@@ -21,6 +21,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 
 @Entity
 @Table(name = "TICKET")
@@ -30,7 +33,7 @@ public class Ticket implements  Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
 	private Integer num_ticket;
 	
@@ -62,11 +65,13 @@ public class Ticket implements  Serializable{
 	@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
-	@OneToMany(mappedBy = "ticket")
+	@OneToMany(	cascade = CascadeType.ALL, mappedBy = "ticket")
+	//@Fetch(value = FetchMode.SUBSELECT)
 	//@JoinColumn(name = "numero")
 	private List<Intervencion> listaintervenciones = new ArrayList<>();;
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "ticket")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
+	//	@Fetch(value = FetchMode.SUBSELECT)
 	private List<HistorialTicket> listahistorial = new ArrayList<>();;
 	
 	public Ticket() {
@@ -223,7 +228,7 @@ public class Ticket implements  Serializable{
 
 
 	
-	/*public Intervencion ultimaI() {
+	public Intervencion ultimaI() {
 		Intervencion u = listaintervenciones.get(0);
 		for(Intervencion i: listaintervenciones) {
 			if(i.getFecha_inicio().compareTo(u.getFecha_inicio())>0) {
@@ -235,7 +240,7 @@ public class Ticket implements  Serializable{
 			
 		
 	return u;	
-	}	*/
+	}	
 			
 	
 	
@@ -295,7 +300,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	/*@Override
+	@Override
 	public String toString() {
 		return "Ticket [num_ticket=" + num_ticket + ", fecha_apertura=" + fecha_apertura + "hora_apertura" + hora_apertura +", fecha_cierre=" + fecha_cierre +
 				", descrip_problema=" + descrip_problema + ", clasificacion=" + clasificacion
@@ -303,7 +308,7 @@ public class Ticket implements  Serializable{
 				+ listaintervenciones + ", listahistorial=" + listahistorial + "]";
 	}
 
-*/
+
 	
 	
 }

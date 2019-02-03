@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Access;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,6 +20,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 @Entity
 
 @Table(name = "INTERVENCION")
@@ -30,7 +34,7 @@ public class Intervencion implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_INTERVENCION")
 	private Integer id_intervencion;
 	
@@ -53,8 +57,10 @@ public class Intervencion implements Serializable {
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
 
+
+	@OneToMany(	fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "intervencion")
 	
-	@OneToMany(mappedBy = "intervencion")
+	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Historial_Intervencion> listahistorial = new ArrayList<>();;
 	
 	@JoinColumn(name = "estadointerv")

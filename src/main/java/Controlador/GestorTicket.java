@@ -69,7 +69,9 @@ public class GestorTicket {
 		Date a = new Date();
 		Usuario u = user;
 		Direccion d = new Direccion (1,"diaz velez",1061);
-		e.addDir(d);
+		
+		d.setEmp(e);
+		
 		int id_t = (gestorBDD.getTickets().size() +1);
 		
 		System.out.println("hasta aca todo bien");
@@ -97,10 +99,9 @@ public class GestorTicket {
 		i.addHi(hi);
 		t.addH(ht);
 		t.addInt(i);
-	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
-
 		
-	
+		
+	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
 
 		gestorBDD.cargarTicket(t);
 		//gestorBDD.cargarHistorialI(hi);
@@ -111,9 +112,7 @@ public class GestorTicket {
     		EjemploError error = new EjemploError(ex.getMessage());
     		error.setVisible(true); 
     	}
-		
-		
-		
+				
 		return 1;
 		
 	}

@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "EMPLEADO")
@@ -50,17 +55,20 @@ public class Empleado implements Serializable{
 	@Column(name = "EMAIL", length = 150)
 	private String email;
 	
-	@OneToMany(mappedBy = "empleado")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
+	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Direccion> listadireccion = new ArrayList<>();
 	
-	@OneToOne(mappedBy = "empleado")        /*ver si poner cascade.all*/
+	@OneToOne(mappedBy = "empleado")   
 	private Usuario usuario;
-	
-	@OneToMany(mappedBy = "empleado")
+
+	@OneToMany(	cascade = CascadeType.ALL, mappedBy = "empleado" )
+	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Ticket> listaTickets = new ArrayList<>();;
 	
-	@OneToMany(mappedBy = "empleado")
-	private List<Ticket2> listaTickets2 = new ArrayList<>();;
+	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
+	//@Fetch(value = FetchMode.SUBSELECT)
+	private List<Ticket2> listaTickets2 = new ArrayList<Ticket2>();;*/
 	
 	
 	public Empleado(){
@@ -101,6 +109,7 @@ public class Empleado implements Serializable{
 			}
 		}
 	}
+	/*
 	public void addTicket2(Ticket2 t) {
 		this.addTicket2(t, true);
 	}
@@ -118,9 +127,10 @@ public class Empleado implements Serializable{
 				
 		}
 	}
+	
 	public List<Ticket2> getlistaT2(){
 		return this.listaTickets2;
-	}
+	}*/
 	public void addTicket(Ticket t) {
 		this.addTicket(t, true);
 	}
@@ -233,18 +243,6 @@ public class Empleado implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-
-
-	public List<Direccion> getListadireccion() {
-		return listadireccion;
-	}
-
-
-
-	public void setListadireccion(List<Direccion> listadireccion) {
-		this.listadireccion = listadireccion;
 	}
 
 
