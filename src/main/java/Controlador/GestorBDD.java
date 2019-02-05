@@ -10,6 +10,7 @@ import javax.persistence.Persistence;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.Direccion;
 import Modelo.Empleado;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
@@ -55,6 +56,7 @@ public class GestorBDD {
 		manager.getTransaction().begin();
 		manager.persist(t);
 		manager.getTransaction().commit();
+		
 	}
 	public void cargarHistorialT(HistorialTicket a) {
 		manager.getTransaction().begin();
@@ -121,6 +123,8 @@ public ArrayList<Historial>getHistoriales(){
 		manager.getTransaction().commit();
 		return grupos;
 	}
+	
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<GrupoResolucionDTO> getGrupoResoluciondto(){
 		ArrayList<GrupoResolucionDTO> grupos;
@@ -130,6 +134,7 @@ public ArrayList<Historial>getHistoriales(){
 		manager.getTransaction().commit();
 		return grupos;
 	}
+
 
 	
 	@SuppressWarnings("unchecked")
@@ -241,6 +246,46 @@ public ArrayList<Historial>getHistoriales(){
 		
 		
 		return tickets;
+	}
+	public Direccion getDireccion(int legajo) {
+			Direccion direccion;
+			String c = "FROM Direccion Where legajo = " + legajo;
+			manager.getTransaction().begin();
+			direccion = (Direccion) manager.createQuery(c).getSingleResult();
+			manager.getTransaction().commit();
+		
+			
+			
+			
+		return direccion;
+	}
+	
+	public GrupoResolucion getgrupo(String grupo) {
+		GrupoResolucion grupoR;
+		String con = "FROM GrupoResolucion WHERE nom_grupo = '" + grupo + "'";
+		
+		manager.getTransaction().begin();
+		grupoR = (GrupoResolucion) 
+				manager.createQuery(con).getSingleResult();
+		manager.getTransaction().commit();
+		
+		
+		
+		return grupoR;
+	}
+	
+	public GrupoResolucion getgrupo(Integer i) {
+		GrupoResolucion grupoR;
+		String con = "FROM GrupoResolucion WHERE id_grupo = '" + i + "'";
+		
+		manager.getTransaction().begin();
+		grupoR = (GrupoResolucion) 
+				manager.createQuery(con).getSingleResult();
+		manager.getTransaction().commit();
+		
+		
+		
+		return grupoR;
 	}
 
 	/*

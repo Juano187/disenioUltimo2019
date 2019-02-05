@@ -78,7 +78,7 @@ public class Empleado implements Serializable{
 	
 
 	public Empleado(Integer legajo, Integer documento, String nombre, String apellido, Long cuil, Long telefono, Long telefonoint, String descripcioncargo, String email,
-			List<Direccion> listadireccion, Usuario usuario, List<Ticket> listaTickets) {
+			 Usuario usuario) {
 		this.legajo = legajo;
 		this.documento = documento;
 		this.nombre = nombre;
@@ -88,11 +88,23 @@ public class Empleado implements Serializable{
 		this.telefonoint = telefonoint;
 		this.descripcioncargo = descripcioncargo;
 		this.email = email;
-		this.listadireccion = listadireccion;
+		//this.listadireccion = listadireccion;
 		this.usuario = usuario;
-		this.listaTickets = listaTickets;
+		
 	}
 	
+	
+	public List<Direccion> getDireccion(){
+		return listadireccion;
+	}
+	public void add(Direccion direc) {
+		listadireccion.add(direc);
+	}
+	
+	
+	
+	
+	/*
 	public void addDir(Direccion d) {
 		this.addDir(d,true);
 	}
@@ -109,7 +121,7 @@ public class Empleado implements Serializable{
 			}
 		}
 	}
-	/*
+	
 	public void addTicket2(Ticket2 t) {
 		this.addTicket2(t, true);
 	}
@@ -131,7 +143,7 @@ public class Empleado implements Serializable{
 	public List<Ticket2> getlistaT2(){
 		return this.listaTickets2;
 	}*/
-	public void addTicket(Ticket t) {
+	/*public void addTicket(Ticket t) {
 		this.addTicket(t, true);
 	}
 	public void addTicket(Ticket t, boolean a) {
@@ -147,7 +159,7 @@ public class Empleado implements Serializable{
 			}
 				
 		}
-	}
+	}*/
 
 	public Integer getDocumento() {
 		return documento;
@@ -273,13 +285,6 @@ public class Empleado implements Serializable{
 
 
 
-	@Override
-	public String toString() {
-		return "Empleado [legajo= " + legajo + ", documento=" + documento + ", nombre=" + nombre + ", apellido=" + apellido + ", cuil=" + cuil
-				+ ", telefono=" + telefono + ", telefonount=" + telefonoint + ", descripcioncargo=" + descripcioncargo + ", email=" + email + ", listadireccion=" + listadireccion + ", usuario="
-				+ usuario + ", listaTickets=" + listaTickets + "]";
-	}
-	
 	
 	
 }

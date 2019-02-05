@@ -72,7 +72,7 @@ public class GrupoResolucion implements  Serializable{
 		this.listaintervenciones = listaintervenciones;
 	}
 	
-
+/*
 	public void addI(Intervencion i) {
 		addI(i,true);
 	}
@@ -88,7 +88,8 @@ public class GrupoResolucion implements  Serializable{
 				i.setGr(this, false);
 			}
 		}
-	}
+	}*/
+	
 	public Integer getId_grupo() {
 		return id_grupo;
 	}

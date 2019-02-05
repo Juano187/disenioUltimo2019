@@ -28,7 +28,7 @@ public class Historial_Intervencion extends HistorialABS {
 		super (f);
 
 	}
-	public void setIntervencion(Intervencion i) {
+	/*public void setIntervencion(Intervencion i) {
 		setIntervencion(i,true);
 	}
 	public void setIntervencion (Intervencion i, boolean a) {
@@ -36,7 +36,7 @@ public class Historial_Intervencion extends HistorialABS {
 		if(i!=null && a) {
 			i.addHi(this,false);
 		}
-	}
+	}*/
 	public void setUser(Usuario u) {
 		this.setUser(u, true);
 	}
@@ -54,7 +54,11 @@ public class Historial_Intervencion extends HistorialABS {
 		this.estado =a;		
 	}
 	public Intervencion getIntervencion() {
-		return this.intervencion;
+		return intervencion;
+	}
+	
+	public void setIntervencion(Intervencion i) {
+		this.intervencion = i;
 	}
 	
 	public static void main(String[] args) {

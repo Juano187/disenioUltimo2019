@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,21 +40,26 @@ public class Direccion implements Serializable{
 		
 	}
 	
-	public Direccion(Integer id_direccion, String calle, Integer numero) {
+	public Direccion(Integer id_direccion, String calle, Integer numero, Empleado empl) {
 		
 		this.id_direccion = id_direccion;
 		this.calle = calle;
 		this.numero = numero;
+		this.empleado= empl;
+		
 	}
 	
-	public void setEmp(Empleado e) {
-		this.setEmp(e,true);
+	
+
+	public Direccion(Direccion direccion) {
+		// TODO Auto-generated constructor stub
 	}
-	public void setEmp(Empleado e,boolean a) {
-		this.empleado=e;
-		if(e!=null && a) {
-			e.addDir(this, false);
-		}
+
+	public void setempl(Empleado empl) {
+		this.empleado= empl;
+	}
+	public Empleado getempl(Empleado empl) {
+		return this.empleado;
 	}
 
 	public Integer getId_direccion() {
@@ -80,16 +86,11 @@ public class Direccion implements Serializable{
 		this.numero = numero;
 	}
 
-	public Empleado getEmpleado() {
+	/*public Empleado getEmpleado() {
 		return empleado;
-	}
+	}*/
 
 
-	@Override
-	public String toString() {
-		return "Direccion [id_direccion=" + id_direccion + ", calle=" + calle + ", numero=" + numero + ", empleado="+ empleado + "]";
-	}
-	
 	
 }
 

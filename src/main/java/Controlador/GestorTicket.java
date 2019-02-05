@@ -30,6 +30,7 @@ public class GestorTicket {
 	public GestorBDD gestorBDD= new GestorBDD();
 	public GestorUsuario gu = new GestorUsuario();
 	public GestorGrupoResolucion ggr = new GestorGrupoResolucion();
+	public GestorIntervencion gestorI = new GestorIntervencion();
 	public GestorTicket() {
 		
 	}
@@ -61,32 +62,40 @@ public class GestorTicket {
 	
 	public int registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
+		// empleado, cla, descrip, estado, cambiocla, interv
 		
-		try {
-			
+		
+		
+		try{
 		Clasificacion c = gc.getClasificacion(clasific);
 		Empleado e = ge.validarLegajo(legajo);
 		Date a = new Date();
 		Usuario u = user;
-		Direccion d = new Direccion (1,"diaz velez",1061);
+		Direccion d = ge.getDireccion(legajo);
+	
+		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		
-		d.setEmp(e);
 		
-		int id_t = (gestorBDD.getTickets().size() +1);
+		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
+		Intervencion i = gestorI.crearIntervencion(id_intervencion, f, a, EstadoIntervencion.TRABAJANDO, user);
 		
-		System.out.println("hasta aca todo bien");
-		Ticket t = new Ticket(id_t,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
-		t.setEmp(e);
-		t.setClasificacion(c);
+		System.out.println(i.getGruporesolucion().getNom_grupo());
+		
+		Integer id_t = (gestorBDD.getTickets().size() +1);
+		
+		
+		Ticket t = new Ticket(id_t,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
+		
+		
 		
 		HistorialTicket ht=new HistorialTicket(f);	
 		ht.setUser(u);
 		
-		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
+		/*GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		if(gr == null ) {
 			System.out.println("esta vacio el gr");
 		}
-		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
+		
 		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,EstadoIntervencion.TRABAJANDO);
 		i.setGr(gr);
 		
@@ -98,7 +107,10 @@ public class GestorTicket {
 		hi.setUser(u);
 		i.addHi(hi);
 		t.addH(ht);
-		t.addInt(i);
+		t.addInt(i);*/
+		
+		
+		
 		
 		
 	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));

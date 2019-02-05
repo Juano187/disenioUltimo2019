@@ -72,13 +72,12 @@ public class Intervencion implements Serializable {
 		
 	}
 	
-	public Intervencion(Integer id_intervencion, Date fecha_inicio, Date fecha_fin, String observaciones
-			, EstadoIntervencion estadointervencion) {
+	public Intervencion(Integer id_intervencion, Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
 		
 		this.id_intervencion = id_intervencion;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
-		this.observaciones = observaciones;
+		//this.observaciones = observaciones;
 
 		this.estadointervencion = estadointervencion;
 	}
@@ -86,15 +85,15 @@ public class Intervencion implements Serializable {
 
 	
 	
-	public void setGr(GrupoResolucion gr) {
-		this.setGr(gr,true);
+	/*public void setGr(GrupoResolucion gr) {
+		this.gruporesolucion= gr;
 	}
 	public void setGr(GrupoResolucion gr, boolean a) {
 		this.gruporesolucion=gr;
 		if(gr != null && a) {
 			gr.addI(this,false);
 		}
-	}
+	}*/
 	public void setTicket(Ticket t) {
 		setTicket (t,true);
 	}
@@ -104,9 +103,20 @@ public class Intervencion implements Serializable {
 			t.addInt(this,false);
 		}
 	}
-	public void addHi(Historial_Intervencion hi) {
-		addHi(hi,true);
+	
+	
+	public List<Historial_Intervencion> getHi() {
+		return listahistorial;
 	}
+	
+	
+	
+	public void add(Historial_Intervencion hi) {
+		listahistorial.add(hi);
+	}
+	
+	/*
+	
 	public void addHi(Historial_Intervencion hi, boolean a) {
 		if(hi != null ) {
 			if(this.getListahistorial().contains(hi)) {
@@ -120,7 +130,7 @@ public class Intervencion implements Serializable {
 			}
 				
 		}
-	}
+	}*/
 	
 	public Integer getId_intervencion() {
 		return id_intervencion;

@@ -105,6 +105,8 @@ public class Clasificacion implements Serializable {
 		}
 	}
 	
+	
+	/*
 	public void addTicket(Ticket t) {
 	this.addTicket(t, true);
 	}
@@ -120,7 +122,9 @@ public class Clasificacion implements Serializable {
 				t.setClasificacion(this,false);
 			}
 		}
-	}
+	}*/
+	
+	
 	public void addGr(GrupoResolucion gr ) {
 		this.getListaGr().add(gr);
 		gr.getlistaC().add(this);

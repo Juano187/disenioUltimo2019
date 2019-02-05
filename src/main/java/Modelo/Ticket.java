@@ -80,15 +80,28 @@ public class Ticket implements  Serializable{
 		listahistorial = new ArrayList<>();
 		
 	}
-	public void setEmp(Empleado e) {
-		this.setEmp(e, true);
+
+	public Ticket(Integer num_ticket, Date fecha_apertura, String descrip_problema,
+			EstadoTicket estadoticket,
+	 Date hora_apertura, Clasificacion c) {
+		listaintervenciones = new ArrayList<>();
+		listahistorial = new ArrayList<>();
+		this.num_ticket = num_ticket;
+		this.fecha_apertura = fecha_apertura;
+		this.hora_apertura = hora_apertura;
+		this.descrip_problema = descrip_problema;
+		this.estadoticket = estadoticket;
+		this.clasificacion=c;
+
 	}
-	public void setEmp(Empleado e, boolean a) {
-		this.empleado=e;
-		if(e!=null && a) {
-			e.addTicket(this, false);
-		}
+
+	public Empleado getEmpleado() {
+		return this.empleado;
+	}
+
+	public void setEmpleado(Empleado e) {
 		
+		this.empleado = e;
 	}
 	
 	public void addInt(Intervencion i) {
@@ -131,27 +144,15 @@ public class Ticket implements  Serializable{
 	
 
 	public void setClasificacion(Clasificacion c) {
-		setClasificacion (c,true);
+		clasificacion = c;
 	}
 	
-	public void setClasificacion(Clasificacion c,boolean a) {
-		this.clasificacion= c;
-			if(c != null && a) {
-				c.addTicket(this,false);
-		}
+	public Clasificacion getClasificacion() {
+		return clasificacion ;
+			
 	}
 
-	public Ticket(Integer num_ticket, Date fecha_apertura, String descrip_problema,
-			EstadoTicket estadoticket,
-	 Date hora_apertura) {
-		
-		this.num_ticket = num_ticket;
-		this.fecha_apertura = fecha_apertura;
-		this.hora_apertura = hora_apertura;
-		this.descrip_problema = descrip_problema;
-		this.estadoticket = estadoticket;
 
-	}
 	
 	public void setListainterveniones(List<Intervencion> listainterveniones) {
 		this.listaintervenciones = listainterveniones;
@@ -181,9 +182,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public Clasificacion getClasificacion() {
-		return clasificacion;
-	}
+
 
 	public EstadoTicket getEstadoticket() {
 		return estadoticket;
@@ -212,14 +211,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public Empleado getEmpleado() {
-		return empleado;
-	}
 
-
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
-	}
 
 
 	public List<Intervencion> getListaintervenciones() {
@@ -300,14 +292,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	@Override
-	public String toString() {
-		return "Ticket [num_ticket=" + num_ticket + ", fecha_apertura=" + fecha_apertura + "hora_apertura" + hora_apertura +", fecha_cierre=" + fecha_cierre +
-				", descrip_problema=" + descrip_problema + ", clasificacion=" + clasificacion
-				+ ", estadoticket=" + estadoticket + ", empleado=" + empleado + ", listainterveniones="
-				+ listaintervenciones + ", listahistorial=" + listahistorial + "]";
-	}
-
+	
 
 	
 	

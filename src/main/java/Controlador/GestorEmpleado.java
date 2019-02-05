@@ -2,6 +2,7 @@ package Controlador;
 
 import java.util.ArrayList;
 
+import Modelo.Direccion;
 import Modelo.Empleado;
 import ventanas.EjemploError;
 
@@ -45,5 +46,11 @@ public class GestorEmpleado {
 		cartel.setVisible(true);
 		return emp;
 		}
+	}
+
+	public Direccion getDireccion(int legajo) {
+		
+	
+		return gestorBDD.getDireccion( legajo);
 	}
 }

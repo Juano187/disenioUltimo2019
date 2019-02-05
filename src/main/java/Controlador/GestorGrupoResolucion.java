@@ -19,16 +19,7 @@ public class GestorGrupoResolucion {
 
 	
 	public GrupoResolucion getGrupo(String grupo) {
-		GrupoResolucion g = new GrupoResolucion();
-		List<GrupoResolucion> gd = gBDD.getGrupoResolucion();
-		for (int i=0; i<gd.size(); i++) {
-			if(grupo == gd.get(i).getNom_grupo()) {
-				g = gd.get(i);
-			}
-		}
-		
-		
-		return g;
+		return gBDD.getgrupo(grupo);
 	}
 	
 	//Agregado para los combobox CAMI
