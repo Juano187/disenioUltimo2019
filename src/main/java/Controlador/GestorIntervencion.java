@@ -3,6 +3,7 @@ package Controlador;
 import java.util.Date;
 
 import Modelo.EstadoIntervencion;
+import Modelo.GrupoResolucion;
 import Modelo.Intervencion;
 import Modelo.Usuario;
 
@@ -10,15 +11,16 @@ import Modelo.Usuario;
 public class GestorIntervencion {
 	GestorBDD gestorBDD;
 
-	public Intervencion crearIntervencion(int id_intervencion, Date f, Date a, EstadoIntervencion trabajando,
+	public Intervencion crearIntervencion( GrupoResolucion gr, Date f, Date a, EstadoIntervencion t ,  
 			Usuario user) {
 		
+	
 		
+		Intervencion in = new Intervencion ( gr, f, a, EstadoIntervencion.TRABAJANDO);
 		
-		Intervencion in = new Intervencion (id_intervencion, f, a, trabajando);
-		in.setGruporesolucion(gestorBDD.getgrupo(1));
-		
-		
+		//Intervencion i = gestorBDD.guardarIntervencion(in);
+	
+
 		// TODO Auto-generated method stub
 		return in;
 	}

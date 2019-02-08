@@ -29,10 +29,10 @@ abstract class HistorialABS {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_historial;
 	
-	@Column(name = "FECHA_HORA_APERTURA", nullable= false)
+	@Column(name = "FECHA_HORA_APERTURA", nullable= true)
 	private Date hora_fecha_ini;
 	
-	@Column(name = "FECHA_HORA__FIN", nullable= true)
+	@Column(name = "FECHA_HORA_FIN", nullable= true)
 	private Date hora_fecha_fin;
 	
 
@@ -42,8 +42,6 @@ abstract class HistorialABS {
 	}
 	public HistorialABS( Date fecha) {
 	
-	
-		
 		this.hora_fecha_ini= fecha;
 		this.hora_fecha_fin = null;
 	}

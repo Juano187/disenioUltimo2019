@@ -18,6 +18,7 @@ import Controlador.GestorTicket;
 import Modelo.ClasificacionDTO;
 import Modelo.Empleado;
 import Modelo.GrupoResolucionDTO;
+import Modelo.Ticket;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
 import Controlador.GestorBDD;
@@ -93,7 +94,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
 
         jTextFielNoEditable.setEditable(false);
-        jTextFielNoEditable.setText((String.valueOf(gbdd.getTickets().size()+1)));
+        jTextFielNoEditable.setText(obtenerNumT());
         jTextFielNoEditable.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
         		jTextField4.requestFocus();
@@ -326,6 +327,19 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         pack();
     }
 
+    
+    private String obtenerNumT() {
+    	GestorTicket gestorT = new GestorTicket();
+    	Ticket newticket = gestorT.crearTicket();
+    	
+    	String n = newticket.getNum_ticket().toString();
+    	
+    	return n;
+    	
+    	
+    }
+    
+    
     public void addUser ( Usuario user) {
     	u = user;
     }
@@ -359,8 +373,8 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     			  		
         	 }
         	 else {
-        		 	  	  
-        		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
+        		 System.out.println("ahora si puteo1");
+        		 	gt.registrarTicket(Integer.valueOf(jTextFielNoEditable.getText()),legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
         		 	
                    // CerrarTicketCU03 c = new CerrarTicketCU03();
                     //c.setAnterior(frame);

@@ -31,8 +31,20 @@ public class HistorialTicket extends HistorialABS {
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario user;
-	public HistorialTicket() {
+	
+	public HistorialTicket (EstadoTicket abiertoderivado, Date f) {
 		
+	
+	}
+	
+	public HistorialTicket(Usuario usuario ) {
+		
+		super ();
+		this.user=usuario;
+	}
+	
+	public HistorialTicket( Date f) {
+		super (f);
 	}
 	
 	public void setUser(Usuario u) {
@@ -45,7 +57,7 @@ public class HistorialTicket extends HistorialABS {
 			}
 		}
 	
-	public void setTicket(Ticket t){
+	/*public void setTicket(Ticket t){
 		setTicket(t,true);
 	}
 	public void setTicket(Ticket t, boolean a) {
@@ -54,9 +66,9 @@ public class HistorialTicket extends HistorialABS {
 			t.addH(this, false);
 		}
 	}
-	public HistorialTicket( Date f) {
-		super (f);
-	}
+	*/
+	
+	
 	
 	public void setEstadoT(EstadoTicket a) {
 		this.estado =a;		

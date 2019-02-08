@@ -1,4 +1,4 @@
-package Modelo;
+/*package Modelo;
 
 import java.io.Serializable;
 
@@ -149,4 +149,4 @@ public class Historial implements Serializable {
 	}
 
 	
-}
+}*/

@@ -48,12 +48,13 @@ public class Usuario implements Serializable{
 	private Empleado empleado;
 
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
-	private List<HistorialTicket> listaHistorialT = new ArrayList<>();;
+	private List<HistorialTicket> listaHistorialT = new ArrayList<>();
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
-	private List<HistorialClasificacion> listaHistorialC = new ArrayList<>();;
+	private List<HistorialClasificacion> listaHistorialC = new ArrayList<>();
+	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
-	private List<Historial_Intervencion> listaHistorial_I = new ArrayList<>();;
+	private List<Historial_Intervencion> listaHistorial_I = new ArrayList<>();
 	
 	public Usuario() {
 			

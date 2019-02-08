@@ -4,18 +4,33 @@ import java.util.Date;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 @Entity
 @DiscriminatorValue(value = "Clasificacion")
 public class HistorialClasificacion extends HistorialABS{
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo")
 	private Clasificacion clasificacion ;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario user;
+	
+	public HistorialClasificacion() {
+	
+	}
+	
+	
+	public HistorialClasificacion(Usuario usuario) {
+		super();
+	
+		this.user=usuario;
+	}
+	
+			
 
 	public HistorialClasificacion( Date f) {
 		super (f);
@@ -41,5 +56,9 @@ public class HistorialClasificacion extends HistorialABS{
 	}
 	public Clasificacion getCodClasif() {
 		return this.clasificacion;
+	}
+	
+	public static void main(String[] args) {
+
 	}
 }

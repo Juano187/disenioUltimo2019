@@ -14,13 +14,13 @@ import Modelo.Direccion;
 import Modelo.Empleado;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
-import Modelo.Historial;
+
 import Modelo.HistorialClasificacion;
 import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.Ticket;
-import Modelo.Ticket2;
+
 import Modelo.Usuario;
 
 public class GestorBDD {
@@ -52,16 +52,26 @@ public class GestorBDD {
 				System.out.println("En esta base de datos hay " + clasificaciones.size() + " clan"  + clasificaciones);*/
 			
 	}
-	public void cargarTicket ( Ticket t) {
+	public Ticket cargarTicket ( Ticket t) {
+		System.out.println("ahora si puteo2");
 		manager.getTransaction().begin();
 		manager.persist(t);
 		manager.getTransaction().commit();
-		
+		return t;
 	}
-	public void cargarHistorialT(HistorialTicket a) {
+	
+	public Ticket actualizarTicket (Ticket ticket) {
+		manager.getTransaction().begin();
+		ticket = manager.merge(ticket);
+		manager.persist(ticket);
+		manager.getTransaction().commit();
+		return ticket;
+	}
+	public HistorialTicket cargarHistorialT(HistorialTicket a) {
 		manager.getTransaction().begin();
 		manager.persist(a);
 		manager.getTransaction().commit();
+		return a;
 	}
 	
 	public void cargarHistorialI(Historial_Intervencion I) {
@@ -95,7 +105,16 @@ public class GestorBDD {
 		
 	}
 	
-@SuppressWarnings("unchecked")
+	public Intervencion guardarIntervencion(Intervencion interv) {
+		manager.getTransaction().begin();
+		manager.persist(interv);
+		manager.getTransaction().commit();
+	
+		return interv;
+	}
+	
+	
+/*@SuppressWarnings("unchecked")
 public ArrayList<Historial>getHistoriales(){
 	
 	ArrayList<Historial> h ;
@@ -103,7 +122,7 @@ public ArrayList<Historial>getHistoriales(){
 	h = (ArrayList<Historial>) manager.createQuery("FROM Historial").getResultList();
 	manager.getTransaction().commit();
 	return h;
-}
+}*/
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Empleado>getEmpleado(){
@@ -275,15 +294,18 @@ public ArrayList<Historial>getHistoriales(){
 	}
 	
 	public GrupoResolucion getgrupo(Integer i) {
+		System.out.println("asd5");
 		GrupoResolucion grupoR;
-		String con = "FROM GrupoResolucion WHERE id_grupo = '" + i + "'";
+	
+		String con = "FROM GrupoResolucion WHERE id_grupo = " + i;
+		
 		
 		manager.getTransaction().begin();
 		grupoR = (GrupoResolucion) 
 				manager.createQuery(con).getSingleResult();
 		manager.getTransaction().commit();
-		
-		
+	
+	
 		
 		return grupoR;
 	}

@@ -33,7 +33,7 @@ public class Ticket implements  Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "NUM_TICKET")
 	private Integer num_ticket;
 	
@@ -95,6 +95,20 @@ public class Ticket implements  Serializable{
 
 	}
 
+	public Ticket(Date fecha_apertura, String descrip_problema,
+			EstadoTicket estadoticket,
+	 Date hora_apertura, Clasificacion c) {
+		listaintervenciones = new ArrayList<>();
+		listahistorial = new ArrayList<>();
+		
+		this.fecha_apertura = fecha_apertura;
+		this.hora_apertura = hora_apertura;
+		this.descrip_problema = descrip_problema;
+		this.estadoticket = estadoticket;
+		this.clasificacion=c;
+
+	}
+	
 	public Empleado getEmpleado() {
 		return this.empleado;
 	}
@@ -104,7 +118,7 @@ public class Ticket implements  Serializable{
 		this.empleado = e;
 	}
 	
-	public void addInt(Intervencion i) {
+/*	public void addInt(Intervencion i) {
 		this.addInt(i,true);
 	}
 	public void addInt(Intervencion i, boolean a) {
@@ -120,8 +134,15 @@ public class Ticket implements  Serializable{
 				i.setTicket(this, false);
 			}
 		}
+	}*/
+	
+	
+	public void  add(HistorialTicket ht) {
+		listahistorial.add(ht);
+		
 	}
 	
+	/*
 	public void  addH(HistorialTicket ht) {
 		this.addH(ht,true);
 		
@@ -139,7 +160,7 @@ public class Ticket implements  Serializable{
 			ht.setTicket(this, false);
 		}
 		}
-	}
+	}*/
 	
 	
 
@@ -159,7 +180,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public int getNum_ticket() {
+	public Integer getNum_ticket() {
 		return num_ticket;
 	}
 
@@ -218,6 +239,12 @@ public class Ticket implements  Serializable{
 		return listaintervenciones;
 	}
 
+	
+	public void add(Intervencion interv) {
+		listaintervenciones.add(interv);
+	}
+	
+	
 
 	
 	public Intervencion ultimaI() {
@@ -232,7 +259,7 @@ public class Ticket implements  Serializable{
 			
 		
 	return u;	
-	}	
+	}
 			
 	
 	
@@ -286,11 +313,11 @@ public class Ticket implements  Serializable{
 		return listahistorial;
 	}
 
-
+/*
 	public void setListahistorial(List<HistorialTicket> listahistorial) {
 		this.listahistorial = listahistorial;
 	}
-
+*/
 
 	
 

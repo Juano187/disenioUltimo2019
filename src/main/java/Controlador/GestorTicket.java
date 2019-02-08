@@ -19,7 +19,7 @@ import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.Ticket;
-import Modelo.Ticket2;
+
 import Modelo.TicketDTO;
 import Modelo.Usuario;
 import ventanas.EjemploError;
@@ -31,6 +31,7 @@ public class GestorTicket {
 	public GestorUsuario gu = new GestorUsuario();
 	public GestorGrupoResolucion ggr = new GestorGrupoResolucion();
 	public GestorIntervencion gestorI = new GestorIntervencion();
+	public GestorHistorial gestorH = new GestorHistorial();
 	public GestorTicket() {
 		
 	}
@@ -60,7 +61,15 @@ public class GestorTicket {
         return true;
     }
 	
-	public int registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
+	
+	public Ticket crearTicket() {
+		Ticket ticket = new Ticket();
+		Ticket nuevoTicket = gestorBDD.cargarTicket(ticket);
+		return nuevoTicket;
+	}
+	
+	
+	public int registrarTicket(Integer id, int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
 		// empleado, cla, descrip, estado, cambiocla, interv
 		
@@ -76,20 +85,44 @@ public class GestorTicket {
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		
 		
-		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
-		Intervencion i = gestorI.crearIntervencion(id_intervencion, f, a, EstadoIntervencion.TRABAJANDO, user);
 		
-		System.out.println(i.getGruporesolucion().getNom_grupo());
+		//int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
+		System.out.println("pacto");
 		
-		Integer id_t = (gestorBDD.getTickets().size() +1);
+		Intervencion i = gestorI.crearIntervencion( gr, f, a, EstadoIntervencion.TRABAJANDO, user);
+		
+		System.out.println("camimanda");
+		
+		System.out.println(i.getId_intervencion());
 		
 		
-		Ticket t = new Ticket(id_t,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
 		
+		Ticket t = new Ticket(id, fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
 		
+		System.out.println("ahora si puteo");
 		
-		HistorialTicket ht=new HistorialTicket(f);	
+		HistorialTicket ht = gestorH.crearHistorialT(u, EstadoTicket.ABIERTODERIVADO , t, f, fecha);
+		
+		System.out.println(ht.getNum_ticket());
+		
+		//HistorialTicket ht=new HistorialTicket(f);	
 		ht.setUser(u);
+		System.out.println("neta");
+		
+		HistorialClasificacion hc = new HistorialClasificacion (f);
+		System.out.println("chido");
+		hc.setUser(u);
+		
+		
+		Historial_Intervencion hi = new Historial_Intervencion(f);
+		hi.setUser(u);
+		i.add(hi);
+		t.add(ht);
+		t.add(i);
+		
+		
+		System.out.println(t.getListaintervenciones().size());
+		
 		
 		/*GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		if(gr == null ) {
@@ -115,7 +148,7 @@ public class GestorTicket {
 		
 	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
 
-		gestorBDD.cargarTicket(t);
+		gestorBDD.actualizarTicket(t);
 		//gestorBDD.cargarHistorialI(hi);
 		//gestorBDD.cargarHistorialC(hc);
 	

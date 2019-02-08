@@ -10,8 +10,7 @@ import javax.persistence.Persistence;
 import Modelo.Clasificacion;
 import Modelo.Direccion;
 import Modelo.Empleado;
-import Modelo.EntidadA;
-import Modelo.EntidadB;
+
 import Modelo.EstadoIntervencion;
 import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
@@ -20,7 +19,7 @@ import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.Ticket;
-import Modelo.Ticket2;
+
 import Modelo.Usuario;
 import ventanas.ActualizarEstadoIntervencionCU08;
 import ventanas.EjemploError;
@@ -49,18 +48,18 @@ public class Principal {
 		String descripcion = "descripcion";
 		
 		Usuario u = gu.getUsuario("admin");
-		Direccion d = new Direccion (2,"diaz velez",1061);
+		//Direccion d = new Direccion (2,"diaz velez",1061);
 		
-		d.setEmp(e);
+		//d.setEmp(e);
 		
 		//int id_t = (gestorBDD.getTickets().size() +1);
 		
 		System.out.println("hasta aca todo bien");
-		Ticket t = new Ticket(2,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
-		t.setEmp(e);
-		c.addTicket(t);
+		//Ticket t = new Ticket(2,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
+		//t.setEmp(e);
+		//c.addTicket(t);
 		
-		HistorialTicket ht=new HistorialTicket(f);	
+		/*HistorialTicket ht=new HistorialTicket(f);	
 		ht.setUser(u);
 		
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());

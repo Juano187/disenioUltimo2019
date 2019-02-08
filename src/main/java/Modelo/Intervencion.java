@@ -34,7 +34,7 @@ public class Intervencion implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID_INTERVENCION")
 	private Integer id_intervencion;
 	
@@ -72,9 +72,10 @@ public class Intervencion implements Serializable {
 		
 	}
 	
-	public Intervencion(Integer id_intervencion, Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
+	public Intervencion(Integer id_intervencion, GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
 		
 		this.id_intervencion = id_intervencion;
+		this.gruporesolucion=gr;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
 		//this.observaciones = observaciones;
@@ -83,6 +84,17 @@ public class Intervencion implements Serializable {
 	}
 	
 
+	public Intervencion( GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
+		
+		
+		this.gruporesolucion=gr;
+		this.fecha_inicio = fecha_inicio;
+		this.fecha_fin = fecha_fin;
+		//this.observaciones = observaciones;
+
+		this.estadointervencion = estadointervencion;
+	}
+	
 	
 	
 	/*public void setGr(GrupoResolucion gr) {
@@ -94,7 +106,7 @@ public class Intervencion implements Serializable {
 			gr.addI(this,false);
 		}
 	}*/
-	public void setTicket(Ticket t) {
+	/*public void setTicket(Ticket t) {
 		setTicket (t,true);
 	}
 	public void setTicket(Ticket t , boolean a) {
@@ -102,7 +114,7 @@ public class Intervencion implements Serializable {
 		if(t!= null && a) {
 			t.addInt(this,false);
 		}
-	}
+	}*/
 	
 	
 	public List<Historial_Intervencion> getHi() {
@@ -175,6 +187,11 @@ public class Intervencion implements Serializable {
 	public Ticket getTicket() {
 		return ticket;
 	}
+	
+	public void setTicket(Ticket t) {
+		this.ticket = t;
+		
+	}
 
 	public void addHistorial(Historial_Intervencion hi) {
 		this.listahistorial.add(hi);
@@ -192,14 +209,7 @@ public class Intervencion implements Serializable {
 	}
 
 
-	@Override
-	public String toString() {
-		return "Intervencion [id_intervencion=" + id_intervencion + ", fecha_inicio=" + fecha_inicio + ", fecha_fin="
-				+ fecha_fin + ", observaciones=" + observaciones + ", gruporesolucion=" + gruporesolucion + ", ticket="
-				+ ticket + ", estadointervencion=" + estadointervencion + "]";
-	}
-
-
+	
 	
 
 
