@@ -19,22 +19,25 @@ public class HistorialClasificacion extends HistorialABS{
 	@JoinColumn(name = "id_usuario")
 	private Usuario user;
 	
-	public HistorialClasificacion() {
-	
+	public HistorialClasificacion(Date f, Clasificacion c, Usuario u) {
+		super (f);
+		this.clasificacion=c;
+		this.user=u;
 	}
 	
 	
-	public HistorialClasificacion(Usuario usuario) {
-		super();
-	
-		this.user=usuario;
+	public HistorialClasificacion() {
+		
 	}
 	
 			
-
-	public HistorialClasificacion( Date f) {
-		super (f);
-	}
+/*
+	public HistorialClasificacion( ) {
+		
+	}*/
+	
+	
+	
 	public void setUser(Usuario u) {
 		this.setUser(u, true);
 	}

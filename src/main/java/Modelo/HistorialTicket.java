@@ -32,14 +32,19 @@ public class HistorialTicket extends HistorialABS {
 	@JoinColumn(name = "id_usuario")
 	private Usuario user;
 	
-	public HistorialTicket (EstadoTicket abiertoderivado, Date f) {
-		
+	public HistorialTicket (EstadoTicket estado, Date f, Ticket t) {
+		super();
+		this.estado= estado;
+		this.ticket= t;
 	
 	}
+	public HistorialTicket() {
 	
+	}
+
 	public HistorialTicket(Usuario usuario ) {
 		
-		super ();
+		
 		this.user=usuario;
 	}
 	

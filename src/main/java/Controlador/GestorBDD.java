@@ -74,15 +74,17 @@ public class GestorBDD {
 		return a;
 	}
 	
-	public void cargarHistorialI(Historial_Intervencion I) {
+	public Historial_Intervencion cargarHistorialI(Historial_Intervencion I) {
 		manager.getTransaction().begin();
 		manager.persist(I);
 		manager.getTransaction().commit();
+		return I;
 	}
-	public void cargarHistorialC(HistorialClasificacion c) {
+	public HistorialClasificacion cargarHistorialC(HistorialClasificacion c) {
 		manager.getTransaction().begin();
 		manager.persist(c);
 		manager.getTransaction().commit();
+		return c;
 	}
 	
 	@SuppressWarnings("unchecked")

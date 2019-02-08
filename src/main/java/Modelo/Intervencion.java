@@ -72,7 +72,7 @@ public class Intervencion implements Serializable {
 		
 	}
 	
-	public Intervencion(Integer id_intervencion, GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
+	public Intervencion( Integer id_intervencion, GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
 		
 		this.id_intervencion = id_intervencion;
 		this.gruporesolucion=gr;
@@ -84,9 +84,9 @@ public class Intervencion implements Serializable {
 	}
 	
 
-	public Intervencion( GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
+	public Intervencion(Ticket tick, GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
 		
-		
+		this.ticket= tick;
 		this.gruporesolucion=gr;
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;

@@ -84,12 +84,15 @@ public class GestorTicket {
 	
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		
-		
+		Ticket t = new Ticket(id, fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
 		
 		//int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
 		System.out.println("pacto");
 		
-		Intervencion i = gestorI.crearIntervencion( gr, f, a, EstadoIntervencion.TRABAJANDO, user);
+		
+		//se crea intervencion mandando todos los parametros necesarios, pero luego no me imprime su id
+		
+		Intervencion i = gestorI.crearIntervencion( t , gr, f, a, EstadoIntervencion.TRABAJANDO, user);
 		
 		System.out.println("camimanda");
 		
@@ -97,25 +100,25 @@ public class GestorTicket {
 		
 		
 		
-		Ticket t = new Ticket(id, fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
 		
-		System.out.println("ahora si puteo");
+		
+		System.out.println("ahora no me imprime intervencion");
 		
 		HistorialTicket ht = gestorH.crearHistorialT(u, EstadoTicket.ABIERTODERIVADO , t, f, fecha);
 		
 		System.out.println(ht.getNum_ticket());
 		
 		//HistorialTicket ht=new HistorialTicket(f);	
-		ht.setUser(u);
+		;
 		System.out.println("neta");
 		
-		HistorialClasificacion hc = new HistorialClasificacion (f);
+		HistorialClasificacion hc = gestorH.crearHistorialC(c, u, f);
 		System.out.println("chido");
-		hc.setUser(u);
+		//hc.setUser(u);
 		
+		Historial_Intervencion hi = gestorH.crearHistorialI(i.getEstadointervencion(),i.getId_intervencion(), u,f);
 		
-		Historial_Intervencion hi = new Historial_Intervencion(f);
-		hi.setUser(u);
+	//	hi.setUser(u);
 		i.add(hi);
 		t.add(ht);
 		t.add(i);

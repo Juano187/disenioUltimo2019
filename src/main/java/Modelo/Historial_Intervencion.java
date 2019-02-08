@@ -23,17 +23,15 @@ public class Historial_Intervencion extends HistorialABS {
 	@JoinColumn(name = "id_usuario")
 	private Usuario user;
 	
-	public Historial_Intervencion( ) {
-	
+	public Historial_Intervencion(Date f, EstadoIntervencion estadoIntervencion, Integer integer, Usuario u ) {
+		super(f);
 
 	}
-	public Historial_Intervencion( Date f) {
-		super (f);
 
-	}
-	public Historial_Intervencion(Usuario usuario) {
-			super();
-			
+	public Historial_Intervencion(Intervencion in, Date f, Usuario usuario, EstadoIntervencion est) {
+			super(f);
+			this.intervencion=in;
+			this.estado=est;
 			this.user=usuario;
 
 	}
