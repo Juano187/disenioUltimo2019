@@ -53,26 +53,24 @@ public class GrupoResolucion implements  Serializable{
 				joinColumns = {@JoinColumn (name="id_grupo")}, 
 				inverseJoinColumns={@JoinColumn(name="codigo")})
 	private List<Clasificacion> listaclasificacion = new ArrayList<>();
+	
 	public GrupoResolucion () {
-		
+		listaclasificacion = new ArrayList <>();
+		listausuario = new ArrayList<>();
 	}
-	public GrupoResolucion (String n) {
-		this.nom_grupo=n;
+	public GrupoResolucion (String n,Integer niv) {
 		
+		this.nom_grupo=n;
+		this.nivel=niv;
+		listaclasificacion = new ArrayList <>();
+		listausuario = new ArrayList<>();
 	}
 
-	
-	public GrupoResolucion(Integer id_grupo, String nom_grupo, Integer nivel, List<Usuario> listausuario,
-			List<Intervencion> listaintervenciones) {
-		
-		this.id_grupo = id_grupo;
-		this.nom_grupo = nom_grupo;
-		this.nivel = nivel;
-		this.listausuario = listausuario;
-		this.listaintervenciones = listaintervenciones;
+	public void addC(Clasificacion c) {
+		this.getlistaC().add(c);
 	}
 	
-/*
+
 	public void addI(Intervencion i) {
 		addI(i,true);
 	}
@@ -88,7 +86,7 @@ public class GrupoResolucion implements  Serializable{
 				i.setGr(this, false);
 			}
 		}
-	}*/
+	}
 	
 	public Integer getId_grupo() {
 		return id_grupo;

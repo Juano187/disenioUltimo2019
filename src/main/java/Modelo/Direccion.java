@@ -40,27 +40,28 @@ public class Direccion implements Serializable{
 		
 	}
 	
-	public Direccion(Integer id_direccion, String calle, Integer numero, Empleado empl) {
-		
-		this.id_direccion = id_direccion;
+	public Direccion( String calle, Integer numero) {
+
 		this.calle = calle;
 		this.numero = numero;
-		this.empleado= empl;
 		
 	}
 	
+	public void setEmp(Empleado e){
+		setEmp(e,true);
+	}
 	
+	public void setEmp(Empleado e, boolean a) {
+		this.empleado=e;
+		if(e!=null && a) {
+			e.addDir(this,false);
+		}
+	}
 
 	public Direccion(Direccion direccion) {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public void setempl(Empleado empl) {
-		this.empleado= empl;
-	}
-	public Empleado getempl(Empleado empl) {
-		return this.empleado;
-	}
 
 	public Integer getId_direccion() {
 		return id_direccion;
@@ -86,9 +87,6 @@ public class Direccion implements Serializable{
 		this.numero = numero;
 	}
 
-	/*public Empleado getEmpleado() {
-		return empleado;
-	}*/
 
 
 	

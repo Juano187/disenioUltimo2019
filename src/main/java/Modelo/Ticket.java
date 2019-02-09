@@ -52,7 +52,7 @@ public class Ticket implements  Serializable{
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
 	private String descrip_problema;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "CODIGO")
 	private Clasificacion clasificacion;
 	
@@ -61,7 +61,7 @@ public class Ticket implements  Serializable{
 	private EstadoTicket estadoticket;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
@@ -81,23 +81,10 @@ public class Ticket implements  Serializable{
 		
 	}
 
-	public Ticket(Integer num_ticket, Date fecha_apertura, String descrip_problema,
-			EstadoTicket estadoticket,
-	 Date hora_apertura, Clasificacion c) {
-		listaintervenciones = new ArrayList<>();
-		listahistorial = new ArrayList<>();
-		this.num_ticket = num_ticket;
-		this.fecha_apertura = fecha_apertura;
-		this.hora_apertura = hora_apertura;
-		this.descrip_problema = descrip_problema;
-		this.estadoticket = estadoticket;
-		this.clasificacion=c;
-
-	}
 
 	public Ticket(Date fecha_apertura, String descrip_problema,
 			EstadoTicket estadoticket,
-	 Date hora_apertura, Clasificacion c) {
+	 Date hora_apertura) {
 		listaintervenciones = new ArrayList<>();
 		listahistorial = new ArrayList<>();
 		
@@ -105,8 +92,6 @@ public class Ticket implements  Serializable{
 		this.hora_apertura = hora_apertura;
 		this.descrip_problema = descrip_problema;
 		this.estadoticket = estadoticket;
-		this.clasificacion=c;
-
 	}
 	
 	public Empleado getEmpleado() {
@@ -118,7 +103,7 @@ public class Ticket implements  Serializable{
 		this.empleado = e;
 	}
 	
-/*	public void addInt(Intervencion i) {
+	public void addInt(Intervencion i) {
 		this.addInt(i,true);
 	}
 	public void addInt(Intervencion i, boolean a) {
@@ -134,7 +119,7 @@ public class Ticket implements  Serializable{
 				i.setTicket(this, false);
 			}
 		}
-	}*/
+	}
 	
 	
 	public void  add(HistorialTicket ht) {
@@ -142,7 +127,7 @@ public class Ticket implements  Serializable{
 		
 	}
 	
-	/*
+	
 	public void  addH(HistorialTicket ht) {
 		this.addH(ht,true);
 		
@@ -160,12 +145,26 @@ public class Ticket implements  Serializable{
 			ht.setTicket(this, false);
 		}
 		}
-	}*/
+	}
 	
-	
+	public void setEmp(Empleado e) {
+		setEmp(e,true);
+	}
+	public void setEmp(Empleado e, boolean a) {
+		this.empleado = e;
+		if(e!=null && a) {
+			e.addTicket(this, false);
+		}
+	}
 
-	public void setClasificacion(Clasificacion c) {
-		clasificacion = c;
+	public void setClasif(Clasificacion c) {
+		setClasif(c,true);
+	}
+	public void setClasif ( Clasificacion c, boolean a) {
+		this.clasificacion=c;
+		if(c!=null && a) {
+			c.addTicket(this, false);
+		}
 	}
 	
 	public Clasificacion getClasificacion() {
@@ -313,11 +312,11 @@ public class Ticket implements  Serializable{
 		return listahistorial;
 	}
 
-/*
-	public void setListahistorial(List<HistorialTicket> listahistorial) {
-		this.listahistorial = listahistorial;
+
+	@Override
+	public String toString() {
+		return this.descrip_problema;
 	}
-*/
 
 	
 

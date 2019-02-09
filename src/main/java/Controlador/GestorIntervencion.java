@@ -12,12 +12,12 @@ import Modelo.Usuario;
 public class GestorIntervencion {
 	GestorBDD gestorBDD;
 
-	public Intervencion crearIntervencion( Ticket tc, GrupoResolucion gr, Date f, Date a, EstadoIntervencion t ,  
+	public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoIntervencion t ,  
 			Usuario user) {
 		
 	
 		
-		Intervencion in = new Intervencion (tc, gr, f, a, EstadoIntervencion.TRABAJANDO);
+		Intervencion in = new Intervencion (descrip, f, a, EstadoIntervencion.TRABAJANDO);
 		System.out.println(in.getId_intervencion());
 		//Intervencion i = gestorBDD.guardarIntervencion(in);
 	

@@ -374,7 +374,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 }
         	 else {
         		 System.out.println("ahora si puteo1");
-        		 	gt.registrarTicket(Integer.valueOf(jTextFielNoEditable.getText()),legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
+        		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
         		 	
                    // CerrarTicketCU03 c = new CerrarTicketCU03();
                     //c.setAnterior(frame);

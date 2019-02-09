@@ -69,14 +69,14 @@ public class GestorTicket {
 	}
 	
 	
-	public int registrarTicket(Integer id, int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
+	public int registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
 		// empleado, cla, descrip, estado, cambiocla, interv
 		
 		
 		
 		try{
-		Clasificacion c = gc.getClasificacion(clasific);
+		/*Clasificacion c = gc.getClasificacion(clasific);
 		Empleado e = ge.validarLegajo(legajo);
 		Date a = new Date();
 		Usuario u = user;
@@ -84,7 +84,7 @@ public class GestorTicket {
 	
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		
-		Ticket t = new Ticket(id, fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
+		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
 		
 		//int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
 		System.out.println("pacto");
@@ -126,7 +126,11 @@ public class GestorTicket {
 		
 		System.out.println(t.getListaintervenciones().size());
 		
-		
+		*/
+			
+			
+			
+			
 		/*GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		if(gr == null ) {
 			System.out.println("esta vacio el gr");
@@ -151,7 +155,7 @@ public class GestorTicket {
 		
 	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
 
-		gestorBDD.actualizarTicket(t);
+	//	gestorBDD.actualizarTicket(t);
 		//gestorBDD.cargarHistorialI(hi);
 		//gestorBDD.cargarHistorialC(hc);
 	

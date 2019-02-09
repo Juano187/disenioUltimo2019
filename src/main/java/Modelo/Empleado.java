@@ -27,7 +27,6 @@ public class Empleado implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "LEGAJO", length = 5)
 	private Integer legajo;
 	
@@ -66,19 +65,20 @@ public class Empleado implements Serializable{
 	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Ticket> listaTickets = new ArrayList<>();;
 	
-	/*@OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado")
-	//@Fetch(value = FetchMode.SUBSELECT)
-	private List<Ticket2> listaTickets2 = new ArrayList<Ticket2>();;*/
-	
 	
 	public Empleado(){
-	
+		listaTickets = new ArrayList<>();
+		listadireccion = new ArrayList<>();
+		
 	 }
 	 
 	
 
-	public Empleado(Integer legajo, Integer documento, String nombre, String apellido, Long cuil, Long telefono, Long telefonoint, String descripcioncargo, String email,
-			 Usuario usuario) {
+	public Empleado(Integer legajo, Integer documento, String nombre, String apellido,
+			Long cuil, Long telefono, Long telefonoint, String descripcioncargo, String email) {
+		listaTickets = new ArrayList<>();
+		listadireccion = new ArrayList<>();
+		
 		this.legajo = legajo;
 		this.documento = documento;
 		this.nombre = nombre;
@@ -88,8 +88,6 @@ public class Empleado implements Serializable{
 		this.telefonoint = telefonoint;
 		this.descripcioncargo = descripcioncargo;
 		this.email = email;
-		//this.listadireccion = listadireccion;
-		this.usuario = usuario;
 		
 	}
 	
@@ -97,14 +95,10 @@ public class Empleado implements Serializable{
 	public List<Direccion> getDireccion(){
 		return listadireccion;
 	}
-	public void add(Direccion direc) {
-		listadireccion.add(direc);
-	}
 	
 	
 	
 	
-	/*
 	public void addDir(Direccion d) {
 		this.addDir(d,true);
 	}
@@ -121,29 +115,8 @@ public class Empleado implements Serializable{
 			}
 		}
 	}
-	
-	public void addTicket2(Ticket2 t) {
-		this.addTicket2(t, true);
-	}
-	public void addTicket2(Ticket2 t, boolean a) {
-		if(t!=null ) {
-			if(this.getlistaT2().contains(t)) {
-				this.getlistaT2().set(this.getlistaT2().indexOf(t), t);
-			}
-			else {
-				this.getlistaT2().add(t);
-			}
-			if(a) {
-				t.setEmp(this,false);
-			}
-				
-		}
-	}
-	
-	public List<Ticket2> getlistaT2(){
-		return this.listaTickets2;
-	}*/
-	/*public void addTicket(Ticket t) {
+
+	public void addTicket(Ticket t) {
 		this.addTicket(t, true);
 	}
 	public void addTicket(Ticket t, boolean a) {
@@ -159,7 +132,7 @@ public class Empleado implements Serializable{
 			}
 				
 		}
-	}*/
+	}
 
 	public Integer getDocumento() {
 		return documento;
@@ -223,7 +196,7 @@ public class Empleado implements Serializable{
 
 
 	public void setTelefono(Long telefonoint) {
-		this.telefono = telefono;
+		this.telefono = telefonoint;
 	}
 	
 	public Long getTelefonoint() {
@@ -284,7 +257,10 @@ public class Empleado implements Serializable{
 	}
 
 
-
+	@Override
+	public String toString() {
+		return this.nombre;
+	}
 	
 	
 }

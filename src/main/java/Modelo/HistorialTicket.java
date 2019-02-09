@@ -3,6 +3,7 @@ package Modelo;
 import java.util.Date;
 import Modelo.EstadoTicket;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,12 +16,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
+
+
 @Entity
 @DiscriminatorValue(value = "Ticket")
 
 public class HistorialTicket extends HistorialABS {
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
 	
@@ -29,8 +32,7 @@ public class HistorialTicket extends HistorialABS {
 	private EstadoTicket estado;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
-	private Usuario user;
+	private Usuario usuario;
 	
 	public HistorialTicket (EstadoTicket estado, Date f, Ticket t) {
 		super();
@@ -45,7 +47,7 @@ public class HistorialTicket extends HistorialABS {
 	public HistorialTicket(Usuario usuario ) {
 		
 		
-		this.user=usuario;
+		this.usuario=usuario;
 	}
 	
 	public HistorialTicket( Date f) {
@@ -56,13 +58,13 @@ public class HistorialTicket extends HistorialABS {
 		this.setUser(u, true);
 	}
 	public void setUser(Usuario u, boolean a) {
-		this.user=u;
+		this.usuario=u;
 		if(u!=null && a){
 			u.addHT(this, false);
 			}
 		}
 	
-	/*public void setTicket(Ticket t){
+	public void setTicket(Ticket t){
 		setTicket(t,true);
 	}
 	public void setTicket(Ticket t, boolean a) {
@@ -71,9 +73,6 @@ public class HistorialTicket extends HistorialABS {
 			t.addH(this, false);
 		}
 	}
-	*/
-	
-	
 	
 	public void setEstadoT(EstadoTicket a) {
 		this.estado =a;		

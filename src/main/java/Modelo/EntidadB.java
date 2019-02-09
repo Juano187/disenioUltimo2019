@@ -11,10 +11,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-@Entity 
-@Table (name = "Tabla_del_B")
+//@Entity 
+//@Table (name = "Tabla_del_B")
 public class EntidadB {
-	
+	/*
 	
 	  @ManyToOne
 	    private EntidadA a;
@@ -51,7 +51,7 @@ public class EntidadB {
 	        return id;
 	    }
 	     
-
+*/
 	
 
 }

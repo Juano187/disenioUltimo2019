@@ -58,7 +58,7 @@ public class Intervencion implements Serializable {
 	private Ticket ticket;
 
 
-	@OneToMany(	fetch = FetchType.EAGER,cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "intervencion")
+	@OneToMany(	cascade = CascadeType.ALL, mappedBy = "intervencion")
 	
 	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<Historial_Intervencion> listahistorial = new ArrayList<>();;
@@ -69,35 +69,25 @@ public class Intervencion implements Serializable {
 	
 	
 	public Intervencion () {
+		listahistorial =new ArrayList <>();
+		
 		
 	}
 	
-	public Intervencion( Integer id_intervencion, GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
+	public Intervencion( String obs, Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
 		
-		this.id_intervencion = id_intervencion;
-		this.gruporesolucion=gr;
+		listahistorial =new ArrayList <>();
 		this.fecha_inicio = fecha_inicio;
 		this.fecha_fin = fecha_fin;
-		//this.observaciones = observaciones;
-
+		this.observaciones = obs;
 		this.estadointervencion = estadointervencion;
 	}
 	
 
-	public Intervencion(Ticket tick, GrupoResolucion gr,  Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
-		
-		this.ticket= tick;
-		this.gruporesolucion=gr;
-		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
-		//this.observaciones = observaciones;
-
-		this.estadointervencion = estadointervencion;
-	}
 	
 	
 	
-	/*public void setGr(GrupoResolucion gr) {
+	public void setGr(GrupoResolucion gr) {
 		this.gruporesolucion= gr;
 	}
 	public void setGr(GrupoResolucion gr, boolean a) {
@@ -105,8 +95,8 @@ public class Intervencion implements Serializable {
 		if(gr != null && a) {
 			gr.addI(this,false);
 		}
-	}*/
-	/*public void setTicket(Ticket t) {
+	}
+	public void setTicket(Ticket t) {
 		setTicket (t,true);
 	}
 	public void setTicket(Ticket t , boolean a) {
@@ -114,7 +104,7 @@ public class Intervencion implements Serializable {
 		if(t!= null && a) {
 			t.addInt(this,false);
 		}
-	}*/
+	}
 	
 	
 	public List<Historial_Intervencion> getHi() {
@@ -126,8 +116,9 @@ public class Intervencion implements Serializable {
 	public void add(Historial_Intervencion hi) {
 		listahistorial.add(hi);
 	}
-	
-	/*
+	public void addHi (Historial_Intervencion hi) {
+		addHi(hi,true);
+	}
 	
 	public void addHi(Historial_Intervencion hi, boolean a) {
 		if(hi != null ) {
@@ -142,7 +133,7 @@ public class Intervencion implements Serializable {
 			}
 				
 		}
-	}*/
+	}
 	
 	public Integer getId_intervencion() {
 		return id_intervencion;
@@ -187,11 +178,6 @@ public class Intervencion implements Serializable {
 	public Ticket getTicket() {
 		return ticket;
 	}
-	
-	public void setTicket(Ticket t) {
-		this.ticket = t;
-		
-	}
 
 	public void addHistorial(Historial_Intervencion hi) {
 		this.listahistorial.add(hi);
@@ -211,7 +197,10 @@ public class Intervencion implements Serializable {
 
 	
 	
-
+	@Override
+	public String toString() {
+		return this.observaciones;
+	}
 
 }
 

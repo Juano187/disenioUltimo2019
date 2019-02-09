@@ -34,13 +34,13 @@ public class Clasificacion implements Serializable {
 	@Column(name = "CODIGO")
 	private int codigo;
 	
-	@Column(name = "FECHA_CREACION", nullable= false)
+	@Column(name = "FECHA_CREACION")
 	private Date fecha_Creacion;
 	
 	@Column(name = "DESCRIPCION", length = 5000)
     private String descripcion;
 	
-	@Column(name = "NOMBRE", length = 150, nullable= false)
+	@Column(name = "NOMBRE", length = 150)
 	private String nom_clasificacion;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clasificacion")
@@ -51,7 +51,7 @@ public class Clasificacion implements Serializable {
 	//@Fetch(value = FetchMode.SUBSELECT)
 	private List<HistorialClasificacion> listahistorial = new ArrayList<>();;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ID_USUARIO")
 	private Usuario usuario;
 	
@@ -66,16 +66,19 @@ public class Clasificacion implements Serializable {
 		
 	}
 
-	public Clasificacion(int codigo, Date fecha_Creacion, String descripcion, String nom_clasificacion,
-			List<Ticket> listaTickets, List<HistorialClasificacion> listahistorial, Usuario usuario) {
+	public Clasificacion( Date fecha_Creacion, String descripcion, String nom_clasificacion) {
 		
-		this.codigo = codigo;
 		this.fecha_Creacion = fecha_Creacion;
 		this.descripcion = descripcion;
 		this.nom_clasificacion = nom_clasificacion;
-		this.listaTickets = listaTickets;
-		this.listahistorial = listahistorial;
-		this.usuario = usuario;
+		this.listaTickets = new ArrayList <>();
+		this.listahistorial = new ArrayList<>();
+		this.gruporesolucion = new ArrayList<>();
+
+	}
+	public void addGr ( GrupoResolucion g) {
+		this.getListaGr().add(g);
+		g.addC(this);
 	}
 	public void setUser(Usuario u) {
 		this.setUser(u,true);
@@ -106,7 +109,7 @@ public class Clasificacion implements Serializable {
 	}
 	
 	
-	/*
+	
 	public void addTicket(Ticket t) {
 	this.addTicket(t, true);
 	}
@@ -119,16 +122,12 @@ public class Clasificacion implements Serializable {
 				this.getListaTickets().add(t);
 			}
 			if(a) {
-				t.setClasificacion(this,false);
+				t.setClasif(this,false);
 			}
 		}
-	}*/
-	
-	
-	public void addGr(GrupoResolucion gr ) {
-		this.getListaGr().add(gr);
-		gr.getlistaC().add(this);
 	}
+	
+
 
 	
 	public int getCodigo() {

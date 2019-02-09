@@ -2,6 +2,7 @@ package Modelo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,43 +13,48 @@ import javax.persistence.ManyToOne;
 @DiscriminatorValue(value = "Intervencion")
 public class Historial_Intervencion extends HistorialABS {
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_intervencion")
 	private Intervencion intervencion;
 	
 	@JoinColumn(name = "id_estadointerv")
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoIntervencion estado;
-	@ManyToOne
-	@JoinColumn(name = "id_usuario")
-	private Usuario user;
 	
+	@ManyToOne
+	private Usuario usuario;
+	
+	public Historial_Intervencion () {
+		
+	}
 	public Historial_Intervencion(Date f, EstadoIntervencion estadoIntervencion, Integer integer, Usuario u ) {
 		super(f);
 
 	}
 
-	public Historial_Intervencion(Intervencion in, Date f, Usuario usuario, EstadoIntervencion est) {
+	public Historial_Intervencion( Date f ,EstadoIntervencion est) {
 			super(f);
-			this.intervencion=in;
 			this.estado=est;
-			this.user=usuario;
 
 	}
-	/*public void setIntervencion(Intervencion i) {
+	
+	public void setIntervencion(Intervencion i) {
 		setIntervencion(i,true);
 	}
+	
 	public void setIntervencion (Intervencion i, boolean a) {
 		this.intervencion=i;
 		if(i!=null && a) {
 			i.addHi(this,false);
 		}
-	}*/
+	}
+	
 	public void setUser(Usuario u) {
 		this.setUser(u, true);
 	}
+	
 	public void setUser(Usuario u, boolean a) {
-		this.user=u;
+		this.usuario=u;
 		if(u!=null && a){
 			u.addHI(this, false);
 			}
@@ -63,11 +69,7 @@ public class Historial_Intervencion extends HistorialABS {
 	public Intervencion getIntervencion() {
 		return intervencion;
 	}
-	
-	public void setIntervencion(Intervencion i) {
-		this.intervencion = i;
-	}
-	
+
 	public static void main(String[] args) {
 
 	}

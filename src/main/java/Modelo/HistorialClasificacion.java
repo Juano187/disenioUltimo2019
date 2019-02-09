@@ -2,26 +2,28 @@ package Modelo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.DiscriminatorOptions;
 @Entity
+@DiscriminatorOptions(force = true)
 @DiscriminatorValue(value = "Clasificacion")
 public class HistorialClasificacion extends HistorialABS{
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "codigo")
 	private Clasificacion clasificacion ;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_usuario")
 	private Usuario user;
 	
-	public HistorialClasificacion(Date f, Clasificacion c, Usuario u) {
+	public HistorialClasificacion(Date f, Usuario u) {
 		super (f);
-		this.clasificacion=c;
 		this.user=u;
 	}
 	
@@ -29,12 +31,6 @@ public class HistorialClasificacion extends HistorialABS{
 	public HistorialClasificacion() {
 		
 	}
-	
-			
-/*
-	public HistorialClasificacion( ) {
-		
-	}*/
 	
 	
 	

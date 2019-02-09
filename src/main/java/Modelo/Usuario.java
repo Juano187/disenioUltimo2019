@@ -47,13 +47,13 @@ public class Usuario implements Serializable{
 	@JoinColumn(name = "legajo")
 	private Empleado empleado;
 
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "usuario")
 	private List<HistorialTicket> listaHistorialT = new ArrayList<>();
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
 	private List<HistorialClasificacion> listaHistorialC = new ArrayList<>();
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "usuario")
 	private List<Historial_Intervencion> listaHistorial_I = new ArrayList<>();
 	
 	public Usuario() {
@@ -128,15 +128,14 @@ public class Usuario implements Serializable{
 			}
 		}
 	}
-	public Usuario(Integer id_usuario, String usuario, String contraseña, List<Clasificacion> listaclasificacion,
-			GrupoResolucion gruporesolucion, Empleado empleado) {
+	public Usuario(Integer id_usuario, String usuario, String contraseña,
+			GrupoResolucion gruporesolucion) {
 		
-		this.id_usuario = id_usuario;
+		
 		this.usuario = usuario;
-		Contraseña = contraseña;
-		this.listaclasificacion = listaclasificacion;
+		this.Contraseña = contraseña;
 		this.gruporesolucion = gruporesolucion;
-		this.empleado = empleado;
+
 
 	}
 

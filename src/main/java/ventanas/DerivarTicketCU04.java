@@ -404,7 +404,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
     		}}
     	
     				
-    		g[0] = new GrupoResolucion("Seleccione una opcion...");
+    		g[0] = new GrupoResolucion("Seleccione una opcion...",0);
     		return g;
     }
 

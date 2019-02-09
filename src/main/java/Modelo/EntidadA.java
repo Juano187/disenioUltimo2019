@@ -19,12 +19,12 @@ import javax.persistence.Table;
 
 
 
-@Entity 
+//@Entity 
 
-@Table (name = "Tabla_del_A")
+//@Table (name = "Tabla_del_A")
 
 public class EntidadA {
-	
+	/*
 	 @OneToMany(cascade={CascadeType.ALL}, mappedBy="a")
 	
 	 private List<EntidadB> bList =new ArrayList<EntidadB>();
@@ -78,7 +78,7 @@ public class EntidadA {
 	 
 	    public Long getId() {
 	        return id;
-	    }
+	    }*/
 	}
     
 

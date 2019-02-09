@@ -32,7 +32,7 @@ public class Principal {
 	static GestorClasificacion gc = new GestorClasificacion();
 	static GestorGrupoResolucion ggr = new GestorGrupoResolucion();
 	static GestorUsuario gu = new GestorUsuario();
-	
+	static GestorTicket gt = new GestorTicket();
 	static GestorEmpleado ge = new GestorEmpleado();
 	private static EntityManager manager;
 	private static EntityManagerFactory emf;
@@ -41,6 +41,9 @@ public class Principal {
     	
     	Date f = new Date();
     	Date hora = new Date();
+    	
+    	
+    	
     	Clasificacion c = gc.getClasificacion("Solicitud de usuarios de red");
 		Empleado e = ge.validarLegajo(23234);
 		Date a = new Date();
@@ -48,60 +51,53 @@ public class Principal {
 		String descripcion = "descripcion";
 		
 		Usuario u = gu.getUsuario("admin");
-		//Direccion d = new Direccion (2,"diaz velez",1061);
+	
+		// prueba crear un ticket 
+		Direccion d = new Direccion ("prueba3",10163);
 		
-		//d.setEmp(e);
+		e.addDir(d);
+			
+		gestorBDD.cargarDir(d);
 		
-		//int id_t = (gestorBDD.getTickets().size() +1);
+		System.out.println("todo tranqui");
 		
-		System.out.println("hasta aca todo bien");
-		//Ticket t = new Ticket(2,fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
-		//t.setEmp(e);
-		//c.addTicket(t);
+		GrupoResolucion gr =ggr.getGrupo("Mesa de ayuda"); 
+			
+		Ticket t =(new Ticket(fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora));
 		
-		/*HistorialTicket ht=new HistorialTicket(f);	
-		ht.setUser(u);
 		
-		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		if(gr == null ) {
-			System.out.println("esta vacio el gr");
-		}
-		int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
-		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,EstadoIntervencion.TRABAJANDO);
+		e.addTicket(t);
+		c.addTicket(t);
+		
+		HistorialTicket ht=(new HistorialTicket(f));	
+	
+	
+		t.add(ht);
+		gestorBDD.cargarHistorialT(ht);
+		Intervencion i = new Intervencion(descripcion,f,a,EstadoIntervencion.TRABAJANDO);
 		i.setGr(gr);
 		
-		c.addGr(gr);
-		HistorialClasificacion hc = new HistorialClasificacion (f);
-		hc.setUser(u);
+		HistorialClasificacion hc = new HistorialClasificacion (f,u);
+		gestorBDD.cargarHistorialC(hc);
+
+
+			
+	
+		Historial_Intervencion hi = new Historial_Intervencion(f,EstadoIntervencion.TRABAJANDO);
+		gestorBDD.cargarHistorialI(hi);
+			
+		System.out.println("id historial_I: "+ hi.getIdHistorial()+ " id historial_C" + hc.getIdHistorial()+ " id historial_T"+ ht.getIdHistorial());
 		
-		Historial_Intervencion hi = new Historial_Intervencion(f);
-		hi.setUser(u);
-		i.addHi(hi);
-		t.addH(ht);
-		t.addInt(i);
-		
+		c.addHistorial(hc);
+		u.addHI(hi);
+		u.addHT(ht);
+		u.addHC(hc);
+		i.add(hi);
+		t.add(i);
 		
 	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
-
 		gestorBDD.cargarTicket(t);
-		/*Empleado e= ge.validarLegajo(23234);
-    	
-    	//System.out.println("empleado "+ e.getNombre());
-    	
-    	Ticket2 a = new Ticket2(3,new Date(),"descripcion",EstadoTicket.ABIERTODERIVADO,new Date());
-    	
-    	a.setEmp(e);
-    	
-    	emf = Persistence.createEntityManagerFactory("Persistencia");
-    	
-		manager = emf.createEntityManager();   	
-   		
-    	manager.getTransaction().begin();
-    	
-    	manager.persist(a);
-		
-    	manager.getTransaction().commit();*/
-    	
+
     	Inicializador01 cp = new Inicializador01();
     	
         cp.setVisible(true);

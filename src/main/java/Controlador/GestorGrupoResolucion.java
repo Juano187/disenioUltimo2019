@@ -47,7 +47,8 @@ public List<GrupoResolucion> getGrupoR() {
 		ArrayList<GrupoResolucion> resultado = new ArrayList<GrupoResolucion>();
 		for (int i=0; i<gd.size(); i++) {
 			String nom = gd.get(i).getNom_grupo();
-			GrupoResolucion clas = new GrupoResolucion(nom);
+			Integer niv = gd.get(i).getNivel();
+			GrupoResolucion clas = new GrupoResolucion(nom, niv);
 				
 			resultado.add(clas);
 				

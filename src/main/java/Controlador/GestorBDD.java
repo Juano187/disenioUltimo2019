@@ -52,6 +52,13 @@ public class GestorBDD {
 				System.out.println("En esta base de datos hay " + clasificaciones.size() + " clan"  + clasificaciones);*/
 			
 	}
+	public Direccion cargarDir(Direccion d) {
+		System.out.println(d.getCalle());
+		manager.getTransaction().begin();
+		manager.persist(d);
+		manager.getTransaction().commit();
+		return d;
+	}
 	public Ticket cargarTicket ( Ticket t) {
 		System.out.println("ahora si puteo2");
 		manager.getTransaction().begin();
