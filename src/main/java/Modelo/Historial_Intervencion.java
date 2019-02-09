@@ -27,10 +27,6 @@ public class Historial_Intervencion extends HistorialABS {
 	public Historial_Intervencion () {
 		
 	}
-	public Historial_Intervencion(Date f, EstadoIntervencion estadoIntervencion, Integer integer, Usuario u ) {
-		super(f);
-
-	}
 
 	public Historial_Intervencion( Date f ,EstadoIntervencion est) {
 			super(f);

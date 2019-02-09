@@ -15,16 +15,16 @@ import org.hibernate.annotations.DiscriminatorOptions;
 @DiscriminatorValue(value = "Clasificacion")
 public class HistorialClasificacion extends HistorialABS{
 	
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codigo")
 	private Clasificacion clasificacion ;
 	
 	@ManyToOne
-	private Usuario user;
+	private Usuario usuario;
 	
 	public HistorialClasificacion(Date f, Usuario u) {
 		super (f);
-		this.user=u;
+	
 	}
 	
 	
@@ -38,7 +38,7 @@ public class HistorialClasificacion extends HistorialABS{
 		this.setUser(u, true);
 	}
 	public void setUser(Usuario u, boolean a) {
-		this.user=u;
+		this.usuario=u;
 		if(u!=null && a){
 			u.addHC(this, false);
 			}

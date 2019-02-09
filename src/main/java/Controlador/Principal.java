@@ -53,7 +53,7 @@ public class Principal {
 		Usuario u = gu.getUsuario("admin");
 	
 		// prueba crear un ticket 
-		Direccion d = new Direccion ("prueba3",10163);
+		Direccion d = new Direccion ("prueba2",10163);
 		
 		e.addDir(d);
 			

@@ -40,7 +40,7 @@ public class GestorHistorial {
 		System.out.println(id);
 		System.out.println(u.getUsuario());
 
-		Historial_Intervencion hi1= new Historial_Intervencion(f , i , id, u);
+		Historial_Intervencion hi1= new Historial_Intervencion(f , i );
 		
 		Historial_Intervencion h= gestorbdd.cargarHistorialI(hi1);
 		

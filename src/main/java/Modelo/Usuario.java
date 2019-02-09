@@ -50,7 +50,7 @@ public class Usuario implements Serializable{
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "usuario")
 	private List<HistorialTicket> listaHistorialT = new ArrayList<>();
 	
-	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "user")
+	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "usuario")
 	private List<HistorialClasificacion> listaHistorialC = new ArrayList<>();
 	
 	@OneToMany(cascade={CascadeType.ALL}, mappedBy = "usuario")
