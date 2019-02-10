@@ -42,7 +42,7 @@ public class Intervencion implements Serializable {
 	@Column(name = "FECHA_INICIO", nullable= false)
 	private Date fecha_inicio;
 	
-	@Column(name = "FECHA_FIN", nullable= false)
+	@Column(name = "FECHA_FIN", nullable= true)
 	private Date fecha_fin;
 	
 	@Column(name = "OBSERVACIONES", length = 5000)
@@ -74,11 +74,10 @@ public class Intervencion implements Serializable {
 		
 	}
 	
-	public Intervencion( String obs, Date fecha_inicio, Date fecha_fin, EstadoIntervencion estadointervencion) {
+	public Intervencion( String obs, Date fecha_inicio, EstadoIntervencion estadointervencion) {
 		
 		listahistorial =new ArrayList <>();
 		this.fecha_inicio = fecha_inicio;
-		this.fecha_fin = fecha_fin;
 		this.observaciones = obs;
 		this.estadointervencion = estadointervencion;
 	}

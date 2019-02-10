@@ -48,6 +48,11 @@ public class GestorTicket {
 		}
 		return a;
 	}
+	public Ticket crearTicket() {
+		Ticket ticket = new Ticket();
+		Ticket nuevoTicket = gestorBDD.cargarTicket(ticket);
+		return nuevoTicket;
+}
 	
 	public static boolean validarFecha(String fecha) {
         try {
@@ -62,111 +67,65 @@ public class GestorTicket {
     }
 	
 	
-	public Ticket crearTicket() {
-		Ticket ticket = new Ticket();
-		Ticket nuevoTicket = gestorBDD.cargarTicket(ticket);
-		return nuevoTicket;
-	}
 	
-	
-	public int registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
-		
-		// empleado, cla, descrip, estado, cambiocla, interv
-		
-		
+	public void registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
 		try{
-		/*Clasificacion c = gc.getClasificacion(clasific);
+		Clasificacion c = gc.getClasificacion(clasific);
 		Empleado e = ge.validarLegajo(legajo);
-		Date a = new Date();
 		Usuario u = user;
-		Direccion d = ge.getDireccion(legajo);
-	
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
 		
-		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora, c);
+		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
+			e.addTicket(t);
+			c.addTicket(t);
+		HistorialTicket ht=(new HistorialTicket(f));	
+			t.add(ht);
+			gestorBDD.cargarHistorialT(ht);
 		
-		//int id_intervencion = (gestorBDD.getIntervenciones().size()+1);
-		System.out.println("pacto");
+		Intervencion i = new Intervencion(descripcion,f,EstadoIntervencion.TRABAJANDO);
+			i.setGr(gr);
 		
-		
-		//se crea intervencion mandando todos los parametros necesarios, pero luego no me imprime su id
-		
-		Intervencion i = gestorI.crearIntervencion( t , gr, f, a, EstadoIntervencion.TRABAJANDO, user);
-		
-		System.out.println("camimanda");
-		
-		System.out.println(i.getId_intervencion());
-		
-		
-		
-		
-		
-		System.out.println("ahora no me imprime intervencion");
-		
-		HistorialTicket ht = gestorH.crearHistorialT(u, EstadoTicket.ABIERTODERIVADO , t, f, fecha);
-		
-		System.out.println(ht.getNum_ticket());
-		
-		//HistorialTicket ht=new HistorialTicket(f);	
-		;
-		System.out.println("neta");
-		
-		HistorialClasificacion hc = gestorH.crearHistorialC(c, u, f);
-		System.out.println("chido");
-		//hc.setUser(u);
-		
-		Historial_Intervencion hi = gestorH.crearHistorialI(i.getEstadointervencion(),i.getId_intervencion(), u,f);
-		
-	//	hi.setUser(u);
-		i.add(hi);
-		t.add(ht);
-		t.add(i);
-		
-		
-		System.out.println(t.getListaintervenciones().size());
-		
-		*/
-			
-			
-			
-			
-		/*GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		if(gr == null ) {
-			System.out.println("esta vacio el gr");
-		}
-		
-		Intervencion i = new Intervencion(id_intervencion,f,a,descripcion,EstadoIntervencion.TRABAJANDO);
-		i.setGr(gr);
-		
-		c.addGr(gr);
 		HistorialClasificacion hc = new HistorialClasificacion (f);
-		hc.setUser(u);
+			gestorBDD.cargarHistorialC(hc);
 		
-		Historial_Intervencion hi = new Historial_Intervencion(f);
-		hi.setUser(u);
-		i.addHi(hi);
-		t.addH(ht);
-		t.addInt(i);*/
+		Historial_Intervencion hi = new Historial_Intervencion(f,EstadoIntervencion.TRABAJANDO);
+			gestorBDD.cargarHistorialI(hi);
+			
+		System.out.println("id historial_I: "+ hi.getIdHistorial()+ " id historial_C" + hc.getIdHistorial()+ " id historial_T"+ ht.getIdHistorial());
 		
+			c.addHistorial(hc);
+			u.addHI(hi);
+			u.addHT(ht);
+			u.addHC(hc);
+			i.add(hi);
+			t.add(i);
 		
-		
-		
-		
-	//	System.out.println("MOSTRAME LA INTERVENCION GATO "  +id_intervencion+ "  " + (gestorBDD.getTickets().size() +1));
-
-	//	gestorBDD.actualizarTicket(t);
-		//gestorBDD.cargarHistorialI(hi);
-		//gestorBDD.cargarHistorialC(hc);
+			gestorBDD.cargarTicket(t);
+		System.out.println("ticket guardado " + getTicket(t.getNum_ticket()));
 	
+		
 		}catch(Exception ex) {
         	System.out.println(ex.getMessage());
     		EjemploError error = new EjemploError(ex.getMessage());
     		error.setVisible(true); 
     	}
 				
-		return 1;
 		
+		
+	}
+	
+	public Ticket getTicket(Integer id) {
+	List<Ticket> gd = gestorBDD.getTickets();
+		
+		Ticket resultado = new Ticket();
+		
+		for (int i=0; i<gd.size(); i++) {
+			if(gd.get(i).getNum_ticket() == id){
+				resultado = gd.get(i);
+			}
+		}
+		return resultado;
 	}
 	public static Date stringtodate(String fecha) {
 		Date f=null;

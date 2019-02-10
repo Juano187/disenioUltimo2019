@@ -22,7 +22,7 @@ public class HistorialClasificacion extends HistorialABS{
 	@ManyToOne
 	private Usuario usuario;
 	
-	public HistorialClasificacion(Date f, Usuario u) {
+	public HistorialClasificacion(Date f) {
 		super (f);
 	
 	}

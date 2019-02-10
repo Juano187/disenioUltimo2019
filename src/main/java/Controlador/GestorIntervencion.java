@@ -12,18 +12,15 @@ import Modelo.Usuario;
 public class GestorIntervencion {
 	GestorBDD gestorBDD;
 
-	public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoIntervencion t ,  
-			Usuario user) {
+	public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoIntervencion t ) {
 		
-	
+		Intervencion i = new Intervencion(descrip,f,EstadoIntervencion.TRABAJANDO);
 		
-		Intervencion in = new Intervencion (descrip, f, a, EstadoIntervencion.TRABAJANDO);
-		System.out.println(in.getId_intervencion());
-		//Intervencion i = gestorBDD.guardarIntervencion(in);
+		
+		
+		System.out.println(i.getId_intervencion());
 	
-
-		// TODO Auto-generated method stub
-		return in;
+		return i;
 	}
 	
 	

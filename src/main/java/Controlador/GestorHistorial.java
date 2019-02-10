@@ -27,7 +27,7 @@ public class GestorHistorial {
 	public HistorialClasificacion crearHistorialC(Clasificacion c, Usuario u, Date f) {
 		
 		
-		HistorialClasificacion hc1= new HistorialClasificacion(f ,u );
+		HistorialClasificacion hc1= new HistorialClasificacion(f);
 		hc1.setClasificacion(c);
 		HistorialClasificacion h= gestorbdd.cargarHistorialC(hc1);
 		

@@ -85,6 +85,7 @@ public class Ticket implements  Serializable{
 	public Ticket(Date fecha_apertura, String descrip_problema,
 			EstadoTicket estadoticket,
 	 Date hora_apertura) {
+		
 		listaintervenciones = new ArrayList<>();
 		listahistorial = new ArrayList<>();
 		
