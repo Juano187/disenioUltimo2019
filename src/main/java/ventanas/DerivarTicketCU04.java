@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 
 import Controlador.GestorClasificacion;
 import Controlador.GestorGrupoResolucion;
+import Controlador.GestorTicket;
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
 import Modelo.GrupoResolucion;
@@ -34,6 +35,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
     }
 	GestorClasificacion gestorC = new GestorClasificacion();
 	GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
+	GestorTicket  gestorT= new GestorTicket();
     
 	private void initComponents(TicketDTO ticketselec, Usuario u) {
 		GrupoResolucion gr = gestorG.getGrupo("Mesa de Ayuda");
@@ -75,11 +77,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+
         jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -182,7 +180,29 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
          };
          combocalif.addActionListener(cbActionListener);
          
-     
+         jButton1.addActionListener(new java.awt.event.ActionListener() {
+             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            
+                 	if(jLabel10.getText().isEmpty()) {
+                 		String e= "Error Observaciones vacio";
+             			EjemploError i = new EjemploError(e);
+                 		i.setVisible(true);
+                 		}
+                 	else if(ultgrupos.getSelectedIndex() == 0){
+                 		String e= "Seleccione Grupo de Resolucion";
+             			EjemploError i = new EjemploError(e);
+                 		i.setVisible(true);
+                 	}
+                 	else {
+                 		System.out.println("hola1");
+                 		GrupoResolucion gr = (GrupoResolucion) ultgrupos.getSelectedItem();
+                 		ClasificacionDTO cs = (ClasificacionDTO) combocalif.getSelectedItem();
+                 		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr /*, cs.getCodCla()*/);
+                 	}
+
+                 jButton1ActionPerformed(evt);
+             }
+         });
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);

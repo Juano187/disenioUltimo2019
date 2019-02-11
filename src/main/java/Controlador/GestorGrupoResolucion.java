@@ -31,13 +31,17 @@ public class GestorGrupoResolucion {
 		ArrayList<GrupoResolucionDTO> resultado = new ArrayList<GrupoResolucionDTO>();
 		for (int i=0; i<gd.size(); i++) {
 			String nom = gd.get(i).getNom_grupo();
-			GrupoResolucionDTO clas = new GrupoResolucionDTO(nom);
+			Integer id = gd.get(i).getId_grupo();
+			GrupoResolucionDTO clas = new GrupoResolucionDTO(nom, id);
 				
 			resultado.add(clas);
 				
 			}
 		return resultado;
 	}
+	
+	
+	
 	
 public List<GrupoResolucion> getGrupoR() {
 		

@@ -114,6 +114,20 @@ public class GestorBDD {
 		
 	}
 	
+
+
+	
+	public Intervencion actualizarIntervencion (Intervencion intervencion) {
+		manager.getTransaction().begin();
+		intervencion = manager.merge(intervencion);
+		manager.persist(intervencion);
+		manager.getTransaction().commit();
+		return intervencion;
+	}
+	
+
+
+	
 	public Intervencion guardarIntervencion(Intervencion interv) {
 		manager.getTransaction().begin();
 		manager.persist(interv);
@@ -122,6 +136,31 @@ public class GestorBDD {
 		return interv;
 	}
 	
+	public Intervencion getIntervMESA (Integer numTicket) {
+		Intervencion interv;
+		String cs = "Select i FROM Intervencion i, GrupoDeResolucion gr WHERE i.grupo = gr and numero_ticket = " + numTicket + " and gr.nombre = 'Mesa de Ayuda'";
+		manager.getTransaction().begin();
+		interv = (Intervencion) manager.createQuery(cs).getSingleResult();
+		manager.getTransaction().commit();
+		return interv;
+	}
+	
+	public Intervencion ultimaInt(Integer numeroTicket, GrupoResolucion grupo) {
+		Intervencion resultado;
+		ArrayList<Intervencion> intervencionesTicket;
+		String cs = "from Intervencion where ticket = " + numeroTicket + " and grupo = " + grupo.getId_grupo();
+		
+		manager.getTransaction().begin();
+		intervencionesTicket = (ArrayList<Intervencion>) manager.createQuery(cs).getResultList();
+		manager.getTransaction().commit();
+		if(intervencionesTicket.size() == 0) {
+			resultado = null;
+		}
+		else {
+			resultado = intervencionesTicket.get(intervencionesTicket.size());
+		}
+		return resultado;
+	}
 	
 /*@SuppressWarnings("unchecked")
 public ArrayList<Historial>getHistoriales(){
@@ -287,6 +326,8 @@ public ArrayList<Historial>getHistoriales(){
 			
 		return direccion;
 	}
+	
+	
 	
 	public GrupoResolucion getgrupo(String grupo) {
 		GrupoResolucion grupoR;

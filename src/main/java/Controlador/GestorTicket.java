@@ -66,7 +66,31 @@ public class GestorTicket {
         return true;
     }
 	
+
+	public void derivarTicket(Integer numTicket, String observ, GrupoResolucion grup) {
+		Ticket ticket = this.getTicket(numTicket);
+		Date fecha = new Date();
+		System.out.println("hola2");
+		ticket.setEstadoticket(1);
+		
+		Intervencion newI = gestorI.actualizarI(numTicket, observ , grup);
+		
+		if(newI != null) {
+			newI.setTicket(ticket);
+			ticket.add(newI);
+			ticket.setFecha_cierre(fecha);
+			
+		}
+		
+		System.out.println("hola2");
+		gestorBDD.actualizarTicket(ticket);
+		System.out.println("hola2");
+	}
 	
+
+	
+	
+
 	
 	public void registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
