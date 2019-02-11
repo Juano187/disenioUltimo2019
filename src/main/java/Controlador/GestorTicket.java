@@ -122,8 +122,8 @@ public class GestorTicket {
 			u.addHI(hi);
 			u.addHT(ht);
 			u.addHC(hc);
-			i.add(hi);
-			t.add(i);
+			i.addHi(hi);
+			t.addInt(i);
 		
 			gestorBDD.cargarTicket(t);
 		System.out.println("ticket guardado " + getTicket(t.getNum_ticket()));

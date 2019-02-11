@@ -332,9 +332,13 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     	GestorTicket gestorT = new GestorTicket();
     	Ticket newticket = gestorT.crearTicket();
     	
-    	String n = newticket.getNum_ticket().toString();
+    	Integer n = newticket.getNum_ticket()+1;
     	
-    	return n;
+    	String n1 = n.toString();
+    	
+
+    	
+    	return n1;
     	
     	
     }
