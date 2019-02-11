@@ -1,9 +1,8 @@
 package Modelo;
 
 public enum EstadoTicket {
-	
-	TODOS("Cerrado" , String.class), 
 	ABIERTOSINDERIVAR("AbiertoSinDerivar" , String.class) ,
+	TODOS("Cerrado" , String.class), 
 	ABIERTODERIVADO("AbiertoDerivado" , String.class) , 
 	SOLUCIONADOALAESPERAOK("SolucionadoAlaEsperaOK" , String.class),
 	CERRADO("Cerrado" , String.class);

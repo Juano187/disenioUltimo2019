@@ -1,7 +1,10 @@
 package ventanas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
@@ -20,10 +23,10 @@ import Modelo.Usuario;
 
 
 public class DerivarTicketCU04 extends javax.swing.JFrame {
-	
+	private GrupoResolucion [] grupos;
 	private JFrame anterior;
 	private Usuario u ;
-	private GrupoResolucion[] g;
+	
 
     public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
         initComponents(ticketselec, u);
@@ -33,7 +36,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
     
 	private void initComponents(TicketDTO ticketselec, Usuario u) {
-		
+		GrupoResolucion gr = gestorG.getGrupo("Mesa de Ayuda");
+		System.out.println(gr.getNom_grupo());
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -139,15 +143,10 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Clasificaci\u00f3n:");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
-
-        
-        /*GrupoResolucionDTO ultgrupos= gestorG.getGrupoResolucion(ticketselec.getCla().getCodCla());  //ACA
-        JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();*/
-        
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));       
       
         JComboBox<GrupoResolucion> ultgrupos= new JComboBox<GrupoResolucion>();  //ACA
-        ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg(ticketselec.getCla())));
+        ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg(ticketselec.getCla().getNombre())));
         getContentPane().add(ultgrupos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));
         
         
@@ -164,24 +163,26 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 
         JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>(cambiarCla(ticketselec.getCla()));  // ACA
         getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
-       
-        
+
     	 
-        ActionListener cbActionListener = new ActionListener() {
+       ActionListener cbActionListener = new ActionListener() {
+        
         	@Override
-        	public void actionPerformed(ActionEvent a) {
+        		public void actionPerformed(ActionEvent a) {
+        		 
+        		ultgrupos.removeAllItems();
+        	ClasificacionDTO c = (ClasificacionDTO) combocalif.getSelectedItem();
+        	grupos = cargarg(c.getNombre());
+    	 
         	
-        		remove(ultgrupos);
-        		remove(combocalif);
-        		combocalif.setModel(new DefaultComboBoxModel<ClasificacionDTO> (cambiarCla((ClasificacionDTO)combocalif.getSelectedItem())));
-        		ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg((ClasificacionDTO)combocalif.getSelectedItem())));
-        		add(ultgrupos);
-        		add(combocalif);
-        		
+        	ultgrupos.setModel( new DefaultComboBoxModel<GrupoResolucion>( grupos ) );
+        
+        	
         	}
          };
-        combocalif.addActionListener(cbActionListener);
-
+         combocalif.addActionListener(cbActionListener);
+         
+     
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
@@ -217,8 +218,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         pack();
     }
     
-    private ClasificacionDTO[] cambiarCla(ClasificacionDTO cla) {  //ACA
-		// TODO Auto-generated method stub
+    private ClasificacionDTO[] cambiarCla(ClasificacionDTO cla) {
     	ClasificacionDTO[] clas = new ClasificacionDTO[gestorC.getClasificaciones().size()];
     	    	
     	ClasificacionDTO n;
@@ -246,30 +246,32 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
     
     
     
-    private GrupoResolucion[] cargarg(ClasificacionDTO cl) {
+    private GrupoResolucion[] cargarg(String cl) {
     	int n =0;
     	GrupoResolucion[] g = new GrupoResolucion[n] ;
-    	String c = cl.getNombre();
+    	try {
+    	String c = cl;
     	
     	
-    	if(c == "'Mal funcionamiento de Hardware'") {
+    	if(c == ("Mal funcionamiento de Hardware")) {
     		System.out.println("Mal funcionamiento de Hardware");
     			
     		
 			n=7;
 			g = new GrupoResolucion[n+1];
-			g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
-			g[2] = gestorG.getGrupo("'Unidades de soporte'");	
-			g[3] = gestorG.getGrupo("'Servicio tecnico'");
-			g[4] = gestorG.getGrupo("'Administrador SUSE Linux'");
-			g[5] = gestorG.getGrupo("'Administrador DEBIAN'");
-			g[6] = gestorG.getGrupo("'Redes LAN'");	
-			g[7] = gestorG.getGrupo("'Comunicaciones'");	
+			g[1] = gestorG.getGrupo("Mesa de Ayuda");
+			g[2] = gestorG.getGrupo("Unidades de soporte");	
+			g[3] = gestorG.getGrupo("Servicio tecnico");
+			g[4] = gestorG.getGrupo("Administrador SUSE Linux");
+			g[5] = gestorG.getGrupo("Administrador DEBIAN");
+			g[6] = gestorG.getGrupo("Redes LAN");	
+			g[7] = gestorG.getGrupo("Comunicaciones");	
 			
+			System.out.println(g[2].getNom_grupo());
 			
+		
 		} else {
-			
-				if((c == "Cambios de Configuración de Sistema Operativo de PC") || c == ("Problemas en el funcionamiento del Sistema Operativo de PC y utilitarios")){
+				if(( c=="Cambios de Configuración de Sistema Operativo de PC") || c == ("Problemas en el funcionamiento del Sistema Operativo de PC y utilitarios")){
 					n=4;
 					g = new GrupoResolucion[n+1];
 					g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
@@ -282,38 +284,38 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 						if(c == "Solicitud de instalación de aplicaciones"){
 							n=7;
 							g = new GrupoResolucion[n+1];
-							g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
-							g[2] = gestorG.getGrupo("'Unidades de soporte'");
-							g[3] = gestorG.getGrupo("'Administrador SUSE Linux'");
-							g[4] = gestorG.getGrupo("'Administrador de Base de Datos'");
-							g[5] = gestorG.getGrupo("'Desarrollo Sistema Comercial'");
-							g[6] = gestorG.getGrupo("'Desarrollo Sistema RRHH'");
-							g[7] = gestorG.getGrupo("'Desarrollo Sistema de Reclamos'");
+							g[1] = gestorG.getGrupo("Mesa de Ayuda");
+							g[2] = gestorG.getGrupo("Unidades de soporte");
+							g[3] = gestorG.getGrupo("Administrador SUSE Linux");
+							g[4] = gestorG.getGrupo("Administrador de Base de Datos");
+							g[5] = gestorG.getGrupo("Desarrollo Sistema Comercial");
+							g[6] = gestorG.getGrupo("Desarrollo Sistema RRHH");
+							g[7] = gestorG.getGrupo("Desarrollo Sistema de Reclamos");
     			
 							}
 						else {
 							if((c=="Solicitud de Cambio de Contrasenias") || (c=="Modificacion en los perfiles de usuarios")) {
 								n=7;
 								g = new GrupoResolucion[n+1];
-								g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
-								g[2] = gestorG.getGrupo("'Unidades de soporte'");
-								g[3] = gestorG.getGrupo("'Administrador SUSE Linux'");
-								g[4] = gestorG.getGrupo("'Administrador Proxy y correo electronico'");
-								g[5] = gestorG.getGrupo("'Desarrollo Sistema Comercial'");
-								g[6] = gestorG.getGrupo("'Desarrollo Sistema RRHH'");
-								g[7] = gestorG.getGrupo("'Desarrollo Sistema de Reclamos'");
+								g[1] = gestorG.getGrupo("Mesa de Ayuda");
+								g[2] = gestorG.getGrupo("Unidades de soporte");
+								g[3] = gestorG.getGrupo("Administrador SUSE Linux");
+								g[4] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+								g[5] = gestorG.getGrupo("Desarrollo Sistema Comercial");
+								g[6] = gestorG.getGrupo("Desarrollo Sistema RRHH");
+								g[7] = gestorG.getGrupo("Desarrollo Sistema de Reclamos");
 							}
 							else {
 								if(c == "Mal funcionamiento de Hardware") {
 									n=7;
 									g = new GrupoResolucion[n+1];
-									g[1] = gestorG.getGrupo("'Mesa de Ayuda'");
-									g[2] = gestorG.getGrupo("'Unidades de soporte'");	
-									g[3] = gestorG.getGrupo("'Servicio tecnico'");
-									g[4] = gestorG.getGrupo("'Administrador SUSE Linux'");
-									g[5] = gestorG.getGrupo("'Administrador DEBIAN'");
-									g[6] = gestorG.getGrupo("'Redes LAN'");	
-									g[7] = gestorG.getGrupo("'Comunicaciones'");	
+									g[1] = gestorG.getGrupo("Mesa de Ayuda");
+									g[2] = gestorG.getGrupo("Unidades de soporte");	
+									g[3] = gestorG.getGrupo("Servicio tecnico");
+									g[4] = gestorG.getGrupo("Administrador SUSE Linux");
+									g[5] = gestorG.getGrupo("Administrador DEBIAN");
+									g[6] = gestorG.getGrupo("Redes LAN");	
+									g[7] = gestorG.getGrupo("Comunicaciones");	
         			
         			
     			}
@@ -386,10 +388,11 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                                 			
                                 			
     									}
-	    									else {
+	    									else  {
 	    										g = new GrupoResolucion[gestorG.getGrupoR().size()+1];
 	    										for(int i=0; i < gestorG.getGrupoR().size(); i++) {
 	    											g[i+1]= gestorG.getGrupoR().get(i);
+	    										
 	    										}
 	    									}
     									}
@@ -406,7 +409,13 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
     				
     		g[0] = new GrupoResolucion("Seleccione una opcion...",0);
     		return g;
-    }
+    	}catch(Exception ex) {
+        	
+    		EjemploError error = new EjemploError(ex.getMessage());
+    		error.setVisible(true);
+    		return g;
+    	}
+}
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {

@@ -174,7 +174,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	 new Object [][] {
                 },
                 new String [] {
-                    "Nro ticket", "Legajo", "Fecha Apertura", "Estado", "Clasificacion "  /*"Grupo de resolucion"*/
+                  "Nro ticket", "Legajo", "Fecha Apertura", "Estado", "Clasificacion "  /*"Grupo de resolucion"*/
             
                 }
             );
@@ -206,7 +206,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         JComboBox<ClasificacionDTO> jComboBox1= new JComboBox<ClasificacionDTO>();
         jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Todas" }));
                
-        for(int i=0 ; i < clasificaciones.size(); i++) {
+        for(int i=1 ; i < clasificaciones.size(); i++) {
             	jComboBox1.addItem(clasificaciones.get(i));}
         
         getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 360, 30));
@@ -215,7 +215,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();
         combogrupo.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
 
-        for(int i=0 ; i < ultgrupos.size(); i++) {
+        for(int i=1 ; i < ultgrupos.size(); i++) {
         	combogrupo.addItem(ultgrupos.get(i));
         }
         getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 270, 30));
@@ -281,7 +281,11 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         ErrorCamposVacios ven1 = new ErrorCamposVacios();
        ; 
         buscar.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent ae) {
+        
+        	public void actionPerformed(ActionEvent ae) {	
+
+        		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        		model.setRowCount(0);
         		Long numTic = null;
         		Integer numLegajo = null;
         		Date fechaABien = null;
@@ -290,7 +294,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		String estado = null;
         		ClasificacionDTO clasificacion;
         		GrupoResolucionDTO ultimoG;
-        		
+        
         		if(!numTicket.getText().isEmpty()) numTic = Long.valueOf(numTicket.getText());
         		if(!legajo.getText().isEmpty()) numLegajo = Integer.valueOf(legajo.getText());
         		estado = comboBox.getSelectedItem().toString();
@@ -327,13 +331,12 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             			}
             	}
         		
-        		
-    			
+ 
         		/*ErrorDatosIncorrectos ven2= new ErrorDatosIncorrectos();
         		if(((fechaABien.compareTo(fechaAct) >= 0) || (!fechaApertura.getText().isEmpty()) ) && (fechaUBien.compareTo(fechaAct)>=0) || (!fechaUltimo.getText().isEmpty())){
         			ven2.setVisible(true);
         		}else {*/
-        			
+        	
         		listaTencontrados = gestorT.consultarTicket(numTic, numLegajo,fechaABien, /*fechaUBien ,*/  estado, clasificacion  /*ultimoG */ );	
         			
         		
@@ -341,9 +344,10 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		//}
 
                 		
-                	/*}*/
+                	//}
                 	
                 	if(listaTencontrados.size() > 0) {
+                		
                 		ObtenerListaTicket(listaTencontrados);
         			}
         			
@@ -470,6 +474,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         			jButton6ActionPerformed(evt);
         		}
         		else {
+            	
         			EstadoTicket estado = ticketselec.getEstado();
         			String e= "No se puede derivar en estado\n";
         			String a= e + estado;
@@ -575,6 +580,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
+        
         	DerivarTicketCU04 d = new DerivarTicketCU04(ticketselec, u);
             d.setAnterior(frame);
             d.setVisible(true);
@@ -608,8 +614,6 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  		System.out.println(t.getFechaA().toString());
  		System.out.println(t.getCla().getNombre());
  		System.out.println(t.getEstado().toString());
- 		
- 		
  	TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getEstado().toString(), t.getCla().getNombre()/* t.getGru().getNombre()*/});
  			
  			}
