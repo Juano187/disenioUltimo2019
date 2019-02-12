@@ -21,8 +21,7 @@ public class Historial_Intervencion extends HistorialABS {
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoIntervencion estado;
 	
-	@ManyToOne
-	private Usuario usuario;
+
 	
 	public Historial_Intervencion () {
 		
@@ -46,16 +45,9 @@ public class Historial_Intervencion extends HistorialABS {
 	}
 	
 	public void setUser(Usuario u) {
-		this.setUser(u, true);
+		super.setUser(u);
+		u.addHI(this);
 	}
-	
-	public void setUser(Usuario u, boolean a) {
-		this.usuario=u;
-		if(u!=null && a){
-			u.addHI(this, false);
-			}
-		}
-	
 	public EstadoIntervencion getEstadoI() {
 		return this.estado;
 	}

@@ -48,11 +48,7 @@ public class GestorTicket {
 		}
 		return a;
 	}
-	public Ticket crearTicket() {
-		Ticket ticket = new Ticket();
-		Ticket nuevoTicket = gestorBDD.cargarTicket(ticket);
-		return nuevoTicket;
-}
+
 	
 	public static boolean validarFecha(String fecha) {
         try {
@@ -83,7 +79,7 @@ public class GestorTicket {
 		}
 		
 		System.out.println("hola2");
-		gestorBDD.actualizarTicket(ticket);
+		gestorBDD.actualizarTicket(ticket) ; // TODO probar cargar (para no usar merge)
 		System.out.println("hola2");
 	}
 	
@@ -95,38 +91,33 @@ public class GestorTicket {
 	public void registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
 		
 		try{
+			
 		Clasificacion c = gc.getClasificacion(clasific);
 		Empleado e = ge.validarLegajo(legajo);
 		Usuario u = user;
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		
 		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
 			e.addTicket(t);
 			c.addTicket(t);
-		HistorialTicket ht=(new HistorialTicket(f));	
-			t.add(ht);
-			gestorBDD.cargarHistorialT(ht);
-		
-		Intervencion i = new Intervencion(descripcion,f,EstadoIntervencion.TRABAJANDO);
-			i.setGr(gr);
-		
+			Intervencion i = new Intervencion(descripcion,f,EstadoIntervencion.TRABAJANDO);	
+		HistorialTicket ht=(new HistorialTicket(f));
+
 		HistorialClasificacion hc = new HistorialClasificacion (f);
-			gestorBDD.cargarHistorialC(hc);
 		
 		Historial_Intervencion hi = new Historial_Intervencion(f,EstadoIntervencion.TRABAJANDO);
-			gestorBDD.cargarHistorialI(hi);
 			
-		System.out.println("id historial_I: "+ hi.getIdHistorial()+ " id historial_C" + hc.getIdHistorial()+ " id historial_T"+ ht.getIdHistorial());
-		
+			i.setGr(gr);
+			t.addH(ht);
 			c.addHistorial(hc);
-			u.addHI(hi);
-			u.addHT(ht);
-			u.addHC(hc);
+			hi.setUser(u);
+			ht.setUser(u);
+			hc.setUser(u);
 			i.addHi(hi);
+			
 			t.addInt(i);
 		
 			gestorBDD.cargarTicket(t);
-		System.out.println("ticket guardado " + getTicket(t.getNum_ticket()));
+			System.out.println("ticket guardado " + getTicket(t.getNum_ticket()));
 	
 		
 		}catch(Exception ex) {
@@ -151,6 +142,7 @@ public class GestorTicket {
 		}
 		return resultado;
 	}
+
 	public static Date stringtodate(String fecha) {
 		Date f=null;
         try {
@@ -163,6 +155,7 @@ public class GestorTicket {
         return f;
     }
 	
+/*	
 	public static boolean validarDatosRegistro (int legajo, String descripcion, String clasificacion) {
 	
 	//if()
@@ -170,7 +163,7 @@ public class GestorTicket {
 		
 		return true;
 		
-	}
+	}*/
 	
 
 	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/ , String estado,  ClasificacionDTO cla/*, GrupoResolucionDTO ugrupo*/){

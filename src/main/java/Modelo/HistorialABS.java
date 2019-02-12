@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Enumerated;
 
 @Entity
-@Table(name = "Historial2")
+@Table(name = "Historial")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TIPO")
 
@@ -35,22 +35,29 @@ abstract class HistorialABS {
 	@Column(name = "FECHA_HORA_FIN", nullable= true)
 	private Date hora_fecha_fin;
 	
-
+	@ManyToOne
+	@JoinColumn(name = "ID_usuario")
+	private Usuario usuario;
 
 	public HistorialABS() {
 		
 	}
+	
 	public HistorialABS( Date fecha) {
 	
 		this.hora_fecha_ini= fecha;
 		this.hora_fecha_fin = null;
 	}
+	
 	public static void main(String[] args) {
 		
 	}
 	
+	public void setUser(Usuario u) {
+		this.usuario=u;
+	}
 	public boolean ultimaFechaVacia() {
-		if(this.hora_fecha_fin == null) {
+		if( this.hora_fecha_fin == null ) {
 			return true;
 		}else {
 			return false;

@@ -19,12 +19,9 @@ public class HistorialClasificacion extends HistorialABS{
 	@JoinColumn(name = "codigo")
 	private Clasificacion clasificacion ;
 	
-	@ManyToOne
-	private Usuario usuario;
 	
 	public HistorialClasificacion(Date f) {
 		super (f);
-	
 	}
 	
 	
@@ -32,27 +29,22 @@ public class HistorialClasificacion extends HistorialABS{
 		
 	}
 	
-	
-	
 	public void setUser(Usuario u) {
-		this.setUser(u, true);
+		super.setUser(u);
+		u.addHC(this);
 	}
-	public void setUser(Usuario u, boolean a) {
-		this.usuario=u;
-		if(u!=null && a){
-			u.addHC(this, false);
-			}
-		}
 	
 	public void setClasificacion (Clasificacion c) {
 		setClasificacion(c,true);
 	}
+	
 	public void setClasificacion (Clasificacion c,boolean a) {
 		this.clasificacion=c;
 		if(c!=null && a) {
 			c.addHistorial(this,false);
 		}
 	}
+	
 	public Clasificacion getCodClasif() {
 		return this.clasificacion;
 	}

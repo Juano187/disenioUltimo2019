@@ -60,7 +60,6 @@ public class GestorBDD {
 		return d;
 	}
 	public Ticket cargarTicket ( Ticket t) {
-		System.out.println("ahora si puteo2");
 		manager.getTransaction().begin();
 		manager.persist(t);
 		manager.getTransaction().commit();

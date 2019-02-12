@@ -22,7 +22,6 @@ import javax.persistence.Table;
 public class Usuario implements Serializable{
 	
 	
-
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -62,53 +61,16 @@ public class Usuario implements Serializable{
 	}
 	
 	public void addHI(Historial_Intervencion hi ) {
-		this.addHI(hi,true);
+		this.listaHistorial_I.add(hi);
 	}
-	public void addHI(Historial_Intervencion hi, boolean a) {
-		if(hi!=null) {
-			if(this.getListaHi().contains(hi)) {
-				this.getListaHi().set(this.getListaHi().indexOf(hi), hi);
-			}
-			else {
-				this.getListaHi().add(hi);
-			}
-			if(a) {
-				hi.setUser(this, false);
-			}
-		}
-	}
+
 	
 	public void addHC(HistorialClasificacion hc ) {
-		this.addHC(hc,true);
+		this.listaHistorialC.add(hc);
 	}
-	public void addHC(HistorialClasificacion hc, boolean a) {
-		if(hc!=null) {
-			if(this.getListaHc().contains(hc)) {
-				this.getListaHc().set(this.getListaHc().indexOf(hc), hc);
-			}
-			else {
-				this.getListaHc().add(hc);
-			}
-			if(a) {
-				hc.setUser(this, false);
-			}
-		}
-	}
+
 	public void addHT(HistorialTicket ht ) {
-		this.addHT(ht,true);
-	}
-	public void addHT(HistorialTicket ht, boolean a) {
-		if(ht!=null) {
-			if(this.getListaHt().contains(ht)) {
-				this.getListaHt().set(this.getListaHt().indexOf(ht), ht);
-			}
-			else {
-				this.getListaHt().add(ht);
-			}
-			if(a) {
-				ht.setUser(this, false);
-			}
-		}
+		this.listaHistorialT.add(ht);
 	}
 		
 	

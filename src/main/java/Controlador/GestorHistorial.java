@@ -17,8 +17,8 @@ public class GestorHistorial {
 
 	public HistorialTicket crearHistorialT(Usuario u, EstadoTicket abiertoderivado, Ticket t, Date f, Date fecha) {
 		
-		HistorialTicket ht1= new HistorialTicket(EstadoTicket.ABIERTODERIVADO ,f , t); 
-	
+		HistorialTicket ht1= new HistorialTicket(EstadoTicket.ABIERTODERIVADO ,f); 
+		//ht1.setTicket(t);
 		HistorialTicket h= gestorbdd.cargarHistorialT(ht1);
 		
 		return h;

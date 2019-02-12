@@ -45,7 +45,7 @@ public class Clasificacion implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "clasificacion")
 	//Fetch(value = FetchMode.SUBSELECT)
-	private List<Ticket> listaTickets = new ArrayList<>();;
+	private List<Ticket> listaTickets = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "clasificacion")
 	//@Fetch(value = FetchMode.SUBSELECT)

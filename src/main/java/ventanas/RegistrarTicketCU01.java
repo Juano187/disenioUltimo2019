@@ -79,12 +79,12 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
-
+        
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout()); 
 
         jLabelTitulo.setFont(new java.awt.Font("Californian FB", 3, 24)); 
-        jLabelTitulo.setForeground(new java.awt.Color(0, 51, 102));
+        jLabelTitulo.setForeground(new java.awt.Color(0, 51, 102)); 
         jLabelTitulo.setText("REGISTRAR TICKET");
         getContentPane().add(jLabelTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 320, 80));
 
@@ -92,9 +92,9 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("N\u00famero de ticket:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
-
+        Integer numTicket = gbdd.getTickets().size()+1;
         jTextFielNoEditable.setEditable(false);
-        jTextFielNoEditable.setText(obtenerNumT());
+        jTextFielNoEditable.setText(numTicket.toString());
         jTextFielNoEditable.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
         		jTextField4.requestFocus();
@@ -327,23 +327,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         pack();
     }
 
-    
-    private String obtenerNumT() {
-    	GestorTicket gestorT = new GestorTicket();
-    	Ticket newticket = gestorT.crearTicket();
-    	
-    	Integer n = newticket.getNum_ticket()+1;
-    	
-    	String n1 = n.toString();
-    	
-
-    	
-    	return n1;
-    	
-    	
-    }
-    
-    
+       
     public void addUser ( Usuario user) {
     	u = user;
     }

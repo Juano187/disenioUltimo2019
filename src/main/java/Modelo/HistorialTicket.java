@@ -23,7 +23,7 @@ import javax.persistence.MappedSuperclass;
 
 public class HistorialTicket extends HistorialABS {
 
-	@ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "num_ticket")
 	private Ticket ticket;
 	
@@ -31,39 +31,29 @@ public class HistorialTicket extends HistorialABS {
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoTicket estado;
 	
-	@ManyToOne
-	private Usuario usuario;
-	
-	public HistorialTicket (EstadoTicket estado, Date f, Ticket t) {
+	public HistorialTicket (EstadoTicket estado, Date f) {
 		super();
 		this.estado= estado;
-		this.ticket= t;
+
 	
 	}
 	public HistorialTicket() {
 	
 	}
-
-	public HistorialTicket(Usuario usuario ) {
-		
-		
-		this.usuario=usuario;
-	}
 	
+	public void setUser(Usuario u) {
+		super.setUser(u);
+		u.addHT(this);
+	}
 	public HistorialTicket( Date f) {
 		super (f);
 	}
 	
-	public void setUser(Usuario u) {
-		this.setUser(u, true);
+	public void setTicket(Ticket t){
+		this.ticket = t;
 	}
-	public void setUser(Usuario u, boolean a) {
-		this.usuario=u;
-		if(u!=null && a){
-			u.addHT(this, false);
-			}
-		}
-	
+
+	/*
 	public void setTicket(Ticket t){
 		setTicket(t,true);
 	}
@@ -73,7 +63,7 @@ public class HistorialTicket extends HistorialABS {
 			t.addH(this, false);
 		}
 	}
-	
+	*/
 	public void setEstadoT(EstadoTicket a) {
 		this.estado =a;		
 	}

@@ -66,13 +66,15 @@ public class Ticket implements  Serializable{
 	private Empleado empleado;
 	
 	@OneToMany(	cascade = CascadeType.ALL, mappedBy = "ticket")
+	
 	//@Fetch(value = FetchMode.SUBSELECT)
 	//@JoinColumn(name = "numero")
-	private List<Intervencion> listaintervenciones = new ArrayList<>();;
+	
+	private List<Intervencion> listaintervenciones = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
 	//	@Fetch(value = FetchMode.SUBSELECT)
-	private List<HistorialTicket> listahistorial = new ArrayList<>();;
+	private List<HistorialTicket> listahistorial = new ArrayList<>();
 	
 	public Ticket() {
 		
@@ -122,35 +124,15 @@ public class Ticket implements  Serializable{
 		}
 	}
 	
-	
-	public void  add(HistorialTicket ht) {
-		listahistorial.add(ht);
-		
+	public void addH( HistorialTicket ht) {
+	 this.listahistorial.add(ht);
+	 ht.setTicket(this);
 	}
-	
-	
-	public void  addH(HistorialTicket ht) {
-		this.addH(ht,true);
-		
-	}
-	
-	public void addH(HistorialTicket ht, boolean set ) {
-		if(ht != null) {
-		if(this.getListahistorial().contains(ht)) {
-			this.getListahistorial().set(this.getListahistorial().indexOf(ht), ht);
-		}
-		else {
-			this.getListahistorial().add(ht);
-		}
-		if(set) {
-			ht.setTicket(this, false);
-		}
-		}
-	}
-	
+
 	public void setEmp(Empleado e) {
 		setEmp(e,true);
 	}
+	
 	public void setEmp(Empleado e, boolean a) {
 		this.empleado = e;
 		if(e!=null && a) {
@@ -172,8 +154,6 @@ public class Ticket implements  Serializable{
 		return clasificacion ;
 			
 	}
-
-
 	
 	public void setListainterveniones(List<Intervencion> listainterveniones) {
 		this.listaintervenciones = listainterveniones;
@@ -188,9 +168,6 @@ public class Ticket implements  Serializable{
 	public void setNum_ticket(Integer num_ticket) {
 		this.num_ticket = num_ticket;
 	}
-
-
-
 
 
 	public String getDescrip_problema() {
