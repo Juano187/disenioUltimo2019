@@ -415,9 +415,11 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
         		
         		ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
-        		System.out.println(ticketselec.getNumeroTicket());
-            	
-                jButton4ActionPerformed(evt);
+
+        			jButton4ActionPerformed(evt);
+        		
+        		//System.out.println(ticketselec.getNumeroTicket());
+    
             }
         });
         jButton4.addKeyListener(new java.awt.event.KeyAdapter(){
@@ -552,7 +554,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             }      
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-        try {
+      try {
+        	System.out.println(u.getUsuario()+ "numTicket"+ticketselec.getNumeroTicket());
             DetalleTicketCU02 r = new DetalleTicketCU02(u, ticketselec);
             r.setAnterior(frame);
             r.setVisible(true);
@@ -560,7 +563,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             
             }catch(Exception ex) {
             	
-            	EjemploError error = new EjemploError(ex.getMessage());
+            	EjemploError error = new EjemploError("error");
         	  	error.setVisible(true); }
     		}
     

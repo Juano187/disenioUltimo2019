@@ -22,7 +22,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	
     private void initComponents(Usuario u, TicketDTO ticketselec) {
     	
-    	System.out.println(ticketselec.getEmpleado().getDescripcioncargo().toString());
+    	//System.out.println(ticketselec.getEmpleado().getDescripcioncargo().toString());
     	
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
