@@ -36,7 +36,7 @@ abstract class HistorialABS {
 	private Date hora_fecha_fin;
 	
 	@ManyToOne
-	@JoinColumn(name = "ID_usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
 	public HistorialABS() {
