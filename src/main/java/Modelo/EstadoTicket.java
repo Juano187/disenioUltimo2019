@@ -1,6 +1,7 @@
 package Modelo;
 
 public enum EstadoTicket {
+	//cam
 	ABIERTOSINDERIVAR("AbiertoSinDerivar" , String.class) ,
 	
 	ABIERTODERIVADO("AbiertoDerivado" , String.class) , 
