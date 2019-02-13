@@ -63,26 +63,48 @@ public class GestorTicket {
     }
 	
 
-	public void derivarTicket(Integer numTicket, String observ, GrupoResolucion grup) {
-		Ticket ticket = this.getTicket(numTicket);
-		Date fecha = new Date();
-		System.out.println("hola2");
+	public void derivarTicket(Integer numTicket, String observ, String grup , Usuario u , Integer idCla) {
+		System.out.println("cami2");
+		System.out.println(grup);
+		
+		Ticket ticket = gestorBDD.buscarTicket(numTicket);
+		
+		System.out.println(ticket.getNum_ticket());
+		System.out.println("mierd");
+		
 		ticket.setEstadoticket(1);
+		Date fecha = new Date();
+		System.out.println(ticket.getEstadoticket());
 		
-		Intervencion newI = gestorI.actualizarI(numTicket, observ , grup);
 		
-		if(newI != null) {
-			newI.setTicket(ticket);
-			ticket.add(newI);
+		
+		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, grup /*, u*/);		
+		
+		GrupoResolucion g= gestorBDD.getgrupo(grup) ;
+		System.out.println("ohli");
+		
+		Intervencion i = ticket.getIntervencion(0);
+		
+		
+		
+		if(intervencionU != null) {
+			intervencionU.setTicket(ticket);
+			ticket.add(intervencionU);
 			ticket.setFecha_cierre(fecha);
 			
 		}
 		
 		System.out.println("hola2");
-		gestorBDD.actualizarTicket(ticket) ; // TODO probar cargar (para no usar merge)
-		System.out.println("hola2");
+		
+		
+		i.setEstadointervencion(EstadoIntervencion.EN_ESPERA);
+		i.setFecha_fin(fecha);
+		
+		
+		gestorBDD.actualizarTicket(ticket);
+		
 	}
-	
+
 
 	
 	

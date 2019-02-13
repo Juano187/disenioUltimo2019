@@ -161,6 +161,29 @@ public class GestorBDD {
 		return resultado;
 	}
 	
+	
+
+	public Intervencion ultimaInt(Integer numeroTicket, Integer grupo) {
+		Intervencion resultado;
+		System.out.println("shit2");
+		System.out.println(grupo);
+		ArrayList<Intervencion> intervencionesTicket;
+		String cs = "from Intervencion where ticket = " + numeroTicket + " and grupo = " + grupo;
+		
+		manager.getTransaction().begin();
+		intervencionesTicket = (ArrayList<Intervencion>) manager.createQuery(cs).getResultList();
+		manager.getTransaction().commit();
+		if(intervencionesTicket.size() == 0) {
+			resultado = null;
+		}
+		else {
+			resultado = intervencionesTicket.get(intervencionesTicket.size());
+		}
+		return resultado;
+	}
+
+	
+	
 /*@SuppressWarnings("unchecked")
 public ArrayList<Historial>getHistoriales(){
 	
@@ -359,6 +382,18 @@ public ArrayList<Historial>getHistoriales(){
 		return grupoR;
 	}
 
+	public Ticket buscarTicket(Integer numTicket) {
+		Ticket ticket;
+		String cs = "FROM Ticket WHERE num_ticket = " + numTicket ;
+		manager.getTransaction().begin();
+		ticket = (Ticket) manager.createQuery(cs).getSingleResult();
+		manager.getTransaction().commit();
+		
+		
+		return ticket;	
+	}
+
+	
 	/*
 	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 		

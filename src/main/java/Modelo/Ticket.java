@@ -25,6 +25,8 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 
+
+
 @Entity
 @Table(name = "TICKET")
 public class Ticket implements  Serializable{
@@ -281,7 +283,16 @@ public class Ticket implements  Serializable{
 	}
 	
 
-
+	public Intervencion getIntervencion(int idgrupo) {
+		for (int i=0;i<listaintervenciones.size(); i++) {
+			if(listaintervenciones.get(i).getGruporesolucion().getId_grupo()==idgrupo) {
+				return listaintervenciones.get(i);
+			}
+			
+		}
+		
+		return null;
+	}
 
 
 	

@@ -163,7 +163,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
 
     	 
-       ActionListener cbActionListener = new ActionListener() {
+
+        combocalif.addActionListener( new ActionListener ()  {
         
         	@Override
         		public void actionPerformed(ActionEvent a) {
@@ -177,32 +178,36 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         
         	
         	}
-         };
-         combocalif.addActionListener(cbActionListener);
-         
-         jButton1.addActionListener(new java.awt.event.ActionListener() {
-             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            
-                 	if(jLabel10.getText().isEmpty()) {
-                 		String e= "Error Observaciones vacio";
-             			EjemploError i = new EjemploError(e);
-                 		i.setVisible(true);
-                 		}
-                 	else if(ultgrupos.getSelectedIndex() == 0){
-                 		String e= "Seleccione Grupo de Resolucion";
-             			EjemploError i = new EjemploError(e);
-                 		i.setVisible(true);
-                 	}
-                 	else {
-                 		System.out.println("hola1");
-                 		GrupoResolucion gr = (GrupoResolucion) ultgrupos.getSelectedItem();
-                 		ClasificacionDTO cs = (ClasificacionDTO) combocalif.getSelectedItem();
-                 		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr /*, cs.getCodCla()*/);
-                 	}
+       });
 
-                 jButton1ActionPerformed(evt);
-             }
-         });
+         
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+           
+           	 	System.out.println("rasta");
+                	if(jLabel10.getText().isEmpty()) {
+                		String e= "Error Observaciones vacio";
+            			EjemploError i = new EjemploError(e);
+                		i.setVisible(true);
+                		}
+                	else if(ultgrupos.getSelectedIndex() == 0){
+                		String e= "Seleccione Grupo de Resolucion";
+            			EjemploError i = new EjemploError(e);
+                		i.setVisible(true);
+                	}
+                	else {
+                		System.out.println("hola1");
+                		GrupoResolucion gr = (GrupoResolucion) ultgrupos.getSelectedItem();
+                		System.out.println("rs");
+                   	System.out.println(gr.getNom_grupo());
+                		ClasificacionDTO cs = (ClasificacionDTO) combocalif.getSelectedItem();
+                		System.out.println(ticketselec.getCla().getNombre());
+                		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodCla());
+                	}
+
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);

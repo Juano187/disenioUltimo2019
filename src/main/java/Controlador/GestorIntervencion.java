@@ -27,55 +27,54 @@ public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoInte
 		return in;
 	}
 
-	public Intervencion actualizarI(Integer numTicket, String observ, GrupoResolucion grup) {
+public Intervencion cambioInterv(Integer numTicket, String observ, String grup /*, Usuario u*/) {
 	
-		Date fecha = new Date();
-		
-		
-		System.out.println("hola3");
-		Intervencion i = gestorBDD.getIntervMESA(numTicket);
-		
-		i.setFecha_fin(fecha);
-		i.setEstadointervencion(EstadoIntervencion.EN_ESPERA);
-		gestorBDD.guardarIntervencion(i);
-		System.out.println("hola3");
-		Intervencion i2;
-		
-			
-		Intervencion newi = gestorBDD.ultimaInt(numTicket, grup);
+	System.out.println("cambio");
+	System.out.println(numTicket);
+
+	System.out.println(observ);
+	System.out.println(grup);
+	
+	Date fecha = new Date();
+	GrupoResolucion g= gestorBDD.getgrupo(grup) ;
+	
+	
+	
+	Intervencion i2;
+	System.out.println("shit");
+	
+	Intervencion newi = gestorBDD.ultimaInt(numTicket, g.getId_grupo());
+	System.out.println(newi.getId_intervencion());		
+	System.out.println(newi.getEstadointervencion());		
+	
+	//newi.setObservaciones(observ);
+	if(newi == null || (newi.getEstadointervencion() == EstadoIntervencion.TERMINADA)) {
+		Intervencion intervg = new Intervencion();
+		intervg.setFecha_inicio(fecha);
+		intervg.setGruporesolucion(g);
+		intervg.setEstadointervencion(EstadoIntervencion.ASIGNADO);
+		i2 = intervg;
 				
-		System.out.println("hola3");
 		
-		newi.setObservaciones(observ);
-		if(newi == null || (newi.getEstadointervencion() == EstadoIntervencion.TERMINADA)) {
-			Intervencion intervg = new Intervencion();
-			intervg.setFecha_inicio(fecha);
-			intervg.setGruporesolucion(grup);
-			intervg.setEstadointervencion(EstadoIntervencion.ASIGNADO);
-			i2 = intervg;
-					
-			
-		}
-		else {
-			Date fechafin = new Date();
-			newi.setFecha_fin(fechafin);
-			newi.setEstadointervencion(EstadoIntervencion.ASIGNADO);
-			gestorBDD.actualizarIntervencion(newi);
-			i2 = null;
-		}
-		
-		
-				 
-		
-		
-		
-		
-		
-		return i2;
 	}
+	else {
+		Date fechafin = new Date();
+		newi.setFecha_fin(fechafin);
+		newi.setEstadointervencion(EstadoIntervencion.ASIGNADO);
+		gestorBDD.actualizarIntervencion(newi);
+		i2 = null;
+	}
+	
+	
 
 	
 	
+	
+	
+	
+	return i2;
+}
+
 
 
 

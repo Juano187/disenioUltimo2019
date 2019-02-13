@@ -34,8 +34,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/mcgon/Documents/Facu Ceci/Sistemas/3/Diseño de sistemas/TP/java/AbsoluteLayout.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mcgon/Documents/Facu Ceci/Sistemas/3/Diseño de sistemas/TP/java/mysql-connector-java-8.0.13.jar"/>
-	<classpathentry kind="lib" path="C:/Users/mcgon/Documents/Facu Ceci/Sistemas/3/Diseño de sistemas/TP/java/org-netbeans-modules-swingapp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ACER/Desktop/disenioUltimo2019/lib/AbsoluteLayout.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ACER/Desktop/disenioUltimo2019/lib/mysql-connector-java-8.0.13.jar"/>
+	<classpathentry kind="lib" path="C:/Users/ACER/Desktop/disenioUltimo2019/lib/mysql-connector-java-8.0.13-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
