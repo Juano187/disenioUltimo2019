@@ -196,12 +196,13 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                 		i.setVisible(true);
                 	}
                 	else {
-                		System.out.println("hola1");
+                		
                 		GrupoResolucion gr = (GrupoResolucion) ultgrupos.getSelectedItem();
-                		System.out.println("rs");
+                		System.out.println("Entro derivar");
                    	System.out.println(gr.getNom_grupo());
                 		ClasificacionDTO cs = (ClasificacionDTO) combocalif.getSelectedItem();
-                		System.out.println(ticketselec.getCla().getNombre());
+                		System.out.println(gr.getNom_grupo());
+                		System.out.println(cs.getCodCla());
                 		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodCla());
                 	}
 

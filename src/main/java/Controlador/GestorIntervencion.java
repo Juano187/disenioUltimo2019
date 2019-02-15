@@ -10,7 +10,7 @@ import Modelo.Usuario;
 
 
 public class GestorIntervencion {
-	GestorBDD gestorBDD;
+	GestorBDD gestorBDD = new GestorBDD();
 
 
 public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoIntervencion e ,  
@@ -27,23 +27,23 @@ public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoInte
 		return in;
 	}
 
-public Intervencion cambioInterv(Integer numTicket, String observ, String grup /*, Usuario u*/) {
+public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResolucion grup /*, Usuario u*/) {
 	
-	System.out.println("cambio");
+	System.out.println("cambio interv");
 	System.out.println(numTicket);
 
 	System.out.println(observ);
-	System.out.println(grup);
+	System.out.println(grup.getNom_grupo());
 	
 	Date fecha = new Date();
-	GrupoResolucion g= gestorBDD.getgrupo(grup) ;
+	
 	
 	
 	
 	Intervencion i2;
-	System.out.println("shit");
 	
-	Intervencion newi = gestorBDD.ultimaInt(numTicket, g.getId_grupo());
+	Intervencion newi = gestorBDD.ultimaInt(numTicket, grup);
+	System.out.println("se obtuvo interv ");
 	System.out.println(newi.getId_intervencion());		
 	System.out.println(newi.getEstadointervencion());		
 	
@@ -51,7 +51,7 @@ public Intervencion cambioInterv(Integer numTicket, String observ, String grup /
 	if(newi == null || (newi.getEstadointervencion() == EstadoIntervencion.TERMINADA)) {
 		Intervencion intervg = new Intervencion();
 		intervg.setFecha_inicio(fecha);
-		intervg.setGruporesolucion(g);
+		intervg.setGruporesolucion(grup);
 		intervg.setEstadointervencion(EstadoIntervencion.ASIGNADO);
 		i2 = intervg;
 				

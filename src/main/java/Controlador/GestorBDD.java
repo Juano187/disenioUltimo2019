@@ -3,6 +3,7 @@ package Controlador;
 import java.lang.Exception;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -147,40 +148,29 @@ public class GestorBDD {
 	public Intervencion ultimaInt(Integer numeroTicket, GrupoResolucion grupo) {
 		Intervencion resultado;
 		ArrayList<Intervencion> intervencionesTicket;
-		String cs = "from Intervencion where ticket = " + numeroTicket + " and grupo = " + grupo.getId_grupo();
+		System.out.println(grupo.getId_grupo());
+		System.out.println(numeroTicket);
+		String cs = "from Intervencion where ticket = " + numeroTicket + " and gruporesolucion = " + grupo.getId_grupo();
 		
 		manager.getTransaction().begin();
 		intervencionesTicket = (ArrayList<Intervencion>) manager.createQuery(cs).getResultList();
 		manager.getTransaction().commit();
+		
+
+		
 		if(intervencionesTicket.size() == 0) {
 			resultado = null;
 		}
 		else {
-			resultado = intervencionesTicket.get(intervencionesTicket.size());
+			resultado = intervencionesTicket.get(intervencionesTicket.size()-1);
+			
 		}
 		return resultado;
 	}
 	
 	
 
-	public Intervencion ultimaInt(Integer numeroTicket, Integer grupo) {
-		Intervencion resultado;
-		System.out.println("shit2");
-		System.out.println(grupo);
-		ArrayList<Intervencion> intervencionesTicket;
-		String cs = "from Intervencion where ticket = " + numeroTicket + " and grupo = " + grupo;
-		
-		manager.getTransaction().begin();
-		intervencionesTicket = (ArrayList<Intervencion>) manager.createQuery(cs).getResultList();
-		manager.getTransaction().commit();
-		if(intervencionesTicket.size() == 0) {
-			resultado = null;
-		}
-		else {
-			resultado = intervencionesTicket.get(intervencionesTicket.size());
-		}
-		return resultado;
-	}
+	
 
 	
 	

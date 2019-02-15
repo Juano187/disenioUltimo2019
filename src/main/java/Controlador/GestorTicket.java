@@ -64,28 +64,27 @@ public class GestorTicket {
 	
 
 	public void derivarTicket(Integer numTicket, String observ, String grup , Usuario u , Integer idCla) {
-		System.out.println("cami2");
+		System.out.println("entro gestor ti, nombre grup = ");
 		System.out.println(grup);
 		
 		Ticket ticket = gestorBDD.buscarTicket(numTicket);
 		
 		System.out.println(ticket.getNum_ticket());
-		System.out.println("mierd");
+		
 		
 		ticket.setEstadoticket(1);
 		Date fecha = new Date();
 		System.out.println(ticket.getEstadoticket());
 		
-		
-		
-		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, grup /*, u*/);		
-		
 		GrupoResolucion g= gestorBDD.getgrupo(grup) ;
-		System.out.println("ohli");
+		System.out.println("se obtuvo grupo entero");	
 		
-		Intervencion i = ticket.getIntervencion(0);
+		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, g /*, u*/);		
 		
+	
 		
+		Intervencion i = ticket.getIntervencion(1);
+
 		
 		if(intervencionU != null) {
 			intervencionU.setTicket(ticket);
@@ -94,7 +93,7 @@ public class GestorTicket {
 			
 		}
 		
-		System.out.println("hola2");
+		System.out.println(i.getGruporesolucion().getNom_grupo());
 		
 		
 		i.setEstadointervencion(EstadoIntervencion.EN_ESPERA);

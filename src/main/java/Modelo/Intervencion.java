@@ -39,7 +39,7 @@ public class Intervencion implements Serializable {
 	private Integer id_intervencion;
 	
 	
-	@Column(name = "FECHA_INICIO", nullable= false)
+	@Column(name = "FECHA_INICIO", nullable= true)
 	private Date fecha_inicio;
 	
 	@Column(name = "FECHA_FIN", nullable= true)
