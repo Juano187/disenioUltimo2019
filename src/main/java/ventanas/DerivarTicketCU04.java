@@ -30,6 +30,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	
 
     public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
+    	
+    	u = u2;
         initComponents(ticketselec, u);//TODO falta ver ue el u2 no es lo mismo que el u definido como var global, hay que asignarle al u = u2 o mandar un set desde la interfaz que lo llamo ( ver cual rinde mas)
         this.setLocationRelativeTo(null);
     }
