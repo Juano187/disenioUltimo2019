@@ -364,10 +364,10 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         		
         		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
         		 	
-                   // CerrarTicketCU03 c = new CerrarTicketCU03();
-                    //c.setAnterior(frame);
-                    //c.setVisible(true);
-                    //this.setVisible(false);
+                   CerrarTicketCU03 c = new CerrarTicketCU03();
+                    c.setAnterior(frame);
+                    c.setVisible(true);
+                    this.setVisible(false);
         		 	
       		}
         	 

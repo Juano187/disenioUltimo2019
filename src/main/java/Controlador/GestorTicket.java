@@ -134,7 +134,7 @@ public class GestorTicket {
 			ht.setUser(u);
 			hc.setUser(u);
 			i.addHi(hi);
-			
+
 			t.addInt(i);
 		
 			gestorBDD.cargarTicket(t);

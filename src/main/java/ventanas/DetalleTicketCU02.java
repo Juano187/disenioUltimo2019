@@ -11,10 +11,10 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	private JFrame frame;
 	private JFrame anterior;
 	JFrame panel=this;
-	private Usuario u;
+	private Usuario u ;
 	
-	public DetalleTicketCU02(Usuario u, TicketDTO ticketselec) {
-		
+	public DetalleTicketCU02(Usuario u2, TicketDTO ticketselec) {
+		u = u2;
         initComponents(u, ticketselec);
         this.setLocationRelativeTo(null);
         frame = this;
@@ -35,7 +35,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jTextFielNoEditable1 = new javax.swing.JTextField();
+        telefonoInterno = new javax.swing.JTextField();
         jTextFielNoEditable2 = new javax.swing.JTextField();
         jTextFielNoEditable3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,9 +58,9 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jLabel1.setText("DETALLE TICKET");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 260, 30));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 19)); 
         jLabel2.setForeground(new java.awt.Color(0, 51, 102));
-        jLabel2.setText("Datos usuarios");    
+        jLabel2.setText("Datos usuario");    
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); 
@@ -119,14 +119,14 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jLabel9.setText("Descripci\u00f3n del cargo:");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
 
-        jTextFielNoEditable1.setEditable(false);
-        //jTextFielNoEditable1.setText((ticketselec.getEmpleado().getDescripcioncargo().toString()));
-        jTextFielNoEditable1.addActionListener(new java.awt.event.ActionListener() {
+        telefonoInterno.setEditable(false);
+        telefonoInterno.setText(u.getEmpleado().getTelefonoint().toString());
+        telefonoInterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFielNoEditable1ActionPerformed(evt);
+                telefonoInternoActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextFielNoEditable1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 260, 30));
+        getContentPane().add(telefonoInterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 260, 30));
 
         jTextFielNoEditable2.setEditable(false);
         jTextFielNoEditable2.setText("Telefono");
@@ -303,9 +303,9 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFielNoEditable3ActionPerformed
 
-    private void jTextFielNoEditable1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditable1ActionPerformed
+    private void telefonoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoInternoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFielNoEditable1ActionPerformed
+    }//GEN-LAST:event_telefonoInternoActionPerformed
 
     private void jTextFielNoEditable8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditable8ActionPerformed
         // TODO add your handling code here:
@@ -390,7 +390,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFielNoEditable;
-    private javax.swing.JTextField jTextFielNoEditable1;
+    private javax.swing.JTextField telefonoInterno;
     private javax.swing.JTextField jTextFielNoEditable2;
     private javax.swing.JTextField jTextFielNoEditable3;
     private javax.swing.JTextField jTextFielNoEditable8;

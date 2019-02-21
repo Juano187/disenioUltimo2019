@@ -146,7 +146,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 540, 160, 30));
-        
+
+    
         
         buscar.setBackground(new java.awt.Color(0, 51, 102));
         buscar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
@@ -429,7 +430,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
                 }
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 830, 110, 30));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 30));//330, 830, 110, 30));
 
         jButton5.setBackground(new java.awt.Color(0, 51, 102));
         jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); 
@@ -555,7 +556,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
       try {
-        	System.out.println(u.getUsuario()+ "numTicket"+ticketselec.getNumeroTicket());
+        	//System.out.println(u.getUsuario()+ "numTicket"+ticketselec.getNumeroTicket());
             DetalleTicketCU02 r = new DetalleTicketCU02(u, ticketselec);
             r.setAnterior(frame);
             r.setVisible(true);
@@ -563,7 +564,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             
             }catch(Exception ex) {
             	
-            	EjemploError error = new EjemploError("error");
+            	EjemploError error = new EjemploError("error al entrar a detalleTicket");
         	  	error.setVisible(true); }
     		}
     
