@@ -4,17 +4,15 @@ import java.util.Date;
 import Modelo.EstadoTicket;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
+
 
 
 
@@ -29,10 +27,13 @@ public class HistorialTicket extends HistorialABS {
 	
 	@JoinColumn(name = "estadoticket")
 	@Enumerated(value = EnumType.STRING) 
+	
 	private EstadoTicket estado;
+
+	private Clasificacion clasificacion;
 	
 	public HistorialTicket (EstadoTicket estado, Date f) {
-		super();
+		super(f);
 		this.estado= estado;
 
 	
@@ -53,6 +54,16 @@ public class HistorialTicket extends HistorialABS {
 		this.ticket = t;
 	}
 
+	public EstadoTicket getEstado () {
+		return this.estado;
+	}
+	public void setClasificacion (Clasificacion c) {
+		this.clasificacion = c;
+	}
+	public Clasificacion getClasif () {
+		return	this.clasificacion;
+	}
+	
 	/*
 	public void setTicket(Ticket t){
 		setTicket(t,true);

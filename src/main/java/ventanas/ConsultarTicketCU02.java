@@ -176,9 +176,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
                 },
                 new String [] {
                   "Nro ticket", "Legajo", "Fecha Apertura", "Estado", "Clasificacion "  /*"Grupo de resolucion"*/
-            
                 }
             );
+        
             jTable1.setModel(TablaTickets);
             jScrollPane1.setViewportView(jTable1);
 
@@ -188,7 +188,6 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     			public void mouseReleased(MouseEvent e) {
     				int r = jTable1.rowAtPoint(e.getPoint());
     				seleccion = r;
-
     			}
 
     		});
@@ -618,6 +617,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  		System.out.println(t.getFechaA().toString());
  		System.out.println(t.getCla().getNombre());
  		System.out.println(t.getEstado().toString());
+ 		
  	TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getEstado().toString(), t.getCla().getNombre()/* t.getGru().getNombre()*/});
  			
  			}

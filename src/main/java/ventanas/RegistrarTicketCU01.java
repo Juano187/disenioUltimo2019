@@ -53,7 +53,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     @SuppressWarnings({ "unchecked"})
 
     private void initComponents(Usuario user) {
-    	
+      //  System.out.println(u.getUsuario());
     	
        
     	jLabelTitulo = new javax.swing.JLabel();

@@ -56,6 +56,9 @@ abstract class HistorialABS {
 	public void setUser(Usuario u) {
 		this.usuario=u;
 	}
+	public Usuario getUser () {
+		return this.usuario;
+	}
 	public boolean ultimaFechaVacia() {
 		if( this.hora_fecha_fin == null ) {
 			return true;
@@ -63,8 +66,12 @@ abstract class HistorialABS {
 			return false;
 		}
 	}
-	
-	
+	public Date getFechaFin() {
+		return this.hora_fecha_fin;
+	}
+	public Date getFechaIni() {
+		return this.hora_fecha_ini;
+	}
 	public int getIdHistorial() {
 		return this.id_historial;
 	}

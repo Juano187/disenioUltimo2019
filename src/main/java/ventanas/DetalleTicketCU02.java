@@ -3,7 +3,11 @@ package ventanas;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 
+import Controlador.GestorBDD;
+import Controlador.GestorTicket;
+import Modelo.Ticket;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
 
@@ -12,17 +16,21 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	private JFrame anterior;
 	JFrame panel=this;
 	private Usuario u ;
+	private GestorBDD gBDD = new GestorBDD();
+	private GestorTicket gt = new GestorTicket();
 	
-	public DetalleTicketCU02(Usuario u2, TicketDTO ticketselec) {
+	public DetalleTicketCU02(Usuario u2, TicketDTO tdo) {
+		
 		u = u2;
-        initComponents(u, ticketselec);
+		Ticket t = gt.getTicket(tdo.getNumeroTicket());
+        initComponents(u, t);
         this.setLocationRelativeTo(null);
         frame = this;
     }
 	
-    private void initComponents(Usuario u, TicketDTO ticketselec) {
+    private void initComponents(Usuario u, Ticket t) {
     	
-    	//System.out.println(ticketselec.getEmpleado().getDescripcioncargo().toString());
+    			//System.out.println(ticketselec.getEmpleado().getDescripcioncargo().toString());
     	
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -76,7 +84,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jTextField4.setEditable(false);
         jTextField4.setForeground(new java.awt.Color(51, 51, 51));
         jTextField4.setPreferredSize(new java.awt.Dimension(52, 22));
-        jTextField4.setText((ticketselec.getNumlegajo().toString()));
+        jTextField4.setText((t.getEmpleado().getLegajo().toString()));
         jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -95,7 +103,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
 
         jTextFielNoEditable.setEditable(false);
-        jTextFielNoEditable.setText("Numero ticket");
+        jTextFielNoEditable.setText(t.getNum_ticket().toString());
         jTextFielNoEditable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditableActionPerformed(evt);
@@ -239,8 +247,37 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         });
         getContentPane().add(jTextFielNoEditable8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 370, 30));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+        
+        
+        DefaultTableModel TablaTickets = new DefaultTableModel(
+        	 new Object [][] {
+                },
+                new String [] {
+                		 "Hora y Fecha de cambio de estado", "Operador a cargo", "Estado", "Grupo de resoluci\u00f3n", "Clasificaci\u00f3n", "Observaciones"
+                }
+            );
+        
+         String[] datos ={null,null,null,null,null,null} ;
+
+         for(int i = 0; i<(t.getListahistorial().size()-1); i++) {
+        	 
+        	 datos[0] = t.getListahistorial().get(i).getFechaIni().toString();
+        	 datos[1] = t.getListahistorial().get(i).getUser().getUsuario();
+        	 datos[2] = t.getListahistorial().get(i).getEstado().toString();
+        	 datos[3] = t.getListahistorial().get(i).getUser().getGruporesolucion().toString();
+        	 datos[4] = t.getListahistorial().get(i).getClasif().getNom_clasificacion();
+        	// datos[5] = t.getListahistorial().get(i)
+        	 
+        	 
+        	 TablaTickets.addRow(datos);
+        			}
+        
+            jTable1.setModel(TablaTickets);
+            jScrollPane1.setViewportView(jTable1);
+        
+        
+       /* jTable1.setModel(new javax.swing.table.DefaultTableModel(
+           new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -261,7 +298,8 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
                 "Fecha de cambio de estado", "Hora de cambio de estado", "Operador a cargo", "Estado", "Grupo de resoluci\u00f3n", "Clasificaci\u00f3n", "Observaciones"
             }
         ) {
-            Class[] types = new Class [] {
+  
+			Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
@@ -275,7 +313,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
-        });
+        });*/
         jScrollPane3.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 1010, 160));
@@ -285,31 +323,31 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, -1));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {
+     
+    }
 
-    private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditableActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFielNoEditableActionPerformed
+    private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void jTextFielNoEditable2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditable2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFielNoEditable2ActionPerformed
+    private void jTextFielNoEditable2ActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void jTextFielNoEditable3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditable3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFielNoEditable3ActionPerformed
+    private void jTextFielNoEditable3ActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void telefonoInternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonoInternoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonoInternoActionPerformed
+    private void telefonoInternoActionPerformed(java.awt.event.ActionEvent evt) {
+       
+    }
 
-    private void jTextFielNoEditable8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditable8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFielNoEditable8ActionPerformed
+    private void jTextFielNoEditable8ActionPerformed(java.awt.event.ActionEvent evt) {
+      
+    }
 
 	public void setAnterior(JFrame anterior) {
 		this.anterior = anterior;
@@ -332,15 +370,9 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
             	EjemploError error = new EjemploError(ex.getMessage());
         	  	error.setVisible(true); }
             }  
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+       
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -357,19 +389,11 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DetalleTicketCU02.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
 
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -395,5 +419,5 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFielNoEditable3;
     private javax.swing.JTextField jTextFielNoEditable8;
     private javax.swing.JTextField jTextField4;
-    // End of variables declaration//GEN-END:variables
+
 }

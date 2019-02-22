@@ -30,9 +30,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	
 
     public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
-    	
-    	u = u2;
-        initComponents(ticketselec, u);//TODO falta ver ue el u2 no es lo mismo que el u definido como var global, hay que asignarle al u = u2 o mandar un set desde la interfaz que lo llamo ( ver cual rinde mas)
+    	u=u2;
+        initComponents(ticketselec, u);
         this.setLocationRelativeTo(null);
     }
 	GestorClasificacion gestorC = new GestorClasificacion();
@@ -40,6 +39,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	GestorTicket  gestorT= new GestorTicket();
     
 	private void initComponents(TicketDTO ticketselec, Usuario u) {
+		System.out.println(u.getUsuario());
 		GrupoResolucion gr = gestorG.getGrupo("Mesa de Ayuda");
 		System.out.println(gr.getNom_grupo());
         jLabel1 = new javax.swing.JLabel();
