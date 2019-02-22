@@ -187,33 +187,48 @@ public class GestorTicket {
 	}*/
 	
 
-	public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/ , String estado,  ClasificacionDTO cla/*, GrupoResolucionDTO ugrupo*/){
 
+public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien , Date fechaUBien , String estado,  ClasificacionDTO cla, GrupoResolucionDTO ugrupo){
+
+	
 		
-		
-		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien, /*fechaUBien, */ estado ,cla /*ugrupo*/);
+		List<Ticket> gd = gestorBDD.getTickets(numTic, legajo , fechaABien, fechaUBien,  estado ,cla , ugrupo);
 		
 		ArrayList<TicketDTO> resultado = new ArrayList<TicketDTO>();
 		
+		
 		for (int i=0; i<gd.size(); i++) {
+			
 			Ticket t = gd.get(i);
-		//	GrupoResolucionDTO ug = new GrupoResolucionDTO(t.ultimaI().getGruporesolucion().getNom_grupo());
+		
+		    GrupoResolucionDTO ug = new GrupoResolucionDTO(t.ultimaIGrupo().getGruporesolucion().getNom_grupo() , t.ultimaIGrupo().getGruporesolucion().getId_grupo());
 			ClasificacionDTO cla1 = new ClasificacionDTO(t.getClasificacion().getNom_clasificacion());
 			TicketDTO tic = new TicketDTO();
+			
+			System.out.println("gestor");
+			System.out.println(ug.getNombre());
+			System.out.println(t.getUsuOperador().getUsuario());
+			System.out.println(t.getEstadoticket());
+			
+			
 			tic.setNumeroTicket(t.getNum_ticket());
 			tic.setNumlegajo(t.getEmpleado().getLegajo());
 			tic.setFechaA(t.getFecha_apertura());
+			tic.setFechaU(t.getFecha_cierre());
 			tic.setEstado2(t.getEstadoticket());
+			tic.setUsuario(t.getUsuOperador().getUsuario());
 			tic.setCla(cla1);
 			tic.setDescripcion(t.getDescrip_problema());
-			//tic.setGru(ug);
-			
+			tic.setGru(ug);
 				
+					
 			resultado.add(tic);
 			}
 		
 		return resultado;
-	}
+
+	}		
+
 	
 	
 	public TicketDTO consultarTicket(Integer numTSeleccionado, ArrayList<TicketDTO> listaTencontrados){

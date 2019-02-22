@@ -3,6 +3,8 @@ package Modelo;
 import java.time.LocalDate;
 import java.util.Date;
 
+
+
 public class TicketDTO {
 	/* dto agragado cami para consultarticket hay q ver para consultar, en el gestor BD si se puede llamar estas funciones
 	 ya q pide como return de tipo TicketDTO y todos los get aca son tipo string etc*/
@@ -11,29 +13,48 @@ public class TicketDTO {
 	private Integer numeroTicket;
 	private Integer numlegajo;
 	private Date fechaA;
+	private Date fechaU;
 	private Empleado empleado;
 	private ClasificacionDTO cla;
 	private GrupoResolucionDTO gru;
 	private EstadoTicket estado;
-	private String descrip_problema; 
+	private String descrip_problema;
+	private String usuario;
 	
 	public TicketDTO() {
 		
 	}
 	
-	public TicketDTO(Integer numeroTicket, Integer numlegajo, Date fechaA, ClasificacionDTO cla,
-			GrupoResolucionDTO gru, EstadoTicket estado) {
+	public TicketDTO(Integer numeroTicket, Integer numlegajo, Date fechaA, 	Date fechaU , ClasificacionDTO cla,
+			GrupoResolucionDTO gru, EstadoTicket estado, String usuario) {
 		
 		this.numeroTicket = numeroTicket;
 		this.numlegajo = numlegajo;
 		this.fechaA = fechaA;
-
+		this.fechaU = fechaU;
 		this.cla = cla;
 		this.gru = gru;
 		this.estado = estado;
+		this.usuario= usuario;
 	}
 	
 	
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String string) {
+		this.usuario = string;
+	}
+
+	public Date getFechaU() {
+		return fechaU;
+	}
+
+	public void setFechaU(Date fechaU) {
+		this.fechaU = fechaU;
+	}
+
 	public Integer getNumeroTicket() {
 		return numeroTicket;
 	}
@@ -109,6 +130,7 @@ public class TicketDTO {
 		this.descrip_problema = descrip_problema;
 	}
 
+	
 	
 	
 	

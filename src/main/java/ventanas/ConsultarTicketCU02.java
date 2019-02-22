@@ -337,7 +337,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         			ven2.setVisible(true);
         		}else {*/
         	
-        		listaTencontrados = gestorT.consultarTicket(numTic, numLegajo,fechaABien, /*fechaUBien ,*/  estado, clasificacion  /*ultimoG */ );	
+        		listaTencontrados = gestorT.consultarTicket(numTic, numLegajo,fechaABien, fechaUBien ,  estado, clasificacion , ultimoG  );	
         			
         		
         			//System.out.println("num tic" + numTic + " legajo " + numLegajo + " fechaABien " + fechaABien + " estado " + estado + " clasificacion " + clasificacion + "ultimo " + ultimoG);
@@ -607,19 +607,20 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  	}
  	
  	
-
- 	
- 	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado) {
+	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado) {
  		System.out.println(resultado.size());
  	for(TicketDTO t: resultado) {
  		System.out.println(t.getNumeroTicket().toString());
  		System.out.println(t.getNumlegajo().toString());
  		System.out.println(t.getFechaA().toString());
+ 		System.out.println(t.getFechaU().toString());
  		System.out.println(t.getCla().getNombre());
  		System.out.println(t.getEstado().toString());
- 		
- 	TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getEstado().toString(), t.getCla().getNombre()/* t.getGru().getNombre()*/});
+ 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getFechaU().toString() ,t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNombre(),t.getGru().getNombre()});
  			
+ 
+
+ 	
  			}
  		
  		

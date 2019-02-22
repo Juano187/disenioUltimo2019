@@ -275,6 +275,74 @@ public ArrayList<Historial>getHistoriales(){
 	}
 	/*cami*/
 
+
+public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla  , GrupoResolucionDTO ugrupo){
+		
+	System.out.println("bdd");
+		System.out.println("fecha : " + fechaABien);
+		System.out.println(ugrupo.getNombre());
+		
+		
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		
+		
+		String sql = "Select distinct t FROM Ticket t, Clasificacion cf , GrupoResolucion g WHERE" ;
+		
+		
+		if(!(numTic== null)) {
+			sql+= " t.num_ticket = " + numTic;
+		}
+		
+		if(!(legajo== null)) {
+			sql+= " and t.empleado = " + legajo;
+		}
+		
+		if(!(fechaABien== null)) {
+			sql+= " and t.fecha_apertura = '" + fechaABien + "'";
+		}
+		
+		if(!(fechaUBien== null)) {
+			sql+= " and t.FECHA_HORA_CIERRE = " + fechaUBien;
+		}
+		
+		if(!(estado== null)) {
+			sql+= " and t.estadoticket = '" + estado + "'";
+		}
+		
+		if(!(cla== null)) {
+			sql+= " and cf.nom_clasificacion = '" + cla+ "'";
+		}
+		
+		
+		
+		if(!(ugrupo== null)) {
+			sql+= " and g.nom_grupo = '" + ugrupo+ "'";
+		}
+		
+		
+		System.out.println(sql);
+		
+		manager.getTransaction().begin();
+		tickets = (ArrayList<Ticket>) 
+				manager.createQuery(sql).getResultList();
+		manager.getTransaction().commit();
+		
+		System.out.println(tickets.size());
+		System.out.println(tickets.get(0).getClasificacion().getNom_clasificacion());
+		
+		System.out.println(tickets.get(0).getEstadoticket());
+		System.out.println(tickets.get(0).getEmpleado().getLegajo());
+		
+		System.out.println(tickets.get(0).getIntervencion(2).getId_intervencion()); 
+		System.out.println(tickets.get(0).ultimaIGrupo().toString()); 
+				
+		return tickets;
+	}
+
+
+	
+	
+	
 	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/, String estado, ClasificacionDTO cla  /*GrupoResolucionDTO ugrupo*/){
 		
 		

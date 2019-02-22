@@ -165,6 +165,12 @@ public class Ticket implements  Serializable{
 	public Integer getNum_ticket() {
 		return num_ticket;
 	}
+	
+	public Usuario getUsuOperador() {
+		System.out.println("pelotuda");
+		
+		return listahistorial.get(0).getUser();
+	}
 
 
 	public void setNum_ticket(Integer num_ticket) {
@@ -226,19 +232,37 @@ public class Ticket implements  Serializable{
 	
 
 	
-	public Intervencion ultimaI() {
+	public Intervencion ultimaIGrupo() {
 		Intervencion u = listaintervenciones.get(0);
 		for(Intervencion i: listaintervenciones) {
+			System.out.println("fecha");
+			System.out.println(i.getFecha_inicio());
+			System.out.println(i.getEstadointervencion());
+			System.out.println("fecha2");
+			System.out.println(u.getFecha_inicio());
+			System.out.println(u.getEstadointervencion());
+			
 			if(i.getFecha_inicio().compareTo(u.getFecha_inicio())>0) {
 				if(i.getEstadointervencion()!= EstadoIntervencion.TERMINADA) {
 					u=i;
-				}   
+					System.out.println("estado no terminada");
+				}   else {	 
+					for(Intervencion a: listaintervenciones) {
+						if(a.getEstadointervencion() != EstadoIntervencion.EN_ESPERA) {
+							u=i;
+							System.out.println("estado no en espera");
+							}
+						}					
 					}
 				}
-			
-		
+			}
+				
 	return u;	
 	}
+
+
+
+
 			
 	
 	
