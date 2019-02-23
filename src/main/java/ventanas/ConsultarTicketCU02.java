@@ -390,12 +390,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
                 
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 140, 30));
+        
 
         jButton4.setBackground(new java.awt.Color(0, 51, 102));
         jButton4.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -412,9 +407,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	
-            	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
-        		
-        		ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
+            	
 
         			jButton4ActionPerformed(evt);
         		
@@ -454,11 +447,23 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         });
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
                 jButton5ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 830, 180, 30));
-
+        
+        //cerrar
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
+            	ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 140, 30));
+        
+        
         jButton6.setBackground(new java.awt.Color(0, 51, 102));
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); 
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
@@ -542,7 +547,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
   
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            CerrarTicketCU03 r = new CerrarTicketCU03();
+        	
+            CerrarTicketCU03 r = new CerrarTicketCU03(ticketselec);
             r.setAnterior(frame);
             r.setVisible(true);
             this.setVisible(false);
@@ -614,9 +620,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  		System.out.println(t.getNumlegajo().toString());
  		System.out.println(t.getFechaA().toString());
  		System.out.println(t.getFechaU().toString());
- 		System.out.println(t.getCla().getNombre());
+ 		System.out.println(t.getCla().getNom_clasificacion());
  		System.out.println(t.getEstado().toString());
- 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getFechaU().toString() ,t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNombre(),t.getGru().getNombre()});
+ 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getFechaU().toString() ,t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
  			
  
 

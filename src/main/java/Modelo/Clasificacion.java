@@ -76,6 +76,10 @@ public class Clasificacion implements Serializable {
 		this.gruporesolucion = new ArrayList<>();
 
 	}
+	public Clasificacion(String nom_clasificacion2) {
+		this.nom_clasificacion = nom_clasificacion;
+	}
+
 	public void addGr ( GrupoResolucion g) {
 		this.getListaGr().add(g);
 		g.addC(this);
@@ -193,9 +197,7 @@ public class Clasificacion implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Clasificacion [codigo=" + codigo + ", fecha_Creacion=" + fecha_Creacion + ", descripcion=" + descripcion
-				+ ", nom_clasificacion=" + nom_clasificacion + ", listaTickets=" + listaTickets + ", listahistorial="
-				+ listahistorial + ", usuario=" + usuario + "]";
+		return  nom_clasificacion ;
 	}
 	
 	

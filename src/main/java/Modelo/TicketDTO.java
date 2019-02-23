@@ -15,8 +15,8 @@ public class TicketDTO {
 	private Date fechaA;
 	private Date fechaU;
 	private Empleado empleado;
-	private ClasificacionDTO cla;
-	private GrupoResolucionDTO gru;
+	private Clasificacion cla;
+	private GrupoResolucion gru;
 	private EstadoTicket estado;
 	private String descrip_problema;
 	private String usuario;
@@ -25,8 +25,13 @@ public class TicketDTO {
 		
 	}
 	
-	public TicketDTO(Integer numeroTicket, Integer numlegajo, Date fechaA, 	Date fechaU , ClasificacionDTO cla,
-			GrupoResolucionDTO gru, EstadoTicket estado, String usuario) {
+	// TODO clasificacionDTO a clasificacion, y GrupoResolucionDTO a grupoResolucion 
+	
+	public TicketDTO(Integer numeroTicket, 
+			Integer numlegajo, Date fechaA, 	
+			Date fechaU , Clasificacion cla,
+			GrupoResolucion gru, 
+			EstadoTicket estado, String usuario) {
 		
 		this.numeroTicket = numeroTicket;
 		this.numlegajo = numlegajo;
@@ -81,16 +86,16 @@ public class TicketDTO {
 		this.empleado = empleado;
 	}
 
-	public ClasificacionDTO getCla() {
+	public Clasificacion getCla() {
 		return cla;
 	}
-	public void setCla(ClasificacionDTO cla) {
+	public void setCla(Clasificacion cla) {
 		this.cla = cla;
 	}
-	public GrupoResolucionDTO getGru() {
+	public GrupoResolucion getGru() {
 		return gru;
 	}
-	public void setGru(GrupoResolucionDTO gru) {
+	public void setGru(GrupoResolucion gru) {
 		this.gru = gru;
 	}
 	public EstadoTicket getEstado() {

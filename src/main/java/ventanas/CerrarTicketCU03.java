@@ -6,17 +6,21 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 
+import Controlador.GestorTicket;
+import Modelo.TicketDTO;
+
 public class CerrarTicketCU03 extends javax.swing.JFrame {
 
+	private GestorTicket gestorT = new GestorTicket();
 	private JFrame frame;
 	private JFrame anterior;
-    public CerrarTicketCU03() {
-        initComponents();
+    public CerrarTicketCU03(TicketDTO td) {
+        initComponents(td);
         this.setLocationRelativeTo(null);
     }
 
    
-    private void initComponents() {
+    private void initComponents(TicketDTO td) {
 
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
@@ -101,6 +105,8 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
         });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+            	gestorT.cerrarTicket(td.getNumeroTicket() , jTextArea1.getText());
                 jButton2ActionPerformed(evt);
             }
         });
@@ -151,11 +157,7 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CerrarTicketCU03.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CerrarTicketCU03().setVisible(true);
-            }
-        });
+       
     }
 
 

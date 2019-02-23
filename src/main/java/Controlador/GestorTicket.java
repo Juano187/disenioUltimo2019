@@ -109,8 +109,8 @@ public class GestorTicket {
 	
 
 	
-	public void registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
-		
+	public Ticket registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
+		Ticket t2= new Ticket();
 		try{
 			
 		Clasificacion c = gc.getClasificacion(clasific);
@@ -138,6 +138,9 @@ public class GestorTicket {
 			t.addInt(i);
 		
 			gestorBDD.cargarTicket(t);
+			
+			t2=t;
+			
 			System.out.println("ticket guardado " + getTicket(t.getNum_ticket()));
 	
 		
@@ -148,7 +151,7 @@ public class GestorTicket {
     	}
 				
 		
-		
+		return t2;
 	}
 	
 	public Ticket getTicket(Integer id) {
@@ -201,12 +204,12 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 			
 			Ticket t = gd.get(i);
 		
-		    GrupoResolucionDTO ug = new GrupoResolucionDTO(t.ultimaIGrupo().getGruporesolucion().getNom_grupo() , t.ultimaIGrupo().getGruporesolucion().getId_grupo());
-			ClasificacionDTO cla1 = new ClasificacionDTO(t.getClasificacion().getNom_clasificacion());
+		    GrupoResolucion ug = new GrupoResolucion(t.ultimaIGrupo().getGruporesolucion().getNom_grupo() , t.ultimaIGrupo().getGruporesolucion().getId_grupo());
+			Clasificacion cla1 = new Clasificacion(t.getClasificacion().getNom_clasificacion());
 			TicketDTO tic = new TicketDTO();
 			
-			System.out.println("gestor");
-			System.out.println(ug.getNombre());
+			System.out.println("gestorticket consultar");
+			System.out.println(ug.getNom_grupo());
 			System.out.println(t.getUsuOperador().getUsuario());
 			System.out.println(t.getEstadoticket());
 			
@@ -241,7 +244,28 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 		return tic;
 	}
 
-	
+	public void cerrarTicket(Integer numTicket, String obser) {
+		
+		 Ticket ticket = gestorBDD.buscarTicket(numTicket);
+		 ticket.setEstadoticket(4);
+		 ticket.setDescrip_problema(obser);
+		 Date fecha = new Date();
+		
+		 System.out.println(ticket.getEstadoticket());
+		
+			
+		Intervencion i = ticket.getIntervencion(1);
+		i.setObservaciones(obser);
+		i.setEstadointervencion(EstadoIntervencion.TERMINADA);
+			
+		ticket.setFecha_cierre(fecha);
+		i.setFecha_fin(fecha);	
+		 
+		 
+		gestorBDD.actualizarTicket(ticket);
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

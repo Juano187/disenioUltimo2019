@@ -159,12 +159,6 @@ public class Usuario implements Serializable{
 
 
 
-	@Override
-	public String toString() {
-		return "Usuario [id_usuario=" + id_usuario + ", usuario=" + usuario + ", Contraseña=" + Contraseña
-				+ ", listaclasificacion=" + listaclasificacion + ", gruporesolucion=" + gruporesolucion + ", empleado="
-				+ empleado + ", listahistorial=" + "]";
-	}
 	
 	
 

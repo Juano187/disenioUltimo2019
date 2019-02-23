@@ -27,9 +27,10 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	private GrupoResolucion [] grupos;
 	private JFrame anterior;
 	private Usuario u ;
-	
+	TicketDTO ticketSelec; 
 
     public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
+  
     	u=u2;
         initComponents(ticketselec, u);
         this.setLocationRelativeTo(null);
@@ -145,8 +146,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         jLabel8.setText("Clasificaci\u00f3n:");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));       
       
-        JComboBox<GrupoResolucion> ultgrupos= new JComboBox<GrupoResolucion>();  //ACA
-        ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg(ticketselec.getCla().getNombre())));
+        JComboBox<GrupoResolucion> ultgrupos= new JComboBox<GrupoResolucion>();  
+        ultgrupos.setModel(new DefaultComboBoxModel<GrupoResolucion>(cargarg(ticketselec.getCla().getNom_clasificacion())));
         getContentPane().add(ultgrupos, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 270, 30));
         
         
@@ -161,7 +162,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         jLabel10.setText("Observaciones:");
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 430, -1, -1));
 
-        JComboBox<ClasificacionDTO> combocalif= new JComboBox<ClasificacionDTO>(cambiarCla(ticketselec.getCla()));  // ACA
+        JComboBox<Clasificacion> combocalif= new JComboBox<Clasificacion>(cambiarCla(ticketselec.getCla()));  // ACA
         getContentPane().add(combocalif, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 340, 30));
 
     	 
@@ -172,8 +173,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         		public void actionPerformed(ActionEvent a) {
         		 
         		ultgrupos.removeAllItems();
-        	ClasificacionDTO c = (ClasificacionDTO) combocalif.getSelectedItem();
-        	grupos = cargarg(c.getNombre());
+        	Clasificacion c = (Clasificacion) combocalif.getSelectedItem();
+        	grupos = cargarg(c.getNom_clasificacion());
     	 
         	
         	ultgrupos.setModel( new DefaultComboBoxModel<GrupoResolucion>( grupos ) );
@@ -246,24 +247,27 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         pack();
     }
     
-    private ClasificacionDTO[] cambiarCla(ClasificacionDTO cla) {
-    	ClasificacionDTO[] clas = new ClasificacionDTO[gestorC.getClasificaciones().size()];
+	
+	
+	// TODO aca de clasificacionDTO a clasificacion
+    private Clasificacion[] cambiarCla(Clasificacion clasificacion) {
+    	Clasificacion[] clas = new Clasificacion[gestorC.getClasificaciones2().size()];
     	    	
-    	ClasificacionDTO n;
+    	Clasificacion n;
    
     	
     	Integer i = 0;
     	for(int j=0 ; j <gestorC.getClasificaciones().size() ; j++) {
     		
-    		clas[j] = gestorC.getClasificaciones().get(j);
+    		clas[j] = gestorC.getClasificaciones2().get(j);
  
-    		if(clas[j].getNombre().equalsIgnoreCase(cla.getNombre())) {
+    		if(clas[j].getNom_clasificacion().equalsIgnoreCase(clasificacion.getNom_clasificacion())) {
     			i= j;
     		}
     	}
     	n=clas[0];
     	clas[i] = n;
-    	clas[0]= cla;
+    	clas[0]= clasificacion;
     	
     	
     	

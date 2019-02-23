@@ -30,6 +30,7 @@ public Clasificacion getClasificacion (String c) {
 	return a;
 }
 
+
 public ArrayList<ClasificacionDTO> getClasificaciones() {
 	
 	ArrayList<Clasificacion> gd = gestorBDD.getClasificacion();
@@ -39,6 +40,22 @@ public ArrayList<ClasificacionDTO> getClasificaciones() {
 			String nom = gd.get(i).getNom_clasificacion();
 			ClasificacionDTO c = new ClasificacionDTO();
 			c.setNombre(nom);
+			
+				a.add(c);
+			
+		}
+	return a;
+}
+
+public ArrayList<Clasificacion> getClasificaciones2() {
+	
+	ArrayList<Clasificacion> gd = gestorBDD.getClasificacion();
+	
+	ArrayList<Clasificacion> a = new ArrayList<Clasificacion>();
+	for (int i=0; i<gd.size(); i++) {
+			String nom = gd.get(i).getNom_clasificacion();
+			Clasificacion c = new Clasificacion();
+			c.setNom_clasificacion(nom);
 			
 				a.add(c);
 			

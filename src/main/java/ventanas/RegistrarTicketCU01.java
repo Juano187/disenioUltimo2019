@@ -14,9 +14,12 @@ import javax.swing.JPanel;
 
 import Controlador.GestorClasificacion;
 import Controlador.GestorEmpleado;
+import Controlador.GestorGrupoResolucion;
 import Controlador.GestorTicket;
 import Modelo.ClasificacionDTO;
 import Modelo.Empleado;
+import Modelo.EstadoTicket;
+import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.Ticket;
 import Modelo.TicketDTO;
@@ -30,6 +33,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	private GestorBDD gbdd = new GestorBDD();
 	private GestorClasificacion gc = new GestorClasificacion();
 	private GestorTicket gt = new GestorTicket();
+	private GestorGrupoResolucion gg= new GestorGrupoResolucion();
 	String claSeleccionada = new String("Seleccione un tipo...");
 	String descripcion = new String();
 	private Usuario u ;
@@ -361,10 +365,16 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     			  		
         	 }
         	 else {
-        		
-        		 	gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
+        		// TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
+        		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
         		 	
-                   CerrarTicketCU03 c = new CerrarTicketCU03();
+        		 	GrupoResolucion g = new GrupoResolucion();
+        		 	g = gg.getGrupo("Mesa de Ayuda");
+        		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
+        		 			t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
+        		 			t.getEstadoticket() , u.getUsuario());
+        		 	
+                   CerrarTicketCU03 c = new CerrarTicketCU03(td);
                     c.setAnterior(frame);
                     c.setVisible(true);
                     this.setVisible(false);
@@ -416,15 +426,23 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 			  		
     	 }
     	 else {
-    		 	Empleado emp = ge.validarLegajo(legajo);    	  
-    		 	TicketDTO t = new TicketDTO();
-    		 	GrupoResolucionDTO g = new GrupoResolucionDTO();
+    		 
+    		 //TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
+    		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
+    		 	Empleado emp = ge.validarLegajo(legajo);
     		 	
+    		 	
+    		 		
+    		 	GrupoResolucion g = new GrupoResolucion();
+    		 	g = gg.getGrupo("Mesa de Ayuda");
+    		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
+    		 			t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
+    		 			t.getEstadoticket() , u.getUsuario());
     		 	//Date fecha_ini = ;
     		 	
     		 	int num_ticket = (gbdd.getTickets().size()+1);
     		 	
-                DerivarTicketCU04 r = new DerivarTicketCU04(t, u);
+                DerivarTicketCU04 r = new DerivarTicketCU04(td, u);
                 r.setAnterior(frame);
                 r.setVisible(true);
                 this.setVisible(false);
