@@ -333,8 +333,8 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		System.out.println(tickets.get(0).getEstadoticket());
 		System.out.println(tickets.get(0).getEmpleado().getLegajo());
 		
-		System.out.println(tickets.get(0).getIntervencion(2).getId_intervencion()); 
-		System.out.println(tickets.get(0).ultimaIGrupo().toString()); 
+		//System.out.println(tickets.get(0).getIntervencion(2).getId_intervencion()); 
+		//System.out.println(tickets.get(0).ultimaIGrupo().toString()); 
 				
 		return tickets;
 	}

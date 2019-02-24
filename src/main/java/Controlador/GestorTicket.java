@@ -117,12 +117,15 @@ public class GestorTicket {
 		Empleado e = ge.validarLegajo(legajo);
 		Usuario u = user;
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTODERIVADO,hora);
+		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTOSINDERIVAR,hora);
 			e.addTicket(t);
 			c.addTicket(t);
-			Intervencion i = new Intervencion(descripcion,f,EstadoIntervencion.TRABAJANDO);	
+		Intervencion i = new Intervencion(descripcion,f,EstadoIntervencion.TRABAJANDO);	
 		HistorialTicket ht=(new HistorialTicket(f));
-
+			ht.setClasificacion(c.getNom_clasificacion());
+			ht.setEstadoT(EstadoTicket.ABIERTOSINDERIVAR);
+			ht.setDescripcion(descripcion);
+			
 		HistorialClasificacion hc = new HistorialClasificacion (f);
 		
 		Historial_Intervencion hi = new Historial_Intervencion(f,EstadoIntervencion.TRABAJANDO);

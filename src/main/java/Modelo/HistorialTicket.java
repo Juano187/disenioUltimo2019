@@ -29,8 +29,10 @@ public class HistorialTicket extends HistorialABS {
 	@Enumerated(value = EnumType.STRING) 
 	
 	private EstadoTicket estado;
-
-	private Clasificacion clasificacion;
+		
+	private String descrip;
+	
+	private String clasificacion;
 	
 	public HistorialTicket (EstadoTicket estado, Date f) {
 		super(f);
@@ -57,24 +59,19 @@ public class HistorialTicket extends HistorialABS {
 	public EstadoTicket getEstado () {
 		return this.estado;
 	}
-	public void setClasificacion (Clasificacion c) {
+	public void setClasificacion (String c) {
 		this.clasificacion = c;
 	}
-	public Clasificacion getClasif () {
+	public String getClasif () {
 		return	this.clasificacion;
 	}
 	
-	/*
-	public void setTicket(Ticket t){
-		setTicket(t,true);
+	public void setDescripcion (String d) {
+		this.descrip = d;
 	}
-	public void setTicket(Ticket t, boolean a) {
-		this.ticket=t;
-		if(t!= null && a) {
-			t.addH(this, false);
-		}
+	public String getDescripcion () {
+		return this.descrip;
 	}
-	*/
 	public void setEstadoT(EstadoTicket a) {
 		this.estado =a;		
 	}

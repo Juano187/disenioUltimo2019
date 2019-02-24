@@ -3,10 +3,13 @@ package ventanas;
 
 import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.GestorBDD;
 import Controlador.GestorTicket;
+import Modelo.Empleado;
+import Modelo.HistorialTicket;
 import Modelo.Ticket;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
@@ -18,10 +21,11 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	private Usuario u ;
 	private GestorBDD gBDD = new GestorBDD();
 	private GestorTicket gt = new GestorTicket();
-	
+	private Empleado e;
 	public DetalleTicketCU02(Usuario u2, TicketDTO tdo) {
 		
 		u = u2;
+		e= u.getEmpleado();
 		Ticket t = gt.getTicket(tdo.getNumeroTicket());
         initComponents(u, t);
         this.setLocationRelativeTo(null);
@@ -137,7 +141,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(telefonoInterno, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 260, 30));
 
         jTextFielNoEditable2.setEditable(false);
-        jTextFielNoEditable2.setText("Telefono");
+        jTextFielNoEditable2.setText(e.getTelefono().toString());
         jTextFielNoEditable2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable2ActionPerformed(evt);
@@ -146,7 +150,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jTextFielNoEditable2, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 180, 290, 30));
 
         jTextFielNoEditable3.setEditable(false);
-        jTextFielNoEditable3.setText("Ubicacion	");
+        jTextFielNoEditable3.setText(e.getDireccion().get(0).getCalle()+ " "+ e.getDireccion().get(0).getNumero().toString());
         jTextFielNoEditable3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable3ActionPerformed(evt);
@@ -239,7 +243,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, -1, 30));
 
         jTextFielNoEditable8.setEditable(false);
-        jTextFielNoEditable8.setText("Apellido y Nombre");
+        jTextFielNoEditable8.setText(e.getApellido() + " "+ e.getNombre());
         jTextFielNoEditable8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditable8ActionPerformed(evt);
@@ -247,73 +251,25 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         });
         getContentPane().add(jTextFielNoEditable8, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 130, 370, 30));
 
+    
         
-        
-        DefaultTableModel TablaTickets = new DefaultTableModel(
-        	 new Object [][] {
-                },
-                new String [] {
-                		 "Hora y Fecha de cambio de estado", "Operador a cargo", "Estado", "Grupo de resoluci\u00f3n", "Clasificaci\u00f3n", "Observaciones"
-                }
-            );
-        
-         String[] datos ={null,null,null,null,null,null} ;
 
-         for(int i = 0; i<(t.getListahistorial().size()-1); i++) {
-        	 
-        	 datos[0] = t.getListahistorial().get(i).getFechaIni().toString();
-        	 datos[1] = t.getListahistorial().get(i).getUser().getUsuario();
-        	 datos[2] = t.getListahistorial().get(i).getEstado().toString();
-        	 datos[3] = t.getListahistorial().get(i).getUser().getGruporesolucion().toString();
-        	 datos[4] = t.getListahistorial().get(i).getClasif().getNom_clasificacion();
-        	// datos[5] = t.getListahistorial().get(i)
-        	 
-        	 
-        	 TablaTickets.addRow(datos);
-        			}
-        
-            jTable1.setModel(TablaTickets);
-            jScrollPane1.setViewportView(jTable1);
-        
-        
-       /* jTable1.setModel(new javax.swing.table.DefaultTableModel(
-           new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Fecha de cambio de estado", "Hora de cambio de estado", "Operador a cargo", "Estado", "Grupo de resoluci\u00f3n", "Clasificaci\u00f3n", "Observaciones"
-            }
-        ) {
-  
-			Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
+       String [] columnas = { "Fecha/Hora cambio estado", "Operador a cargo", "Estado", "Grupo de resoluci\u00f3n", "Clasificaci\u00f3n", "Observaciones"};
+       DefaultTableModel tablaTickets = new DefaultTableModel(columnas,0);
+       jTable1.setModel(tablaTickets);
+       
+       for(HistorialTicket i: t.getListahistorial()) {
+    	 
+    	   tablaTickets.addRow( new String[] {	 
+    			   i.getFechaIni().toString(),
+    			   i.getUser().getUsuario(),
+    			   i.getEstado().toString(),
+    			   i.getUser().getGruporesolucion().getNom_grupo(),
+    			   i.getClasif(),
+    			   i.getDescripcion()});
+     
+      			}
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });*/
         jScrollPane3.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 1010, 160));

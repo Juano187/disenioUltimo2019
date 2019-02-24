@@ -56,8 +56,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 	TicketDTO ticketselec;
 
 	
-    public ConsultarTicketCU02() {
-    	  
+    public ConsultarTicketCU02(Usuario u2) {
+    	  u=u2;
+    	  System.out.println(u.getUsuario());
         initComponents(u);
         this.setLocationRelativeTo(null); 
         frame = this;
@@ -339,7 +340,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	
         		listaTencontrados = gestorT.consultarTicket(numTic, numLegajo,fechaABien, fechaUBien ,  estado, clasificacion , ultimoG  );	
         			
-        		
+        		System.out.println("tamaño lista : " +listaTencontrados.size());
         			//System.out.println("num tic" + numTic + " legajo " + numLegajo + " fechaABien " + fechaABien + " estado " + estado + " clasificacion " + clasificacion + "ultimo " + ultimoG);
         		//}
 
@@ -407,11 +408,14 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	
-            	
+            	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
+        		
+        		ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
+        		System.out.println(ticketselec.getNumeroTicket());
 
         			jButton4ActionPerformed(evt);
         		
-        		//System.out.println(ticketselec.getNumeroTicket());
+        
     
             }
         });
@@ -561,15 +565,15 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
       try {
-        	//System.out.println(u.getUsuario()+ "numTicket"+ticketselec.getNumeroTicket());
+        	System.out.println("usuario: "+u.getUsuario() +" ;"+"numTicket"+ticketselec.getNumeroTicket());
             DetalleTicketCU02 r = new DetalleTicketCU02(u, ticketselec);
             r.setAnterior(frame);
             r.setVisible(true);
             this.setVisible(false); 
             
             }catch(Exception ex) {
-            	
-            	EjemploError error = new EjemploError("error al entrar a detalleTicket");
+            
+            	EjemploError error = new EjemploError(ex.getMessage());//"error al entrar a detalleTicket");
         	  	error.setVisible(true); }
     		}
     
@@ -615,17 +619,16 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  	
 	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado) {
  		System.out.println(resultado.size());
+ 		
  	for(TicketDTO t: resultado) {
+ 		
  		System.out.println(t.getNumeroTicket().toString());
  		System.out.println(t.getNumlegajo().toString());
- 		System.out.println(t.getFechaA().toString());
- 		System.out.println(t.getFechaU().toString());
+ 	//	System.out.println(t.getFechaA().toString());
+ 	//	System.out.println(t.getFechaU().toString());
  		System.out.println(t.getCla().getNom_clasificacion());
  		System.out.println(t.getEstado().toString());
- 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getFechaU().toString() ,t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
- 			
- 
-
+ 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),/*t.getFechaA().toString() ,t.getFechaU().toString() ,*/t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
  	
  			}
  		
