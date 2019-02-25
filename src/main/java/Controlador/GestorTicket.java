@@ -63,17 +63,20 @@ public class GestorTicket {
     }
 	
 
+
 	public void derivarTicket(Integer numTicket, String observ, String grup , Usuario u , Integer idCla) {
-		System.out.println("entro gestor ti, nombre grup = ");
+		System.out.println("entro a gestorti, nombre grup = ");
 		System.out.println(grup);
 		
 		Ticket ticket = gestorBDD.buscarTicket(numTicket);
-		
+		System.out.println("se obtuvo ticket con num y estado : ");
 		System.out.println(ticket.getNum_ticket());
+		System.out.println(ticket.getEstadoticket());
 		
 		
 		ticket.setEstadoticket(1);
 		Date fecha = new Date();
+		System.out.println("nuevo estado del ticket es : ");
 		System.out.println(ticket.getEstadoticket());
 		
 		GrupoResolucion g= gestorBDD.getgrupo(grup) ;
@@ -81,7 +84,8 @@ public class GestorTicket {
 		
 		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, g /*, u*/);		
 		
-	
+		System.out.println("salio del gestor interv, volvio a gestor ticket, estado interv :");
+		//System.out.println(intervencionU.getEstadointervencion());
 		
 		Intervencion i = ticket.getIntervencion(1);
 
@@ -93,14 +97,18 @@ public class GestorTicket {
 			
 		}
 		
+		System.out.println("sale si hay interv en mesa de ayuda nombre y estado : ");
 		System.out.println(i.getGruporesolucion().getNom_grupo());
-		
+		System.out.println(i.getEstadointervencion());
 		
 		i.setEstadointervencion(EstadoIntervencion.EN_ESPERA);
 		i.setFecha_fin(fecha);
+		System.out.println("la interv de mesa de ayuda se pone en espera: ");
+		System.out.println(i.getEstadointervencion());
 		
-		
-		gestorBDD.actualizarTicket(ticket);
+		//el problema esta aca
+	gestorBDD.actualizarTicket(ticket);
+	System.out.println(ticket.getNum_ticket());
 		
 	}
 

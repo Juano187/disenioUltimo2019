@@ -27,9 +27,10 @@ public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoInte
 		return in;
 	}
 
+
 public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResolucion grup /*, Usuario u*/) {
 	
-	System.out.println("cambio interv");
+	System.out.println("gestor interv, con grupo, num y nombre grupo");
 	System.out.println(numTicket);
 
 	System.out.println(observ);
@@ -37,18 +38,17 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 	
 	Date fecha = new Date();
 	
-	
-	
-	
+
 	Intervencion i2;
 	
 	Intervencion newi = gestorBDD.ultimaInt(numTicket, grup);
-	System.out.println("se obtuvo interv ");
-	System.out.println(newi.getId_intervencion());		
-	System.out.println(newi.getEstadointervencion());		
+	System.out.println("se obtuvo ultima interv ");
+	System.out.println("verifica si es nulo o no");
+			
 	
 	//newi.setObservaciones(observ);
 	if(newi == null || (newi.getEstadointervencion() == EstadoIntervencion.TERMINADA)) {
+		System.out.println("es nulo asique se crear inter");
 		Intervencion intervg = new Intervencion();
 		intervg.setFecha_inicio(fecha);
 		intervg.setGruporesolucion(grup);
@@ -58,6 +58,7 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 		
 	}
 	else {
+		System.out.println("no es nulo asiq se actualiza");
 		Date fechafin = new Date();
 		newi.setFecha_fin(fechafin);
 		newi.setEstadointervencion(EstadoIntervencion.ASIGNADO);
@@ -65,16 +66,10 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 		i2 = null;
 	}
 	
-	
 
-	
-	
-	
-	
 	
 	return i2;
 }
-
 
 
 

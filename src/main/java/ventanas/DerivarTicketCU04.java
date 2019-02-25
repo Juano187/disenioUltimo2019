@@ -40,6 +40,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	GestorTicket  gestorT= new GestorTicket();
     
 	private void initComponents(TicketDTO ticketselec, Usuario u) {
+	System.out.println("entro a derivar con este usuario :" );
+		
 		System.out.println(u.getUsuario());
 		GrupoResolucion gr = gestorG.getGrupo("Mesa de Ayuda");
 		System.out.println(gr.getNom_grupo());
@@ -201,12 +203,13 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                 	else {
                 		
                 		GrupoResolucion gr = (GrupoResolucion) ultgrupos.getSelectedItem();
-                		System.out.println("Entro derivar");
-                   	System.out.println(gr.getNom_grupo());
-                		ClasificacionDTO cs = (ClasificacionDTO) combocalif.getSelectedItem();
+                		System.out.println("Se apreto bton derivar gila y este es el grupo q se seleccionó");
                 		System.out.println(gr.getNom_grupo());
-                		System.out.println(cs.getCodCla());
-                		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodCla());
+                		Clasificacion cs = (Clasificacion) combocalif.getSelectedItem();
+                		System.out.println("esta es la clasificacion:");
+                		System.out.println(cs.getNom_clasificacion());
+                		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodigo());
+                		System.out.println("salio derivar");
                 	}
 
                 jButton1ActionPerformed(evt);
