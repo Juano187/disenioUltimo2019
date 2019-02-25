@@ -39,7 +39,7 @@ public class Principal {
 
 	
    
-
+    	System.out.println( "hola");
     	Inicializador01 cp = new Inicializador01();
     	
         cp.setVisible(true);
