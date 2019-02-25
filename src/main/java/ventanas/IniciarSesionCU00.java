@@ -36,8 +36,8 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldUser = new javax.swing.JTextField();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButton_Ingresar = new javax.swing.JButton();
+        jButton_Salir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -73,7 +73,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton3.doClick();
+                    jButton_Ingresar.doClick();
                 }
                 
             }
@@ -83,61 +83,63 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
 
         getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 530, 260, 30));
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Ingresar");
-        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Ingresar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Ingresar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Ingresar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Ingresar.setText("Ingresar");
+        jButton_Ingresar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton3.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Ingresar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Ingresar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
 
 
-        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Ingresar.addKeyListener(new java.awt.event.KeyAdapter(){
         	
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton3.doClick();
+                    jButton_Ingresar.doClick();
                 }
                 
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        
+        jButton_Ingresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_IngresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 670, 100, 30));
+        
+        getContentPane().add(jButton_Ingresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 670, 100, 30));
 
-        jButton4.setBackground(new java.awt.Color(0, 51, 102));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Salir");
-        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Salir.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Salir.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Salir.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Salir.setText("Salir");
+        jButton_Salir.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton4.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Salir.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton4.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Salir.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton4.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Salir.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton4.doClick();
+                    jButton_Salir.doClick();
                 }
             }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButton_SalirActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 670, 100, 30));
+        getContentPane().add(jButton_Salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 670, 100, 30));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/MiniICONO.png"))); 
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 50, -1, -1));
@@ -158,12 +160,12 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
     }
 
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_SalirActionPerformed(java.awt.event.ActionEvent evt) {
         System.exit(0);
     }
 
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_IngresarActionPerformed(java.awt.event.ActionEvent evt) {
     	
     	  
     	  String contra = new String(jPasswordField1.getPassword());
@@ -173,10 +175,8 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	if(gu.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNivel() == 0) {
         		
         		
-        		System.out.println(jTextFieldUser.getText());
-        		MenuMesaDeAyuda m = new MenuMesaDeAyuda();
-        		Usuario u= gu.getUsuario(jTextFieldUser.getText());
-        		m.addUser(u);
+        		MenuMesaDeAyuda m = new MenuMesaDeAyuda(jTextFieldUser.getText());
+     
         		m.setAnterior(frame);   
         		this.setVisible(false);
             	m.setVisible(true);
@@ -184,13 +184,10 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	}
         	else {
         		MenuGrupoResolucion m = new MenuGrupoResolucion((jTextFieldUser.getText()));
-        		
-        	m.addUser(jTextFieldUser.getText());
         	
-        	m.setAnterior(frame);
-        	m.addGrupo(gu.getUsuario(jTextFieldUser.getText()).getGruporesolucion().getNom_grupo());
-        	this.setVisible(false);
-        	m.setVisible(true);
+      			m.setAnterior(frame);
+       			this.setVisible(false);
+       			m.setVisible(true);
         	
         	}
         }
@@ -200,7 +197,7 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
         	EjemploError e = new EjemploError("Datos invalidos");
         		e.setVisible(true);
         }}	catch(Exception ex) {
-        	System.out.println(ex.getMessage());
+        	
         	EjemploError e = new EjemploError(ex.getMessage());
         	e.setVisible(true);
         }
@@ -235,8 +232,8 @@ public class IniciarSesionCU00 extends javax.swing.JFrame {
     }
 
 
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton_Ingresar;
+    private javax.swing.JButton jButton_Salir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

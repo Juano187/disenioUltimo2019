@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Controlador.GestorBDD;
 import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
 import Modelo.Empleado;
 import Modelo.HistorialTicket;
 import Modelo.Ticket;
@@ -20,12 +21,13 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	JFrame panel=this;
 	private Usuario u ;
 	private GestorBDD gBDD = new GestorBDD();
+	private GestorUsuario gu = new GestorUsuario();
 	private GestorTicket gt = new GestorTicket();
 	private Empleado e;
-	public DetalleTicketCU02(Usuario u2, TicketDTO tdo) {
+	public DetalleTicketCU02(String u2, TicketDTO tdo) {
 		
-		u = u2;
-		e= u.getEmpleado();
+		u = gu.getUsuario(u2);
+		e = tdo.getEmpleado();
 		Ticket t = gt.getTicket(tdo.getNumeroTicket());
         initComponents(u, t);
         this.setLocationRelativeTo(null);
@@ -52,9 +54,9 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jTextFielNoEditable3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButton_Cerrar = new javax.swing.JButton();
+        jButton_Derivar = new javax.swing.JButton();
+        jButton_Atras = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jTextFielNoEditable8 = new javax.swing.JTextField();
@@ -167,72 +169,72 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 690, 80));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cerrar");
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Cerrar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Cerrar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Cerrar.setText("Cerrar");
+        jButton_Cerrar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton1.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Cerrar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton1.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Cerrar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 590, 90, 30));
+        getContentPane().add(jButton_Cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 590, 90, 30));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Derivar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Derivar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Derivar.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jButton_Derivar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Derivar.setText("Derivar");
+        jButton_Derivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton_DerivarActionPerformed(evt);
             }
         });
-        jButton2.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Derivar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton2.doClick();
+                    jButton_Derivar.doClick();
                 }
             }
         });
-        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Derivar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton2.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Derivar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton2.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Derivar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
         
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 590, 90, 30));
+        getContentPane().add(jButton_Derivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 590, 90, 30));
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Atr\u00e1s");
-        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Atras.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Atras.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Atras.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Atras.setText("Atr\u00e1s");
+        jButton_Atras.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton3.doClick();
+                    jButton_Atras.doClick();
                 }
             }
         });
-        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Atras.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton3.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Atras.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Atras.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Atras.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 accionAtras(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 590, 80, 30));
+        getContentPane().add(jButton_Atras, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 590, 80, 30));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/untitled.png"))); 
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 420, 40));
@@ -314,7 +316,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         this.dispose();
     }
 	
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton_DerivarActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             DerivarTicketCU04 d = new DerivarTicketCU04(null, null);
             d.setAnterior(frame);
@@ -350,9 +352,9 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
     }
 
 
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_Cerrar;
+    private javax.swing.JButton jButton_Derivar;
+    private javax.swing.JButton jButton_Atras;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;

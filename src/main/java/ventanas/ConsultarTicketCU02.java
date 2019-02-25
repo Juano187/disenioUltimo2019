@@ -26,6 +26,7 @@ import javax.swing.table.DefaultTableModel;
 import Controlador.GestorClasificacion;
 import Controlador.GestorGrupoResolucion;
 import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
 import Modelo.ClasificacionDTO;
 import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
@@ -41,27 +42,27 @@ import Modelo.Usuario;
 public class ConsultarTicketCU02 extends javax.swing.JFrame {
 
 	
-	//agregar
+	
 	private GestorClasificacion gestorC= new GestorClasificacion();
 	private GestorGrupoResolucion gestorG= new GestorGrupoResolucion();
 	private GestorTicket gestorT = new GestorTicket(); 
+	private GestorUsuario gu = new GestorUsuario();
 	private Usuario u ;
 	private JFrame anterior;
 	private JFrame frame;
 	JFrame panel=this;
 	DefaultTableModel TablaTickets;
 	ArrayList<TicketDTO> listaTencontrados;
-	private int seleccion;
-	
 	TicketDTO ticketselec;
 
 	
-    public ConsultarTicketCU02(Usuario u2) {
-    	  u=u2;
-    	  System.out.println(u.getUsuario());
-        initComponents(u);
-        this.setLocationRelativeTo(null); 
-        frame = this;
+    public ConsultarTicketCU02(String user) {
+    	
+    	  u=gu.getUsuario(user);
+    	  initComponents(u);
+    	  this.setLocationRelativeTo(null); 
+    	  frame = this;
+    	  
     }
 
 
@@ -73,8 +74,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        buscar = new javax.swing.JButton();
+        jButton_VolverMenu = new javax.swing.JButton();
+        jButton_Buscar = new javax.swing.JButton();
        
         
         numTicket = new javax.swing.JTextField();
@@ -88,10 +89,10 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButton_CerrarT = new javax.swing.JButton();
+        jButton_Detalle = new javax.swing.JButton();
+        jButton_ConfigReporte = new javax.swing.JButton();
+        jButton_DerivarT = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,61 +123,61 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jLabel5.setText("N\u00famero de ticket:");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Volver al men\u00fa");
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_VolverMenu.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_VolverMenu.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jButton_VolverMenu.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_VolverMenu.setText("Volver al men\u00fa");
+        jButton_VolverMenu.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton1.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_VolverMenu.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton1.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_VolverMenu.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_VolverMenu.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton1.doClick();
+                    jButton_VolverMenu.doClick();
                 }
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_VolverMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 accionVolver(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 540, 160, 30));
+        getContentPane().add(jButton_VolverMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 540, 160, 30));
 
     
         
-        buscar.setBackground(new java.awt.Color(0, 51, 102));
-        buscar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        buscar.setForeground(new java.awt.Color(255, 255, 255));
-        buscar.setText("Buscar");
-        buscar.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Buscar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Buscar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Buscar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Buscar.setText("Buscar");
+        jButton_Buscar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    buscar.doClick();
+                    jButton_Buscar.doClick();
                 }
             }
         });
-        buscar.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Buscar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		buscar.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Buscar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	buscar.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Buscar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 540, 90, 30));
+        getContentPane().add(jButton_Buscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 540, 90, 30));
 
        
         TablaTickets = new DefaultTableModel(
         	 new Object [][] {
                 },
                 new String [] {
-                  "Nro ticket", "Legajo", "Fecha Apertura", "Estado", "Clasificacion "  /*"Grupo de resolucion"*/
+                		"Nro ticket", "Legajo", "Fecha Apertura", "Fecha Ultimo" ,"Estado", "Operador" , "Clasificacion "  ,"Grupo de resolucion"
                 }
             );
         
@@ -184,14 +185,14 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             jScrollPane1.setViewportView(jTable1);
 
    
-            jTable1.addMouseListener(new MouseAdapter() {
+            /*jTable1.addMouseListener(new MouseAdapter() {
     			@Override
     			public void mouseReleased(MouseEvent e) {
-    				int r = jTable1.rowAtPoint(e.getPoint());
+    				int r = jTable1.rowAtPoint(e.getPoint());   // TODO ver si se usa el seleccion (Elimidado arriba)(juano)
     				seleccion = r;
     			}
 
-    		});
+    		});*/
             
             
             
@@ -199,10 +200,6 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         
         comboBox.setModel(new DefaultComboBoxModel<>(EstadoTicket.values()));
         getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 410, 30));
-        /*
-        JComboBox ComboEstado = new JComboBox();
-        ComboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Abierto Sin Derivar", "Abierto Derivado", "Solucionado a la espera del Ok", "Cerrado" , "Todos"}));*/
-        
         List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
         JComboBox<ClasificacionDTO> jComboBox1= new JComboBox<ClasificacionDTO>();
         jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Todas" }));
@@ -220,7 +217,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	combogrupo.addItem(ultgrupos.get(i));
         }
         getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 270, 30));
-        //hasta aca	 AGREGAR Y CAMBIAR POR LOS OTROS COMBOX Q HABIA        
+           
         
         
         numTicket.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +227,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         });
         getContentPane().add(numTicket, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 220, 30));
 
-        legajo.setPreferredSize(new java.awt.Dimension(52, 22));/*numero legajo*/
+        legajo.setPreferredSize(new java.awt.Dimension(52, 22));
         legajo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField4ActionPerformed(evt);
@@ -238,7 +235,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         });
         getContentPane().add(legajo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 220, 30));
 
-        fechaApertura.setPreferredSize(new java.awt.Dimension(52, 22));  //fecha partura cuadtrito
+        fechaApertura.setPreferredSize(new java.awt.Dimension(52, 22));  
         fechaApertura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -277,11 +274,11 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/untitled.png")));
         getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-3, 41, 830, 40));
         
-        //funcion boton buscar 
+      
         ErrorFormatoFecha ven = new ErrorFormatoFecha();
         ErrorCamposVacios ven1 = new ErrorCamposVacios();
        ; 
-        buscar.addActionListener(new ActionListener() {
+        jButton_Buscar.addActionListener(new ActionListener() {
         
         	public void actionPerformed(ActionEvent ae) {	
 
@@ -299,8 +296,6 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		if(!numTicket.getText().isEmpty()) numTic = Long.valueOf(numTicket.getText());
         		if(!legajo.getText().isEmpty()) numLegajo = Integer.valueOf(legajo.getText());
         		estado = comboBox.getSelectedItem().toString();
-        		
-        		/*estado= comboBox.getSelectedItem();*/
         		clasificacion = (ClasificacionDTO) jComboBox1.getSelectedItem();
         		ultimoG = (GrupoResolucionDTO) combogrupo.getSelectedItem();
         		
@@ -309,9 +304,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		//error en validar fecha
         	
         		if(!fechaApertura.getText().isEmpty()) {
-        			res= GestorTicket.validarFecha(fechaApertura.getText());
-        		
-        			
+        			res= GestorTicket.validarFecha(fechaApertura.getText());		
         
             		if(res==true){
             				fechaABien= GestorTicket.stringtodate(fechaApertura.getText());
@@ -336,7 +329,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		/*ErrorDatosIncorrectos ven2= new ErrorDatosIncorrectos();
         		if(((fechaABien.compareTo(fechaAct) >= 0) || (!fechaApertura.getText().isEmpty()) ) && (fechaUBien.compareTo(fechaAct)>=0) || (!fechaUltimo.getText().isEmpty())){
         			ven2.setVisible(true);
-        		}else {*/
+        		}else {*/ // TODO verificar que ande ( juano) 
+        		
+        		
         	
         		listaTencontrados = gestorT.consultarTicket(numTic, numLegajo,fechaABien, fechaUBien ,  estado, clasificacion , ultimoG  );	
         			
@@ -354,58 +349,50 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         			
         			else {
         				EjemploError e = new EjemploError("No existen tickets que cumplan con los criterios ingresados.");
-                		e.setVisible(true);  
-
-        			}
-                	
-                	
-                	
-                	
+                		e.setVisible(true);  }
                 	}
-                	
-                	
-                	
-                });
+             });
         
         
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 630, 970, 160));
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Cerrar Ticket");
-        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_CerrarT.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_CerrarT.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_CerrarT.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_CerrarT.setText("Cerrar Ticket");
+        jButton_CerrarT.addFocusListener(new java.awt.event.FocusAdapter() {
+        	
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton3.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_CerrarT.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_CerrarT.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_CerrarT.addKeyListener(new java.awt.event.KeyAdapter(){
         	
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton3.doClick();
+                    jButton_CerrarT.doClick();
                 }
                 
             }
         });
         
 
-        jButton4.setBackground(new java.awt.Color(0, 51, 102));
-        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Detalle");
-        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Detalle.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Detalle.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jButton_Detalle.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Detalle.setText("Detalle");
+        jButton_Detalle.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton4.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Detalle.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton4.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Detalle.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Detalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	
             	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
@@ -413,66 +400,66 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
         		System.out.println(ticketselec.getNumeroTicket());
 
-        			jButton4ActionPerformed(evt);
+        			jButton_DetalleActionPerformed(evt);
         		
         
     
             }
         });
-        jButton4.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Detalle.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton4.doClick();
+                    jButton_Detalle.doClick();
                 }
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 30));//330, 830, 110, 30));
+        getContentPane().add(jButton_Detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 30));//330, 830, 110, 30));
 
-        jButton5.setBackground(new java.awt.Color(0, 51, 102));
-        jButton5.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setText("Configurar reporte");
-        jButton5.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_ConfigReporte.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_ConfigReporte.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_ConfigReporte.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_ConfigReporte.setText("Configurar reporte");
+        jButton_ConfigReporte.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton5.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_ConfigReporte.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton5.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_ConfigReporte.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton5.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_ConfigReporte.addKeyListener(new java.awt.event.KeyAdapter(){
         	
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton5.doClick();
+                    jButton_ConfigReporte.doClick();
                 }
                 
             }
         });
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        jButton_ConfigReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	
-                jButton5ActionPerformed(evt);
+                jButton_ConfigReporteActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 830, 180, 30));
+        getContentPane().add(jButton_ConfigReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 830, 180, 30));
         
-        //cerrar
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+
+        jButton_CerrarT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
             	ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
-                jButton3ActionPerformed(evt);
+                jButton_CerrarTActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 140, 30));
+        getContentPane().add(jButton_CerrarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 140, 30));
         
         
-        jButton6.setBackground(new java.awt.Color(0, 51, 102));
-        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Derivar Ticket");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        jButton_DerivarT.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_DerivarT.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_DerivarT.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_DerivarT.setText("Derivar Ticket");
+        jButton_DerivarT.addActionListener(new java.awt.event.ActionListener() {
         	public void actionPerformed(java.awt.event.ActionEvent evt) {
         	if(jTable1.getSelectedRow() != -1 || jTable1.getSelectedRow() < listaTencontrados.size()) {
         		
@@ -482,44 +469,36 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		System.out.println(ticketselec.getNumeroTicket());
         		
         		if((ticketselec.getEstado() == EstadoTicket.SOLUCIONADOALAESPERAOK) || (ticketselec.getEstado()== EstadoTicket.ABIERTOSINDERIVAR)) {
-        			jButton6ActionPerformed(evt);
+        			jButton_DerivarTActionPerformed(evt);
         		}
         		else {
             	
         			EstadoTicket estado = ticketselec.getEstado();
         			String e= "No se puede derivar en estado\n";
         			String a= e + estado;
-        			System.out.println(a);
         			EjemploError i = new EjemploError(a);
             		i.setVisible(true);
         		}
         	}
-        	//TicketDTO t = TablaTickets.get ;
-        	
-        	
-        	
-        	
-        	
-           
         }
     });
 
-        jButton6.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_DerivarT.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton6.doClick();
+                    jButton_DerivarT.doClick();
                 }
             }
         });
-        jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_DerivarT.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton6.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_DerivarT.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton6.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_DerivarT.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20 /*830*/, 140, 30));
+        getContentPane().add(jButton_DerivarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20 /*830*/, 140, 30));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg"))); 
         jLabelFondo.setPreferredSize(new java.awt.Dimension(1100, 650));
@@ -528,28 +507,28 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         pack();
     }
 
-    private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditableActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFielNoEditableActionPerformed
+    private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {
+       
+    }
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {
+   
+    }
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
     
     public void addUser (Usuario user) {
     	u= user;
     }
     
   
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton_CerrarTActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
         	
             CerrarTicketCU03 r = new CerrarTicketCU03(ticketselec);
@@ -563,10 +542,10 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	  	error.setVisible(true); }
             }      
     
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton_DetalleActionPerformed(java.awt.event.ActionEvent evt) {                                         
       try {
-        	System.out.println("usuario: "+u.getUsuario() +" ;"+"numTicket"+ticketselec.getNumeroTicket());
-            DetalleTicketCU02 r = new DetalleTicketCU02(u, ticketselec);
+    	  
+            DetalleTicketCU02 r = new DetalleTicketCU02(u.getUsuario(), ticketselec);
             r.setAnterior(frame);
             r.setVisible(true);
             this.setVisible(false); 
@@ -577,7 +556,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	  	error.setVisible(true); }
     		}
     
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton_ConfigReporteActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
             ConfigurarReporteCU05 r = new ConfigurarReporteCU05();
             r.setAnterior(frame);
@@ -591,7 +570,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             }      
     
     
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton_DerivarTActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
         
         	DerivarTicketCU04 d = new DerivarTicketCU04(ticketselec, u);
@@ -628,19 +607,14 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  	//	System.out.println(t.getFechaU().toString());
  		System.out.println(t.getCla().getNom_clasificacion());
  		System.out.println(t.getEstado().toString());
- 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),/*t.getFechaA().toString() ,t.getFechaU().toString() ,*/t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
- 	
+ 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),/*t.getFechaA().toString() ,t.getFechaU().toString(),*/ t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
  			}
  		
  		
  		}
  	
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -657,30 +631,20 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ConsultarTicketCU02.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
        
         
       
     }
     
  
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton buscar;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+
+    private javax.swing.JButton jButton_VolverMenu;
+    private javax.swing.JButton jButton_Buscar;
+    private javax.swing.JButton jButton_CerrarT;
+    private javax.swing.JButton jButton_Detalle;
+    private javax.swing.JButton jButton_ConfigReporte;
+    private javax.swing.JButton jButton_DerivarT;
     private javax.swing.JComboBox<String> combocalif;
     private javax.swing.JComboBox<String> combogrupo;
     private javax.swing.JLabel jLabel1;
@@ -700,5 +664,5 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     private javax.swing.JTextField fechaApertura;
     private javax.swing.JTextField legajo;
     private javax.swing.JTextField fechaUltimo;
-    // End of variables declaration//GEN-END:variables
+
 }

@@ -39,17 +39,17 @@ public class Ticket implements  Serializable{
 	@Column(name = "NUM_TICKET")
 	private Integer num_ticket;
 	
-	@Column(name = "HORA_APERTURA")
-	private Date hora_apertura;
+	//@Column(name = "HORA_APERTURA")
+	//private Date hora_apertura;
 
-	@Column(name = "FECHA_APERTURA")
+	@Column(name = "FECHA_APERTURA",nullable= true)
 	private Date fecha_apertura;
 	
-	@Column(name = "FECHA_CIERRE")
+	@Column(name = "FECHA_CIERRE",nullable= true)
 	private Date fecha_cierre;
 	
-	@Column(name = "HORA_CIERRE")
-	private Date hora_cierre;
+	//@Column(name = "HORA_CIERRE")
+	//private Date hora_cierre;
 	
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
 	private String descrip_problema;
@@ -87,14 +87,13 @@ public class Ticket implements  Serializable{
 
 
 	public Ticket(Date fecha_apertura, String descrip_problema,
-			EstadoTicket estadoticket,
-	 Date hora_apertura) {
+			EstadoTicket estadoticket) {
 		
 		listaintervenciones = new ArrayList<>();
 		listahistorial = new ArrayList<>();
 		
 		this.fecha_apertura = fecha_apertura;
-		this.hora_apertura = hora_apertura;
+		
 		this.descrip_problema = descrip_problema;
 		this.estadoticket = estadoticket;
 	}
@@ -265,7 +264,7 @@ public class Ticket implements  Serializable{
 
 			
 	
-	
+	/*
 
 	public Date getHora_apertura() {
 		return hora_apertura;
@@ -274,7 +273,7 @@ public class Ticket implements  Serializable{
 
 	public void setHora_apertura(Date hora_apertura) {
 		this.hora_apertura = hora_apertura;
-	}
+	}*/
 
 
 	public Date getFecha_apertura() {
@@ -295,8 +294,7 @@ public class Ticket implements  Serializable{
 	public void setFecha_cierre(Date fecha_cierre) {
 		this.fecha_cierre = fecha_cierre;
 	}
-
-
+/*
 	public Date getHora_cierre() {
 		return hora_cierre;
 	}
@@ -304,7 +302,7 @@ public class Ticket implements  Serializable{
 
 	public void setHora_cierre(Date hora_cierre) {
 		this.hora_cierre = hora_cierre;
-	}
+	}*/
 	
 
 	public Intervencion getIntervencion(int idgrupo) {

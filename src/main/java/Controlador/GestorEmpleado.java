@@ -42,9 +42,7 @@ public class GestorEmpleado {
 			return emp;
 		}
 		else {
-		EjemploError cartel = new EjemploError("legajo invalido");	
-		cartel.setVisible(true);
-		return emp;
+		return null;
 		}
 	}
 

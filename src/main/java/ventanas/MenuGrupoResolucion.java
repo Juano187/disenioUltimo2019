@@ -5,18 +5,23 @@ import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
 import Modelo.GrupoResolucion;
+import Modelo.Usuario;
 
 @SuppressWarnings("serial")
 	public class MenuGrupoResolucion extends javax.swing.JFrame {
 	    
-		String u = new String();
-		String grupo = new String ();
+		
+		private GestorUsuario gu = new GestorUsuario();
+		private Usuario u;
 		private JFrame anterior;
-		JFrame panel;
+		JFrame frame;
 	    public MenuGrupoResolucion(String user) {
-	    	u=user;
-	    	panel = this;
+	    	
+	    	u=gu.getUsuario(user);
+	    	frame = this;
 	        initComponents();
 	        this.setLocationRelativeTo(null);
 	    }
@@ -174,13 +179,7 @@ import Modelo.GrupoResolucion;
 
 	    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
 	    
-	    }                                        
-	    public void addGrupo(String g) {
-	    	grupo = g;
-	    }
-	    public void addUser (String user) {
-	    	u = user;
-	    }
+	    }                                   
 
 
 		public void setAnterior(JFrame ant) {

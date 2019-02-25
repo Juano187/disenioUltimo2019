@@ -4,6 +4,7 @@ package ventanas;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.security.Guard;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +17,7 @@ import Controlador.GestorClasificacion;
 import Controlador.GestorEmpleado;
 import Controlador.GestorGrupoResolucion;
 import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
 import Modelo.ClasificacionDTO;
 import Modelo.Empleado;
 import Modelo.EstadoTicket;
@@ -34,22 +36,29 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	private GestorClasificacion gc = new GestorClasificacion();
 	private GestorTicket gt = new GestorTicket();
 	private GestorGrupoResolucion gg= new GestorGrupoResolucion();
+	private GestorUsuario gu = new GestorUsuario();
 	String claSeleccionada = new String("Seleccione un tipo...");
 	String descripcion = new String();
 	private Usuario u ;
 
 	private JFrame frame;
 	private JFrame anterior;
-	SimpleDateFormat fecha_hora =new SimpleDateFormat ( "dd-MM-yyyy HH:mm");
     SimpleDateFormat fecha = new SimpleDateFormat ("dd-MM-yyyy");
     SimpleDateFormat hora = new SimpleDateFormat ("HH:mm");
     Date date = new Date();
+    
     String fechaString = fecha.format(date);
     String horaString = hora.format(date);
-    String fechaHoraString = fecha_hora.format(date);
+
     
-    public RegistrarTicketCU01() {  
-        initComponents(u);
+    public RegistrarTicketCU01(String user) {  
+    	
+        frame = this;
+    	u=gu.getUsuario(user);
+    	
+    	initComponents(u);
+        
+        
         this.setLocationRelativeTo(null); 
     }
 
@@ -57,7 +66,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     @SuppressWarnings({ "unchecked"})
 
     private void initComponents(Usuario user) {
-      //  System.out.println(u.getUsuario());
+      
     	
        
     	jLabelTitulo = new javax.swing.JLabel();
@@ -71,8 +80,8 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton_Cancelar = new javax.swing.JButton();
+        jButton_Cerrar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
@@ -81,7 +90,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        jButton_Derivar = new javax.swing.JButton();
         jLabelFondo = new javax.swing.JLabel();
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -175,58 +184,58 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         });
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 220, 30));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancelar");
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Cancelar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Cancelar.setText("Cancelar");
+        jButton_Cancelar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton1.doClick();
+                    jButton_Cancelar.doClick();
                 }
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 accionCancelar(evt);
             }
         });
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Cancelar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton1.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Cancelar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton1.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Cancelar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 590, 110, 30));
+        getContentPane().add(jButton_Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 590, 110, 30));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Cerrar ticket");
-        jButton2.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Cerrar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Cerrar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Cerrar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Cerrar.setText("Cerrar ticket");
+        jButton_Cerrar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton3.doClick();
+                    jButton_Derivar.doClick();
                 }
             }
         });
         
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Cerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jButton_CerrarActionPerformed(evt);
             }
         });
-        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Cerrar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton2.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Cerrar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton2.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Cerrar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 590, 140, 30));
+        getContentPane().add(jButton_Cerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 590, 140, 30));
 
       
         ArrayList<ClasificacionDTO> clasificaciones= gc.getClasificaciones();
@@ -265,7 +274,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jTextArea1.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER || ke.getKeyCode() == KeyEvent.VK_TAB) {
-                    jButton1.requestFocus();
+                    jButton_Cancelar.requestFocus();
                 }
             }
         });
@@ -297,31 +306,31 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jLabel11.setText("*");
         getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 290, -1, -1));
 
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Derivar ticket");
-        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Derivar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Derivar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Derivar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Derivar.setText("Derivar ticket");
+        jButton_Derivar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton3.doClick();
+                    jButton_Derivar.doClick();
                 }
             }
         });
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Derivar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                jButton_DerivarActionPerformed(evt);
             }
         });
-        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButton_Derivar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton3.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButton_Derivar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButton_Derivar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 590, 140, 30));
+        getContentPane().add(jButton_Derivar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 590, 140, 30));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg")));
         jLabelFondo.setText("jbj");
@@ -331,11 +340,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         pack();
     }
 
-       
-    public void addUser ( Usuario user) {
-    	u = user;
-    }
-
+   
 
  	public void setAnterior(JFrame anterior) {
  		this.anterior = anterior;
@@ -345,7 +350,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     	
     }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_CerrarActionPerformed(java.awt.event.ActionEvent evt) {
 
         try {
        
@@ -366,7 +371,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 }
         	 else {
         		// TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
-        		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
+        		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date);
         		 	
         		 	GrupoResolucion g = new GrupoResolucion();
         		 	g = gg.getGrupo("Mesa de Ayuda");
@@ -407,7 +412,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
             evt.consume();}
         }
      	
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_DerivarActionPerformed(java.awt.event.ActionEvent evt) {
      
  
     try {
@@ -417,8 +422,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     	 int longLegajo= String.valueOf(legajo).length();
     	 
     	 //prueba para ver los datos
-    	 //System.out.println("long legajo: "+ longLegajo + " descripcion: " + descripcion + " clasificacion: " + claSeleccionada );
-    	 
+ 
     	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...")  || descripcion.equalsIgnoreCase("Ingrese descripcion")) {
     	 		EjemploError error = new EjemploError("Datos invalidos");
 			  	error.setVisible(true); 
@@ -428,19 +432,14 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     	 else {
     		 
     		 //TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
-    		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date,GestorTicket.stringtodate(fechaString), GestorTicket.stringtodate(horaString));
-    		 	Empleado emp = ge.validarLegajo(legajo);
+    		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date);
+    		
+    		 	GrupoResolucion	g = gg.getGrupo("Mesa de Ayuda");
     		 	
-    		 	
-    		 		
-    		 	GrupoResolucion g = new GrupoResolucion();
-    		 	g = gg.getGrupo("Mesa de Ayuda");
     		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
     		 			t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
     		 			t.getEstadoticket() , u.getUsuario());
-    		 	//Date fecha_ini = ;
-    		 	
-    		 	int num_ticket = (gbdd.getTickets().size()+1);
+    		 
     		 	
                 DerivarTicketCU04 r = new DerivarTicketCU04(td, u);
                 r.setAnterior(frame);
@@ -484,9 +483,9 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 
   
 
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton_Cancelar;
+    private javax.swing.JButton jButton_Cerrar;
+    private javax.swing.JButton jButton_Derivar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

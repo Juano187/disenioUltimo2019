@@ -85,6 +85,7 @@ public class GestorTicket {
 		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, g /*, u*/);		
 		
 		System.out.println("salio del gestor interv, volvio a gestor ticket, estado interv :");
+		
 		//System.out.println(intervencionU.getEstadointervencion());
 		
 		Intervencion i = ticket.getIntervencion(1);
@@ -107,25 +108,37 @@ public class GestorTicket {
 		System.out.println(i.getEstadointervencion());
 		
 		//el problema esta aca
+		
 	gestorBDD.actualizarTicket(ticket);
 	System.out.println(ticket.getNum_ticket());
 		
 	}
 
+	public static Date stringtodate(String fecha) {
+		Date f=null;
+        try {
+            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+            formatoFecha.setLenient(false);
+            f= formatoFecha.parse(fecha);
+        } catch (ParseException e) {
+            return null;
+        }
+        return f;
+    }
+	
 
 	
-	
-
-	
-	public Ticket registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f, Date fecha, Date hora) {
+	public Ticket registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f) {
 		Ticket t2= new Ticket();
 		try{
-			
+			System.out.print("fecha: " + f);
 		Clasificacion c = gc.getClasificacion(clasific);
 		Empleado e = ge.validarLegajo(legajo);
+		
+		if(e != null) {
 		Usuario u = user;
 		GrupoResolucion gr = ggr.getGrupo(u.getGruporesolucion().getNom_grupo());
-		Ticket t = new Ticket( fecha,descripcion,EstadoTicket.ABIERTOSINDERIVAR,hora);
+		Ticket t = new Ticket(f,descripcion,EstadoTicket.ABIERTOSINDERIVAR);
 			e.addTicket(t);
 			c.addTicket(t);
 		Intervencion i = new Intervencion(descripcion,f,EstadoIntervencion.TRABAJANDO);	
@@ -151,8 +164,13 @@ public class GestorTicket {
 			gestorBDD.cargarTicket(t);
 			
 			t2=t;
+		}
+		else {
+			EjemploError cartel = new EjemploError("legajo invalido");	
+			cartel.setVisible(true);
 			
-			System.out.println("ticket guardado " + getTicket(t.getNum_ticket()));
+		}
+			System.out.println("ticket guardado " + getTicket(t2.getNum_ticket()));
 	
 		
 		}catch(Exception ex) {
@@ -177,18 +195,6 @@ public class GestorTicket {
 		}
 		return resultado;
 	}
-
-	public static Date stringtodate(String fecha) {
-		Date f=null;
-        try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-            formatoFecha.setLenient(false);
-            f= formatoFecha.parse(fecha);
-        } catch (ParseException e) {
-            return null;
-        }
-        return f;
-    }
 	
 /*	
 	public static boolean validarDatosRegistro (int legajo, String descripcion, String clasificacion) {
@@ -234,7 +240,7 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 			tic.setCla(cla1);
 			tic.setDescripcion(t.getDescrip_problema());
 			tic.setGru(ug);
-				
+			tic.setEmpleado(t.getEmpleado());
 					
 			resultado.add(tic);
 			}
@@ -258,7 +264,7 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 	public void cerrarTicket(Integer numTicket, String obser) {
 		
 		 Ticket ticket = gestorBDD.buscarTicket(numTicket);
-		 ticket.setEstadoticket(4);
+		 ticket.setEstadoticket(3);
 		 ticket.setDescrip_problema(obser);
 		 Date fecha = new Date();
 		

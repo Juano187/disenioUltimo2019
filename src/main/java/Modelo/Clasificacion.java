@@ -76,7 +76,7 @@ public class Clasificacion implements Serializable {
 		this.gruporesolucion = new ArrayList<>();
 
 	}
-	public Clasificacion(String nom_clasificacion2) {
+	public Clasificacion(String nom_clasificacion) {
 		this.nom_clasificacion = nom_clasificacion;
 	}
 
