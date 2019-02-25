@@ -26,17 +26,17 @@ public class Direccion implements Serializable{
 	private Integer id_direccion;
 	
 	
-	@Column(name = "CALLE", length = 150, nullable= true)
+	@Column(name = "CALLE", length = 150, nullable= false)
 	private String calle;
 	
-	@Column(name = "NUMERO", nullable= true)
+	@Column(name = "NUMERO", nullable= false)
 	private Integer numero;
 	
 	@ManyToOne
 	@JoinColumn(name = "LEGAJO")
 	private Empleado empleado;
 	
-	public Direccion() {
+	public Direccion() { 
 		
 	}
 	
