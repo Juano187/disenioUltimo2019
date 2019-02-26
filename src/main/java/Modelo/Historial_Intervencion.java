@@ -21,6 +21,7 @@ public class Historial_Intervencion extends HistorialABS {
 	@Enumerated(value = EnumType.STRING) 
 	private EstadoIntervencion estado;
 	
+	
 
 	
 	public Historial_Intervencion () {

@@ -66,6 +66,7 @@ public class HistorialTicket extends HistorialABS {
 		return	this.clasificacion;
 	}
 	
+	
 	public void setDescripcion (String d) {
 		this.descrip = d;
 	}

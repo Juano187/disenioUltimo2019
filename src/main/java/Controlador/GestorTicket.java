@@ -62,6 +62,24 @@ public class GestorTicket {
         return true;
     }
 	
+	public void cambiarEstadoH ( Ticket t, EstadoTicket estado ) {
+		HistorialTicket ht = t.getUltimoHistorial();
+		Date f = new Date();
+		ht.setfinal(f);
+		t.setEstadoticket(1);
+		HistorialTicket nuevo = new HistorialTicket(estado, f);
+		
+		 if(t.getListahistorial().contains(ht)) {
+             t.getListahistorial().set(t.getListahistorial().indexOf(ht), ht);
+         }
+         else {
+             t.getListahistorial().add(ht);
+         }
+		 
+		 t.getListahistorial().add(nuevo);
+		 
+	}
+	
 
 
 	public void derivarTicket(Integer numTicket, String observ, String grup , Usuario u , Integer idCla) {
@@ -73,8 +91,9 @@ public class GestorTicket {
 		System.out.println(ticket.getNum_ticket());
 		System.out.println(ticket.getEstadoticket());
 		
+		//aca se cambia el estado
+		cambiarEstadoH(ticket,EstadoTicket.ABIERTODERIVADO);
 		
-		ticket.setEstadoticket(1);
 		Date fecha = new Date();
 		System.out.println("nuevo estado del ticket es : ");
 		System.out.println(ticket.getEstadoticket());
@@ -82,9 +101,11 @@ public class GestorTicket {
 		GrupoResolucion g= gestorBDD.getgrupo(grup) ;
 		System.out.println("se obtuvo grupo entero");	
 		
-		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, g /*, u*/);		
+		Intervencion intervencionU = gestorI.cambioInterv(numTicket, observ, g );		
 		
 		System.out.println("salio del gestor interv, volvio a gestor ticket, estado interv :");
+		
+		
 		
 		//System.out.println(intervencionU.getEstadointervencion());
 		
@@ -234,7 +255,7 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 			tic.setNumeroTicket(t.getNum_ticket());
 			tic.setNumlegajo(t.getEmpleado().getLegajo());
 			tic.setFechaA(t.getFecha_apertura());
-			tic.setFechaU(t.getFecha_cierre());
+			tic.setFechaU(t.ultimaIGrupo().getFecha_inicio());
 			tic.setEstado2(t.getEstadoticket());
 			tic.setUsuario(t.getUsuOperador().getUsuario());
 			tic.setCla(cla1);

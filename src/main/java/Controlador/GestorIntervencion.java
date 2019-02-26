@@ -4,6 +4,7 @@ import java.util.Date;
 
 import Modelo.EstadoIntervencion;
 import Modelo.GrupoResolucion;
+import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.Ticket;
 import Modelo.Usuario;
@@ -28,7 +29,8 @@ public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoInte
 	}
 
 
-public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResolucion grup /*, Usuario u*/) {
+
+public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResolucion grup ) {
 	
 	System.out.println("gestor interv, con grupo, num y nombre grupo");
 	System.out.println(numTicket);
@@ -48,8 +50,12 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 	
 	//newi.setObservaciones(observ);
 	if(newi == null || (newi.getEstadointervencion() == EstadoIntervencion.TERMINADA)) {
-		System.out.println("es nulo asique se crear inter");
+		System.out.println("es nulo asique se crear inter o ter minado");
+		
 		Intervencion intervg = new Intervencion();
+		Historial_Intervencion hi = new Historial_Intervencion(fecha,EstadoIntervencion.ASIGNADO);
+		intervg.addHi(hi);
+		
 		intervg.setFecha_inicio(fecha);
 		intervg.setGruporesolucion(grup);
 		intervg.setEstadointervencion(EstadoIntervencion.ASIGNADO);
@@ -59,9 +65,22 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 	}
 	else {
 		System.out.println("no es nulo asiq se actualiza");
+	
 		Date fechafin = new Date();
-		newi.setFecha_fin(fechafin);
-		newi.setEstadointervencion(EstadoIntervencion.ASIGNADO);
+		Historial_Intervencion nuevo = new Historial_Intervencion(fecha,EstadoIntervencion.ASIGNADO);
+		Historial_Intervencion hi = newi.getUltimoHistorial();
+		hi.setfinal(fechafin);
+		 if(newi.getListahistorial().contains(hi)) {
+             newi.getListahistorial().set(newi.getListahistorial().indexOf(hi), hi);
+         }
+         else {
+             newi.getListahistorial().add(hi);
+         }
+		 
+		 newi.getListahistorial().add(nuevo);
+	
+		/*newi.setFecha_fin(fechafin);
+		newi.setEstadointervencion(EstadoIntervencion.ASIGNADO);*/
 		gestorBDD.actualizarIntervencion(newi);
 		i2 = null;
 	}

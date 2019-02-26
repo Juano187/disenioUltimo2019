@@ -573,7 +573,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     private void jButton_DerivarTActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
         
-        	DerivarTicketCU04 d = new DerivarTicketCU04(ticketselec, u);
+        	DerivarTicketCU04 d = new DerivarTicketCU04(ticketselec, u.getUsuario());
             d.setAnterior(frame);
             d.setVisible(true);
             this.setVisible(false);
@@ -603,11 +603,11 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
  		
  		System.out.println(t.getNumeroTicket().toString());
  		System.out.println(t.getNumlegajo().toString());
- 	//	System.out.println(t.getFechaA().toString());
- 	//	System.out.println(t.getFechaU().toString());
+ 		System.out.println(t.getFechaA().toString());
+ 		System.out.println(t.getFechaU().toString());
  		System.out.println(t.getCla().getNom_clasificacion());
  		System.out.println(t.getEstado().toString());
- 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),/*t.getFechaA().toString() ,t.getFechaU().toString(),*/ t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
+ 		TablaTickets.addRow(new String[] {t.getNumeroTicket().toString(), t.getNumlegajo().toString(),t.getFechaA().toString() ,t.getFechaU().toString(), t.getEstado().toString(), t.getUsuario().toString() ,t.getCla().getNom_clasificacion(),t.getGru().getNom_grupo()});
  			}
  		
  		

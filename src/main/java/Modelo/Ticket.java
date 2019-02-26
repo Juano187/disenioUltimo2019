@@ -39,8 +39,7 @@ public class Ticket implements  Serializable{
 	@Column(name = "NUM_TICKET")
 	private Integer num_ticket;
 	
-	//@Column(name = "HORA_APERTURA")
-	//private Date hora_apertura;
+
 
 	@Column(name = "FECHA_APERTURA",nullable= true)
 	private Date fecha_apertura;
@@ -48,8 +47,6 @@ public class Ticket implements  Serializable{
 	@Column(name = "FECHA_CIERRE",nullable= true)
 	private Date fecha_cierre;
 	
-	//@Column(name = "HORA_CIERRE")
-	//private Date hora_cierre;
 	
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
 	private String descrip_problema;
@@ -123,6 +120,17 @@ public class Ticket implements  Serializable{
 				i.setTicket(this, false);
 			}
 		}
+	}
+	
+	public HistorialTicket getUltimoHistorial () {
+		HistorialTicket result = new HistorialTicket ();
+		for (HistorialTicket ht : this.listahistorial) {
+			if(ht.getFechaFin() == null) {
+				result= ht;
+			}
+			
+		}
+		return result;
 	}
 	
 	public void addH( HistorialTicket ht) {

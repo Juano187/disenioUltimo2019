@@ -441,7 +441,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     		 			t.getEstadoticket() , u.getUsuario());
     		 
     		 	
-                DerivarTicketCU04 r = new DerivarTicketCU04(td, u);
+                DerivarTicketCU04 r = new DerivarTicketCU04(td, u.getUsuario());
                 r.setAnterior(frame);
                 r.setVisible(true);
                 this.setVisible(false);

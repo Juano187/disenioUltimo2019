@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import Controlador.GestorClasificacion;
 import Controlador.GestorGrupoResolucion;
 import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
 import Modelo.GrupoResolucion;
@@ -26,27 +27,27 @@ import Modelo.Usuario;
 public class DerivarTicketCU04 extends javax.swing.JFrame {
 	private GrupoResolucion [] grupos;
 	private JFrame anterior;
+	private GestorUsuario gu = new GestorUsuario();
 	private Usuario u ;
 	TicketDTO ticketSelec; 
-
-    public DerivarTicketCU04(TicketDTO ticketselec, Usuario u2) {
+	private GestorClasificacion gestorC = new GestorClasificacion();
+	private GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
+	private GestorTicket  gestorT= new GestorTicket();
+    
+    public DerivarTicketCU04(TicketDTO ticketselec, String u2) {
   
-    	u=u2;
+    	u=gu.getUsuario(u2);
         initComponents(ticketselec, u);
         this.setLocationRelativeTo(null);
     }
-	GestorClasificacion gestorC = new GestorClasificacion();
-	GestorGrupoResolucion gestorG = new GestorGrupoResolucion();
-	GestorTicket  gestorT= new GestorTicket();
-    
+
 	private void initComponents(TicketDTO ticketselec, Usuario u) {
 	System.out.println("entro a derivar con este usuario :" );
-		
-		System.out.println(u.getUsuario());
+
 		GrupoResolucion gr = gestorG.getGrupo("Mesa de Ayuda");
-		System.out.println(gr.getNom_grupo());
+		
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButton_Cancelar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -56,7 +57,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextFielNoEditable = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        jButton_Confirmar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
@@ -78,19 +79,19 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         jLabel1.setText("DERIVAR TICKET");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, 210, -1));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancelar");
+        jButton_Cancelar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Cancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Cancelar.setText("Cancelar");
 
-        jButton1.addKeyListener(new java.awt.event.KeyAdapter(){
+        jButton_Cancelar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                	jButton1.doClick();
+                	jButton_Cancelar.doClick();
                 }
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 565, 100, 30));
+        getContentPane().add(jButton_Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 565, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -137,11 +138,11 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         });
         getContentPane().add(jTextFielNoEditable, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 290, 30));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 13)); 
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Confirmar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 565, 100, 30));
+        jButton_Confirmar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Confirmar.setFont(new java.awt.Font("Tahoma", 1, 13)); 
+        jButton_Confirmar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Confirmar.setText("Confirmar");
+        getContentPane().add(jButton_Confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 565, 100, 30));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -186,7 +187,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
        });
 
          
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
            
            	 	System.out.println("rasta");
@@ -212,7 +213,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                 		System.out.println("salio derivar");
                 	}
 
-                jButton1ActionPerformed(evt);
+                jButton_CancelarActionPerformed(evt);
             }
         });
 
@@ -453,13 +454,14 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 }
 
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+    private void jButton_CancelarActionPerformed(java.awt.event.ActionEvent evt) {
         anterior.setVisible(true);
         this.dispose();
     }
 
-    private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFielNoEditableActionPerformed
-        // TODO add your handling code here:
+
+    private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {
+    
     }
     
  	public void setAnterior(JFrame anterior) {
@@ -467,11 +469,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
  	}
     
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+ 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -488,18 +486,11 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(DerivarTicketCU04.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
+ 
 
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton_Cancelar;
+    private javax.swing.JButton jButton_Confirmar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
@@ -522,7 +513,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextFielNoEditable;
-    // End of variables declaration//GEN-END:variables
+
 }
 
 

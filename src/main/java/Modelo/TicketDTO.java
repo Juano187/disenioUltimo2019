@@ -53,6 +53,7 @@ public class TicketDTO {
 	}
 
 	public Date getFechaU() {
+		
 		return fechaU;
 	}
 
