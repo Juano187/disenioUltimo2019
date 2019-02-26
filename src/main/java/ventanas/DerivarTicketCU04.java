@@ -174,7 +174,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         
         	@Override
         		public void actionPerformed(ActionEvent a) {
-        		 
+        		
         		ultgrupos.removeAllItems();
         	Clasificacion c = (Clasificacion) combocalif.getSelectedItem();
         	grupos = cargarg(c.getNom_clasificacion());
@@ -182,8 +182,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         	
         	ultgrupos.setModel( new DefaultComboBoxModel<GrupoResolucion>( grupos ) );
         
+        		 }
         	
-        	}
        });
 
          

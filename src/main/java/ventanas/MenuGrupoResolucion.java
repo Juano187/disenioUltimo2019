@@ -32,7 +32,7 @@ import Modelo.Usuario;
 	    private void initComponents() {
 
 	        jLabel2 = new javax.swing.JLabel();
-	        jButton3 = new javax.swing.JButton();
+	        jButton_Consultar = new javax.swing.JButton();
 	        jButton4 = new javax.swing.JButton();
 	        jButton6 = new javax.swing.JButton();
 	        jLabel3 = new javax.swing.JLabel();
@@ -46,31 +46,31 @@ import Modelo.Usuario;
 	        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/untitled.png")));
 	        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, -1, 40));
 
-	        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-	        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14));
-	        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-	        jButton3.setText("CONSULTAR INTERVENCIONES ASIGNADAS");
-	        jButton3.addActionListener(new java.awt.event.ActionListener() {
+	        jButton_Consultar.setBackground(new java.awt.Color(0, 51, 102));
+	        jButton_Consultar.setFont(new java.awt.Font("Tahoma", 1, 14));
+	        jButton_Consultar.setForeground(new java.awt.Color(255, 255, 255));
+	        jButton_Consultar.setText("CONSULTAR INTERVENCIONES ASIGNADAS");
+	        jButton_Consultar.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton3ActionPerformed(evt);
+	                jButton_ConsultarActionPerformed(evt);
 	            }
 	        });
-	        jButton3.addKeyListener(new java.awt.event.KeyAdapter(){
+	        jButton_Consultar.addKeyListener(new java.awt.event.KeyAdapter(){
 	            public void keyPressed(java.awt.event.KeyEvent ke) {
 	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-	                	jButton3.doClick();
+	                	jButton_Consultar.doClick();
 	                }
 	            }
 	        });
-	        jButton3.addFocusListener(new java.awt.event.FocusAdapter() {
+	        jButton_Consultar.addFocusListener(new java.awt.event.FocusAdapter() {
 	        	public void focusGained(java.awt.event.FocusEvent e) {
-	        		jButton3.setBackground(new java.awt.Color(0, 10	, 30));
+	        		jButton_Consultar.setBackground(new java.awt.Color(0, 10	, 30));
 	        	}
 	        public void focusLost(java.awt.event.FocusEvent e) {
-	        	jButton3.setBackground(new java.awt.Color(0, 51, 102));	
+	        	jButton_Consultar.setBackground(new java.awt.Color(0, 51, 102));	
 	          }
 	        });
-	        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 50));
+	        getContentPane().add(jButton_Consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 50));
 
 	        jButton4.setBackground(new java.awt.Color(0, 51, 102));
 	        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -169,8 +169,11 @@ import Modelo.Usuario;
 	        this.dispose();
 	    }
 	    
-	    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	      
+	    //consultar interv asignada
+	    private void jButton_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	    	ConsultarIntervencionAsignadasCU07 a = new ConsultarIntervencionAsignadasCU07();
+	    	a.setVisible(true);
+	    	this.dispose();
 	    }                                        
 
 	    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
@@ -211,7 +214,7 @@ import Modelo.Usuario;
 	   
              
 	    private javax.swing.JButton jButton1;
-	    private javax.swing.JButton jButton3;
+	    private javax.swing.JButton jButton_Consultar;
 	    private javax.swing.JButton jButton4;
 	    private javax.swing.JButton jButton6;
 	    private javax.swing.JLabel jLabel2;

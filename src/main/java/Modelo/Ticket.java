@@ -323,7 +323,16 @@ public class Ticket implements  Serializable{
 		
 		return null;
 	}
-
+	public Intervencion getIntervencionidI(int idinterv) {
+		for (int i=0;i<listaintervenciones.size(); i++) {
+			if(listaintervenciones.get(i).getId_intervencion()==idinterv) {
+				return listaintervenciones.get(i);
+			}
+			
+		}
+		
+		return null;
+	}
 
 	
 

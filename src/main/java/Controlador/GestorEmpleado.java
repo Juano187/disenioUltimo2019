@@ -51,4 +51,29 @@ public class GestorEmpleado {
 	
 		return gestorBDD.getDireccion( legajo);
 	}
+	
+	
+	public Empleado getEmpleado (Integer legajo) {
+		Empleado empleado = new Empleado();
+		for (Empleado e : this.getEmpleados()) {
+			if (e.getLegajo().equals(legajo)) {
+				empleado = e;
+			}
+		}
+		return empleado;
+	}
+	
+	public ArrayList<Empleado> getEmpleados (){
+		ArrayList<Empleado> empleados = gestorBDD.getEmpleado();
+		System.out.println("tamaño empleados:::");
+		System.out.println(empleados.size());
+		return empleados;
+	}
+	
+	
+	public Integer getGrupo(Integer le) {
+		System.out.println("id grupo:::");
+		System.out.println(this.getEmpleado(le).getUsuario().getGruporesolucion().getId_grupo());
+		return this.getEmpleado(le).getUsuario().getGruporesolucion().getId_grupo();
+	}
 }

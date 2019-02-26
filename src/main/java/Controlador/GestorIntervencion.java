@@ -1,17 +1,21 @@
 package Controlador;
 
+import java.util.ArrayList;
 import java.util.Date;
 
+import Modelo.ClasificacionDTO;
 import Modelo.EstadoIntervencion;
 import Modelo.GrupoResolucion;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
+import Modelo.IntervencionDTO;
 import Modelo.Ticket;
 import Modelo.Usuario;
 
 
 public class GestorIntervencion {
 	GestorBDD gestorBDD = new GestorBDD();
+	GestorEmpleado gestorE = new GestorEmpleado();
 
 
 public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoIntervencion e ,  
@@ -91,7 +95,51 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 }
 
 
-
+public ArrayList<IntervencionDTO> consultarIntervAsigna(Long numTicket, Integer numLeg, String estado, Date desde,
+		Date hasta) {
+	
+	System.out.println("entro a consutar inter");
+	Integer idg = gestorE.getGrupo(numLeg);
+	System.out.println("id grupo:");
+	System.out.println(idg);
+	ArrayList<Intervencion> busI = gestorBDD.consultarItervencion(numTicket, numLeg, estado, desde, hasta, idg);
+	ArrayList<IntervencionDTO> intervenciones= new ArrayList<IntervencionDTO>();
+	
+	for(Intervencion a : busI) {
+		Ticket t = a.getTicket();
+		
+		System.out.println("grupo::::");
+		System.out.println(t.getIntervencionidI(a.getId_intervencion()).getGruporesolucion().getNom_grupo());
+		System.out.println( t.getIntervencionidI(a.getId_intervencion()).getGruporesolucion().getId_grupo());
+		IntervencionDTO i= new IntervencionDTO();
+		ClasificacionDTO clasif = new ClasificacionDTO(t.getClasificacion().getNom_clasificacion(), t.getClasificacion().getCodigo());
+		GrupoResolucion grup = new GrupoResolucion(t.getIntervencionidI(a.getId_intervencion()).getGruporesolucion().getNom_grupo(), t.getIntervencionidI(a.getId_intervencion()).getGruporesolucion().getId_grupo());
+		System.out.println("consutar inter");
+		System.out.println(a.getId_intervencion());
+		System.out.println(t.getNum_ticket());
+		System.out.println(t.getEstadoticket());
+		System.out.println(a.getEstadointervencion());
+		System.out.println(clasif.getNombre());
+		System.out.println(a.getObservaciones());
+		System.out.println(t.getEmpleado().getLegajo());
+		System.out.println(t.getFecha_apertura());
+		
+		i.setIdI(a.getId_intervencion());
+		i.setIdTicket(t.getNum_ticket());
+		i.setEstadoT(t.getEstadoticket());
+		i.setEstadoI(a.getEstadointervencion());
+		i.setLegajo(t.getEmpleado().getLegajo());
+		i.setFechap(t.getFecha_apertura());
+		i.setFechaAs(a.getFecha_inicio());
+		i.setObserv(a.getObservaciones());
+		i.setClas(clasif);
+		i.setGrup(grup);
+		
+		intervenciones.add(i);
+	}
+	// TODO Auto-generated method stub
+	return intervenciones;
+}
 	
 	
 	

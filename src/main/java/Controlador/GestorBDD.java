@@ -450,7 +450,40 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		
 		return ticket;	
 	}
+	public ArrayList<Intervencion> consultarItervencion(Long numTicket, Integer numLeg, String estado, Date desde,
+			Date hasta , Integer idgrup) {
+		ArrayList<Intervencion> resulI = new ArrayList<Intervencion>();
+		
+		String csql = "Select distinct i FROM Intervencion i, Ticket t WHERE i.ticket = t and i.gruporesolucion = " + idgrup;
+		
+		
 
+		if(!(numTicket== null)) {
+			csql+= " and t.num_ticket = " + numTicket;
+		}
+		
+		if(!(numLeg== null)) {
+			csql+= " and t.empleado = " + numLeg;
+		}
+		
+		if(!(desde== null)) {
+			csql+= " and t.fecha_apertura = '" + desde + "'";
+		}
+		
+		
+		if(!(estado== null)) {
+			csql+= " and i.estadointervencion = '" + estado + "'";
+		}
+		
+		manager.getTransaction().begin();
+		resulI = (ArrayList<Intervencion>) 
+				manager.createQuery(csql).getResultList();
+		manager.getTransaction().commit();
+		
+		
+		
+		return resulI;
+	}
 	
 	/*
 	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
