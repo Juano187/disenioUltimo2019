@@ -18,6 +18,7 @@ import Modelo.HistorialClasificacion;
 import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
+import Modelo.IntervencionDTO;
 import Modelo.Ticket;
 
 import Modelo.TicketDTO;
@@ -304,14 +305,13 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 		
 	}
 	
-/*	
 public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String observ, Clasificacion cla) {
 		
 		Ticket ticket = gestorBDD.buscarTicket(interv.getIdTicket());
 		ticket = gestorI.actualizarI(interv, nuevestado, observ, ticket );
 		
-		
-		if(ticket!=null && (interv.getEstadoI() == EstadoIntervencion.ASIGNADO) && (nuevestado == EstadoIntervencion.TRABAJANDO.toString())) {
+		/*
+		if(ticket!=null && !((interv.getEstadoI() == EstadoIntervencion.ASIGNADO) && (nuevestado == EstadoIntervencion.TRABAJANDO.toString()))) {
 			
 			// TODO como la funcion actulizarI solo se actualiza ticket cuando va a espera o terminada, si pasa a trabajando se sube el histoarial
 			
@@ -328,18 +328,15 @@ public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String 
 				else {
 					ticket.setEstadoticket(4);
 				}
-				
+			
 				
 				
 			}
 			
 			
 			
-		}
-			
-		
-		
-	}*/
+		}*/
+}
 	
 	}
 

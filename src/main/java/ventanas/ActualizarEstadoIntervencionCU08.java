@@ -1,30 +1,58 @@
-
 package ventanas;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+
+import Controlador.GestorClasificacion;
+import Controlador.GestorGrupoResolucion;
+import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
+import Modelo.Clasificacion;
+import Modelo.ClasificacionDTO;
+import Modelo.EstadoIntervencion;
+import Modelo.GrupoResolucion;
+import Modelo.IntervencionDTO;
+
 
 
 public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
 
-
-    public ActualizarEstadoIntervencionCU08() {
-        initComponents();
+	private GestorClasificacion gestorC= new GestorClasificacion();
+	private GestorGrupoResolucion gestorG= new GestorGrupoResolucion();
+	private GestorTicket gestorT = new GestorTicket(); 
+	private GestorUsuario gu = new GestorUsuario();
+	private Clasificacion[] clasificaciones;
+	private IntervencionDTO in;
+	
+//TODO PONER PARAMETROS
+    public ActualizarEstadoIntervencionCU08(IntervencionDTO interv, String user, Integer idgrupo) {
+    	in=interv;
+        initComponents(interv, user, idgrupo);
         this.setLocationRelativeTo(null);
     }
 
 
-    private void initComponents() {
+    private void initComponents(IntervencionDTO interv, String user, Integer idgrupo) {
 
+    	GrupoResolucion grupo = gestorG.getGrupo(idgrupo);
+    	clasificaciones = cargarClasificaciones(grupo.getNom_grupo());
+    	
+    	String cla = interv.getClas().getNombre();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        comboestado = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        comboClasificacion = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
+        jButtonAceptar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -55,17 +83,26 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Nuevo estado:");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 300, -1, -1));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 490, 30));
+        JComboBox<EstadoIntervencion> comboestado = new JComboBox<>();
+        comboestado.setModel(new DefaultComboBoxModel(new String[] { "Todas" }));
+        comboestado.setModel(new DefaultComboBoxModel<>(EstadoIntervencion.values()));
+        
+       
+        getContentPane().add(comboestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 490, 30));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Clasificaci\u00f3n:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, -1, -1));
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        getContentPane().add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 500, 30));
+    	System.out.println("id grupo actualiza");
+    	System.out.println(idgrupo);
+    	JComboBox<Clasificacion> comboClasificacion = new JComboBox<Clasificacion>();
+    	comboClasificacion.setModel(new DefaultComboBoxModel(new String[] { "Todas" }));
+    	comboClasificacion.setModel(new DefaultComboBoxModel<Clasificacion>(clasificaciones));
+		
+	
+        getContentPane().add(comboClasificacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, 500, 30));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); 
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -73,45 +110,60 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 890, 100));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setBackground(new java.awt.Color(0, 51, 102));
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButtonCancelar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
-        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButtonCancelar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton1.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButtonCancelar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton1.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButtonCancelar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        jButton1.requestFocusInWindow();
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 590, 100, 30));
+        jButtonCancelar.requestFocusInWindow();
+        getContentPane().add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 590, 100, 30));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Aceptar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jButtonAceptar.setBackground(new java.awt.Color(0, 51, 102));
+        jButtonAceptar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButtonAceptar.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAceptar.setText("Aceptar");
+        jButtonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+            	
+            	if(comboestado.getSelectedIndex() == 0) {
+            		EjemploError e = new EjemploError("Elija estado");
+            		e.setVisible(true);
+            		
+            	}
+            	else if(jLabel6.getText().isEmpty()) {
+            		EjemploError e = new EjemploError("Coloque observaciones");
+            		e.setVisible(true);
+            	}
+            	else {
+            		gestorT.actualizarEstadoI(interv, comboestado.getSelectedItem().toString(), jLabel6.getText(), (Clasificacion)comboClasificacion.getSelectedItem());
+            	}
+            	
+            	
+                jButtonAceptarActionPerformed(evt);
             }
         });
-        jButton2.addFocusListener(new java.awt.event.FocusAdapter() {
+        jButtonAceptar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
-        		jButton2.setBackground(new java.awt.Color(0, 10	, 30));
+        		jButtonAceptar.setBackground(new java.awt.Color(0, 10	, 30));
         	}
         public void focusLost(java.awt.event.FocusEvent e) {
-        	jButton2.setBackground(new java.awt.Color(0, 51, 102));	
+        	jButtonAceptar.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
         
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 590, 90, 30));
+        getContentPane().add(jButtonAceptar, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 590, 90, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/untitled.png"))); 
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 950, 40));
@@ -156,13 +208,37 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    //TODO toma grupo que viene por parametro, toma todas als clas de la base, compara que no sea igual a la clasf q tmb 
+    //viene por parametro, y si no es la misma la agrega
+    
+    private Clasificacion[] cargarClasificaciones(String grupo) {
+    	 List<Clasificacion> clas=gestorC.getclasificacionsDTO(grupo);
+    	 System.out.println("tamaño cals");
+    	 System.out.println(clas.size());
+    	 clasificaciones = new Clasificacion[clas.size()];
+    	 List<Clasificacion> c = new ArrayList<>();
+    	 
+    	 for(Clasificacion ct : clas) {
+    		if(!ct.getNom_clasificacion().equalsIgnoreCase(in.getClas().getNombre())){
+    			c.add(ct);
+    			
+    		}
+    	 }
+    	 clasificaciones[0] = new Clasificacion(in.getClas().getNombre()) ;
+    	 for(int i=0 ; i< c.size() ; i++) {
+    		 clasificaciones[i+1] = c.get(i);
+     	 }
+		return clasificaciones;
+	}
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+	private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jButtonAceptarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,19 +282,14 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ActualizarEstadoIntervencionCU08().setVisible(true);
-            }
-        });
+      
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonAceptar;
+    private javax.swing.JComboBox<String> comboestado;
+    private javax.swing.JComboBox<String> comboClasificacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

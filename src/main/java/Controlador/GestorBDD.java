@@ -480,7 +480,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		manager.getTransaction().commit();
 		
 		
-		
+		System.out.println("no encontro nada"+resulI.size());
 		return resulI;
 	}
 	

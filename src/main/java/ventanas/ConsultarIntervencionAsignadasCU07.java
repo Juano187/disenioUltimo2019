@@ -195,7 +195,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
             	Date desde = null;
             	Date hasta = null;
             	Long numTicket = null;
-        		Integer numLeg = null;
+        		Integer numLeg = null; 
         		String estado = null;
             	boolean res=true;
             	
@@ -350,8 +350,8 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     private void boton_modEstadActionPerformed(java.awt.event.ActionEvent evt) {  
     	System.out.println("id grupo a act");
     	System.out.println(idgru);
-    	//ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08(InterSelec, U, idgru);
-    	//a.setVisible(true);
+    	ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08(InterSelec, U, idgru);
+    	a.setVisible(true);
     	this.dispose();
     } 
     
