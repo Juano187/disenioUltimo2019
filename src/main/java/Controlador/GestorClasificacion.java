@@ -1,9 +1,11 @@
 package Controlador;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.GrupoResolucion;
 
 public class GestorClasificacion {
 
@@ -46,6 +48,29 @@ public ArrayList<ClasificacionDTO> getClasificaciones() {
 		}
 	return a;
 }
+
+public ArrayList<Clasificacion> getclasificacionsDTO(String grupo) {
+	System.out.println("gestor cla :::")	;
+	System.out.println(grupo);
+	List<Clasificacion> gd=  gestorBDD.getClasificaciones();
+	
+	ArrayList<Clasificacion> r= new ArrayList<>();
+	
+	
+	for(Clasificacion c: gd) {
+		System.out.println("tamaño grupo por clas");
+		System.out.println(c.getListaGr().size());
+		for(GrupoResolucion g: c.getListaGr()) {
+		
+			if(g.getNom_grupo().equalsIgnoreCase(grupo)) {
+				r.add(c);
+			}
+			
+			
+	}}
+	return r;
+}
+
 
 public ArrayList<Clasificacion> getClasificaciones2() {
 	

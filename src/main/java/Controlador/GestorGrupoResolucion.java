@@ -16,7 +16,10 @@ public class GestorGrupoResolucion {
 
 	}
 	
-
+	public GrupoResolucion getGrupo(Integer grupo) {
+		
+		return gBDD.getgrupo(grupo);
+	}
 	
 	public GrupoResolucion getGrupo(String grupo) {
 		return gBDD.getgrupo(grupo);

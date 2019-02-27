@@ -1,33 +1,44 @@
+
 package ventanas;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
+import Controlador.GestorGrupoResolucion;
 import Controlador.GestorIntervencion;
 import Controlador.GestorTicket;
 import Modelo.EstadoIntervencion;
+import Modelo.GrupoResolucion;
 import Modelo.IntervencionDTO;
 import Modelo.TicketDTO;
 
 public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
 
+	private String U;
+	private Integer idgru;
 	private GestorIntervencion gestorI = new GestorIntervencion();
+	private GestorGrupoResolucion gestorR = new GestorGrupoResolucion();
 	ArrayList<IntervencionDTO> listaIencontrados;
-	DefaultTableModel TablaTickets;
+	DefaultTableModel TablaInterv;
 	
-    public ConsultarIntervencionAsignadasCU07() {
-        initComponents();
+	IntervencionDTO InterSelec ;
+	
+    public ConsultarIntervencionAsignadasCU07(String user, Integer idgrupo) {
+    	idgru = idgrupo;
+    	U=user;
+        initComponents(user, idgrupo);
         this.setLocationRelativeTo(null);
     }
 
   
 
     
-    private void initComponents(/*Integer U, integer idgrupo*/) {
+    private void initComponents(String user, Integer idgrupo) {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -45,7 +56,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        boton_modEstad = new javax.swing.JButton();
         buttonBuscar = new javax.swing.JButton();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabelFondo = new javax.swing.JLabel();
@@ -144,7 +155,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         
         
         		
-        TablaTickets = new DefaultTableModel(
+        TablaInterv = new DefaultTableModel(
             new Object [][] {
                
             },
@@ -167,24 +178,11 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         };
-        jTable1.setModel(TablaTickets);
+        jTable1.setModel(TablaInterv);
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 1010, 160));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14));
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Modificar comentario  ");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 590, -1, 30));
-
-        jButton3.setBackground(new java.awt.Color(0, 51, 102));
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 14)); 
-        jButton3.setForeground(new java.awt.Color(255, 255, 255));
-        jButton3.setText("Modificar estado");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 590, 150, 30));
-
-        
         ErrorFormatoFecha ven = new ErrorFormatoFecha();
         buttonBuscar.setBackground(new java.awt.Color(0, 51, 102));
         buttonBuscar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
@@ -200,6 +198,9 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         		Integer numLeg = null;
         		String estado = null;
             	boolean res=true;
+            	
+            	DefaultTableModel ModelTablaInterv = (DefaultTableModel) jTable1.getModel();
+            	ModelTablaInterv.setRowCount(0);
         		
         		//error en validar fecha
         	
@@ -236,6 +237,8 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         		}
         		
         		listaIencontrados = gestorI.consultarIntervAsigna(numTicket , numLeg, estado, desde, hasta );
+        		System.out.println("tamaño");
+        		System.out.println(listaIencontrados.size());
         		
         		if(listaIencontrados.size() > 0) {
             		
@@ -247,7 +250,51 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
             		e.setVisible(true);  }
             	
             
-                fhastaActionPerformed(evt);
+              
+            }
+        });
+        
+       
+        
+        jButton2.setBackground(new java.awt.Color(0, 51, 102));
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setText("Modificar comentario  ");
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 590, -1, 30));
+
+        boton_modEstad.setBackground(new java.awt.Color(0, 51, 102));
+        boton_modEstad.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        boton_modEstad.setForeground(new java.awt.Color(255, 255, 255));
+        boton_modEstad.setText("Modificar estado");
+        getContentPane().add(boton_modEstad, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 590, 150, 30));
+        boton_modEstad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	Integer numISeleccionado = Integer.valueOf(((Vector) TablaInterv.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
+            	System.out.println("tamaño3");
+        		System.out.println(listaIencontrados.size());
+        		
+        		InterSelec = gestorI.consultarI(numISeleccionado, listaIencontrados);
+        		
+        		
+        		System.out.println("nui me toma el num del ticjeeeeeeeeeet");
+        		System.out.println(numISeleccionado);
+        		System.out.println(InterSelec.getEstadoI());
+        		System.out.println(InterSelec.getIdTicket());
+        		
+        	
+        		System.out.println(idgrupo);
+        		GrupoResolucion gr = gestorR.getGrupo(idgrupo);
+        		
+        		if(InterSelec.getGrup().getNom_grupo() == gr.getNom_grupo()) {
+        			   boton_modEstadActionPerformed(evt);
+        		 
+        			 
+        		}else {
+    				EjemploError e = new EjemploError("Derive su intervencion");
+            		e.setVisible(true);  }
+            	
+            
+    
             }
         });
         
@@ -258,13 +305,13 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 670));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    protected void ObtenerListaInterv(ArrayList<IntervencionDTO> listaIencontrados2) {
+    protected void ObtenerListaInterv(ArrayList<IntervencionDTO> listaIencontrados) {
 			
     	for(IntervencionDTO i : listaIencontrados) {
     		System.out.println("obteer");
-    		System.out.println(i.getIdTicket().toString());
+    		/*System.out.println(i.getIdTicket().toString());
     		System.out.println(i.getLegajo().toString());
     		System.out.println(i.getClas().getNombre());
     		System.out.println(i.getEstadoT().toString());
@@ -272,8 +319,8 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     		System.out.println(i.getEstadoI().toString());
     		System.out.println(i.getFechaAs().toString());
     		System.out.println(i.getGrup().getNom_grupo());
-    		System.out.println(i.getObserv());
-    		TablaTickets.addRow(new String[] {i.getIdTicket().toString(), i.getLegajo().toString(), i.getClas().getNombre(),
+    		System.out.println(i.getObserv());*/
+    		TablaInterv.addRow(new String[] {i.getIdTicket().toString(), i.getLegajo().toString(), i.getClas().getNombre(),
     				i.getEstadoT().toString(), i.getFechap().toString(), i.getEstadoI().toString() ,i.getFechaAs().toString(),
     				i.getGrup().getNom_grupo().toString(), i.getObserv() });
     	}
@@ -283,31 +330,34 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
 
 
 
-	private void numTicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numTicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numTicActionPerformed
+	private void numTicActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    private void numlegajoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numlegajoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numlegajoActionPerformed
+    private void numlegajoActionPerformed(java.awt.event.ActionEvent evt) {
+      
+    }
 
-    private void fhastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fhastaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fhastaActionPerformed
+    private void fhastaActionPerformed(java.awt.event.ActionEvent evt) {
+     
+    }
 
-    private void fdesdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fdesdeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fdesdeActionPerformed
+    private void fdesdeActionPerformed(java.awt.event.ActionEvent evt) {
+        
+    }
 
-    /**
-     * @param args the command line arguments
-     */
+ // TODO PONER BOTON
+    private void boton_modEstadActionPerformed(java.awt.event.ActionEvent evt) {  
+    	System.out.println("id grupo a act");
+    	System.out.println(idgru);
+    	//ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08(InterSelec, U, idgru);
+    	//a.setVisible(true);
+    	this.dispose();
+    } 
+    
+    
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+      
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -324,23 +374,14 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ConsultarIntervencionAsignadasCU07.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ConsultarIntervencionAsignadasCU07().setVisible(true);
-            }
-        });
+      
+     
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+  
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton boton_modEstad;
     private javax.swing.JButton buttonBuscar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -358,5 +399,5 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     private javax.swing.JTextField numlegajo;
     private javax.swing.JTextField fhasta;
     private javax.swing.JTextField fdesde;
-    // End of variables declaration//GEN-END:variables
+   
 }

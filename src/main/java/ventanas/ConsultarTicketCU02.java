@@ -59,7 +59,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
     public ConsultarTicketCU02(String user) {
     	
     	  u=gu.getUsuario(user);
-    	  initComponents(u);
+    	  initComponents();
     	  this.setLocationRelativeTo(null); 
     	  frame = this;
     	  
@@ -67,7 +67,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 
 
   
-    private void initComponents(Usuario u) {
+    private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -281,14 +281,15 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jButton_Buscar.addActionListener(new ActionListener() {
         
         	public void actionPerformed(ActionEvent ae) {	
-
+        		
+        		
         		DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         		model.setRowCount(0);
         		Long numTic = null;
         		Integer numLegajo = null;
         		Date fechaABien = null;
         		Date fechaUBien = null ;
-        		Date fechaAct = new Date();
+        		//Date fechaAct = new Date();
         		String estado = null;
         		ClasificacionDTO clasificacion;
         		GrupoResolucionDTO ultimoG;
@@ -523,6 +524,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
 
     }
     
+    public void setAnterior(JFrame anterior) {
+ 		this.anterior = anterior;
+ 	}
     public void addUser (Usuario user) {
     	u= user;
     }
@@ -591,9 +595,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         this.dispose();
     }
     
- 	public void setAnterior(JFrame anterior) {
- 		this.anterior = anterior;
- 	}
+ 
  	
  	
 	public void ObtenerListaTicket(ArrayList<TicketDTO> resultado) {

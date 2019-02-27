@@ -1,56 +1,94 @@
 
 package ventanas;
 
-public class EjemploExito extends javax.swing.JFrame {
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 
+import javax.swing.JFrame;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Object;
+
+public class EjemploExito extends javax.swing.JFrame {
+	JFrame anterior = null;
+	private String u; 
  
-    public EjemploExito() {
-        initComponents();
+    public EjemploExito(String s) {
+    	Toolkit.getDefaultToolkit().beep();
+        initComponents(s);
         this.setLocationRelativeTo(null);
     }
-
+    public EjemploExito(String s, JFrame a,String user) {
+    	Toolkit.getDefaultToolkit().beep();
+        anterior = a;
+        u= user;
+    	initComponents(s);
+        this.setLocationRelativeTo(null);
+    }
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+
+    private void initComponents(String a) {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        jButton_Confirmar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-ok-150.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/icons8-ok-150.png"))); 
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("(Mensaje de \u00e9xito)");
+        jLabel3.setText(a);
+        
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(0, 51, 102));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setText("Aceptar");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 90, 30));
+        jButton_Confirmar.setBackground(new java.awt.Color(0, 51, 102));
+        jButton_Confirmar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
+        jButton_Confirmar.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Confirmar.setText("Aceptar");
+        jButton_Confirmar.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
+                    jButton_Confirmar.doClick();
+                }
+            }
+        });
+        jButton_Confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+                jButton_ConfirmarActionPerformed();
+            }
+        });
+        jButton_Confirmar.addFocusListener(new java.awt.event.FocusAdapter() {
+        	public void focusGained(java.awt.event.FocusEvent e) {
+        		jButton_Confirmar.setBackground(new java.awt.Color(0, 10, 30));
+        	}
+        public void focusLost(java.awt.event.FocusEvent e) {
+        	jButton_Confirmar.setBackground(new java.awt.Color(0, 51, 102));	
+          }
+        });
+        getContentPane().add(jButton_Confirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 90, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg"))); 
         jLabel2.setPreferredSize(new java.awt.Dimension(618, 289));
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    /**
-     * @param args the command line arguments
-     */
+    }
+    
+    private void jButton_ConfirmarActionPerformed() {
+    if(anterior.getClass() == CerrarTicketCU03.class ) {
+    	RegistrarTicketCU01 a = new RegistrarTicketCU01(u);
+    	a.setVisible(true);
+    }
+    	anterior.dispose();
+    	this.dispose();
+    }
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -67,23 +105,13 @@ public class EjemploExito extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(EjemploExito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new EjemploExito().setVisible(true);
-            }
-        });
+ 
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
+   
+    private javax.swing.JButton jButton_Confirmar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    // End of variables declaration//GEN-END:variables
+ 
 }

@@ -77,7 +77,6 @@ public class GestorTicket {
          }
 		 
 		 t.getListahistorial().add(nuevo);
-		 
 	}
 	
 
@@ -305,8 +304,42 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 		
 	}
 	
-	
-	
+/*	
+public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String observ, Clasificacion cla) {
+		
+		Ticket ticket = gestorBDD.buscarTicket(interv.getIdTicket());
+		ticket = gestorI.actualizarI(interv, nuevestado, observ, ticket );
+		
+		
+		if(ticket!=null && (interv.getEstadoI() == EstadoIntervencion.ASIGNADO) && (nuevestado == EstadoIntervencion.TRABAJANDO.toString())) {
+			
+			// TODO como la funcion actulizarI solo se actualiza ticket cuando va a espera o terminada, si pasa a trabajando se sube el histoarial
+			
+			if(nuevestado == EstadoIntervencion.EN_ESPERA.toString()) {
+				ticket.setEstadoticket(1); 
+			}
+			if(nuevestado == EstadoIntervencion.TERMINADA.toString()) {
+				//hacer la ventana para ver si es por asignacion incorrecta o no
+				
+				
+				if(si es incorrecta) {
+					ticket.setEstadoticket(1);
+				}
+				else {
+					ticket.setEstadoticket(4);
+				}
+				
+				
+				
+			}
+			
+			
+			
+		}
+			
+		
+		
+	}*/
 	
 	}
 

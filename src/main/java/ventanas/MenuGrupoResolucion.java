@@ -13,28 +13,27 @@ import Modelo.Usuario;
 @SuppressWarnings("serial")
 	public class MenuGrupoResolucion extends javax.swing.JFrame {
 	    
-		
-		private GestorUsuario gu = new GestorUsuario();
-		private Usuario u;
-		private JFrame anterior;
-		JFrame frame;
-	    public MenuGrupoResolucion(String user) {
-	    	
-	    	u=gu.getUsuario(user);
-	    	frame = this;
-	        initComponents();
-	        this.setLocationRelativeTo(null);
-	    }
-	  
+	private GestorUsuario gu = new GestorUsuario();
+	private Usuario u;
+	private Integer idgru;
+	JFrame anterior;
+	JFrame frame;
+    public MenuGrupoResolucion(String user) {
+    	u=gu.getUsuario(user);
+    	idgru = u.getGruporesolucion().getId_grupo();
+    	frame = this;
+        initComponents(user, idgru);
+        this.setLocationRelativeTo(null);
+    }
 	    
 	    @SuppressWarnings("unchecked")
                       
-	    private void initComponents() {
+	    private void initComponents(String user, Integer idgru) {
 
 	        jLabel2 = new javax.swing.JLabel();
-	        jButton_Consultar = new javax.swing.JButton();
-	        jButton4 = new javax.swing.JButton();
-	        jButton6 = new javax.swing.JButton();
+	        jButton3_Consultar = new javax.swing.JButton();
+	        jButton4_Registrar = new javax.swing.JButton();
+	        jButton6_BuscarClasif = new javax.swing.JButton();
 	        jLabel3 = new javax.swing.JLabel();
 	        jButton1 = new javax.swing.JButton();
 	        jLabelFondo = new javax.swing.JLabel();
@@ -46,83 +45,83 @@ import Modelo.Usuario;
 	        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/untitled.png")));
 	        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 40, -1, 40));
 
-	        jButton_Consultar.setBackground(new java.awt.Color(0, 51, 102));
-	        jButton_Consultar.setFont(new java.awt.Font("Tahoma", 1, 14));
-	        jButton_Consultar.setForeground(new java.awt.Color(255, 255, 255));
-	        jButton_Consultar.setText("CONSULTAR INTERVENCIONES ASIGNADAS");
-	        jButton_Consultar.addActionListener(new java.awt.event.ActionListener() {
+	        jButton3_Consultar.setBackground(new java.awt.Color(0, 51, 102));
+	        jButton3_Consultar.setFont(new java.awt.Font("Tahoma", 1, 14));
+	        jButton3_Consultar.setForeground(new java.awt.Color(255, 255, 255));
+	        jButton3_Consultar.setText("CONSULTAR INTERVENCIONES ASIGNADAS");
+	        jButton3_Consultar.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton_ConsultarActionPerformed(evt);
+	                jButton3_ConsultarActionPerformed(evt);
 	            }
 	        });
-	        jButton_Consultar.addKeyListener(new java.awt.event.KeyAdapter(){
+	        jButton3_Consultar.addKeyListener(new java.awt.event.KeyAdapter(){
 	            public void keyPressed(java.awt.event.KeyEvent ke) {
 	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-	                	jButton_Consultar.doClick();
+	                	jButton3_Consultar.doClick();
 	                }
 	            }
 	        });
-	        jButton_Consultar.addFocusListener(new java.awt.event.FocusAdapter() {
+	        jButton3_Consultar.addFocusListener(new java.awt.event.FocusAdapter() {
 	        	public void focusGained(java.awt.event.FocusEvent e) {
-	        		jButton_Consultar.setBackground(new java.awt.Color(0, 10	, 30));
+	        		jButton3_Consultar.setBackground(new java.awt.Color(0, 10	, 30));
 	        	}
 	        public void focusLost(java.awt.event.FocusEvent e) {
-	        	jButton_Consultar.setBackground(new java.awt.Color(0, 51, 102));	
+	        	jButton3_Consultar.setBackground(new java.awt.Color(0, 51, 102));	
 	          }
 	        });
-	        getContentPane().add(jButton_Consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 50));
+	        getContentPane().add(jButton3_Consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 360, 50));
 
-	        jButton4.setBackground(new java.awt.Color(0, 51, 102));
-	        jButton4.setFont(new java.awt.Font("Tahoma", 1, 14));
-	        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-	        jButton4.setText("REGISTRAR CLASIFICACIÓN DE TICKET");
-	        jButton4.addActionListener(new java.awt.event.ActionListener() {
+	        jButton4_Registrar.setBackground(new java.awt.Color(0, 51, 102));
+	        jButton4_Registrar.setFont(new java.awt.Font("Tahoma", 1, 14));
+	        jButton4_Registrar.setForeground(new java.awt.Color(255, 255, 255));
+	        jButton4_Registrar.setText("REGISTRAR CLASIFICACIÓN DE TICKET");
+	        jButton4_Registrar.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton4ActionPerformed(evt);
+	                jButton4_RegistrarActionPerformed(evt);
 	            }
 	        });
-	        jButton4.addKeyListener(new java.awt.event.KeyAdapter(){
+	        jButton4_Registrar.addKeyListener(new java.awt.event.KeyAdapter(){
 	            public void keyPressed(java.awt.event.KeyEvent ke) {
 	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-	                	jButton4.doClick();
+	                	jButton4_Registrar.doClick();
 	                }
 	            }
 	        });
-	        jButton4.addFocusListener(new java.awt.event.FocusAdapter() {
+	        jButton4_Registrar.addFocusListener(new java.awt.event.FocusAdapter() {
 	        	public void focusGained(java.awt.event.FocusEvent e) {
-	        		jButton4.setBackground(new java.awt.Color(0, 10	, 30));
+	        		jButton4_Registrar.setBackground(new java.awt.Color(0, 10, 30));
 	        	}
 	        public void focusLost(java.awt.event.FocusEvent e) {
-	        	jButton4.setBackground(new java.awt.Color(0, 51, 102));	
+	        	jButton4_Registrar.setBackground(new java.awt.Color(0, 51, 102));	
 	          }
 	        });
-	        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 360, 50));
+	        getContentPane().add(jButton4_Registrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 240, 360, 50));
 
-	        jButton6.setBackground(new java.awt.Color(0, 51, 102));
-	        jButton6.setFont(new java.awt.Font("Tahoma", 1, 14));
-	        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-	        jButton6.setText("BUSCAR CLASIFICACIÓN TICKETS");
-	        jButton6.addActionListener(new java.awt.event.ActionListener() {
+	        jButton6_BuscarClasif.setBackground(new java.awt.Color(0, 51, 102));
+	        jButton6_BuscarClasif.setFont(new java.awt.Font("Tahoma", 1, 14));
+	        jButton6_BuscarClasif.setForeground(new java.awt.Color(255, 255, 255));
+	        jButton6_BuscarClasif.setText("BUSCAR CLASIFICACIÓN TICKETS");
+	        jButton6_BuscarClasif.addActionListener(new java.awt.event.ActionListener() {
 	            public void actionPerformed(java.awt.event.ActionEvent evt) {
-	                jButton6ActionPerformed(evt);
+	                jButton6_BuscarClasifActionPerformed(evt);
 	            }
 	        });
-	        jButton6.addKeyListener(new java.awt.event.KeyAdapter(){
+	        jButton6_BuscarClasif.addKeyListener(new java.awt.event.KeyAdapter(){
 	            public void keyPressed(java.awt.event.KeyEvent ke) {
 	                if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-	                	jButton6.doClick();
+	                	jButton6_BuscarClasif.doClick();
 	                }
 	            }
 	        });
-	        jButton6.addFocusListener(new java.awt.event.FocusAdapter() {
+	        jButton6_BuscarClasif.addFocusListener(new java.awt.event.FocusAdapter() {
 	        	public void focusGained(java.awt.event.FocusEvent e) {
-	        		jButton6.setBackground(new java.awt.Color(0, 10	, 30));
+	        		jButton6_BuscarClasif.setBackground(new java.awt.Color(0, 10	, 30));
 	        	}
 	        public void focusLost(java.awt.event.FocusEvent e) {
-	        	jButton6.setBackground(new java.awt.Color(0, 51, 102));	
+	        	jButton6_BuscarClasif.setBackground(new java.awt.Color(0, 51, 102));	
 	          }
 	        });
-	        getContentPane().add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 360, 50));
+	        getContentPane().add(jButton6_BuscarClasif, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 360, 50));
 
 	        jLabel3.setFont(new java.awt.Font("Californian FB", 3, 24)); 
 	        jLabel3.setForeground(new java.awt.Color(0, 51, 102));
@@ -170,18 +169,21 @@ import Modelo.Usuario;
 	    }
 	    
 	    //consultar interv asignada
-	    private void jButton_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	    	ConsultarIntervencionAsignadasCU07 a = new ConsultarIntervencionAsignadasCU07();
+	    private void jButton3_ConsultarActionPerformed(java.awt.event.ActionEvent evt) {    
+	    	
+	    	ConsultarIntervencionAsignadasCU07 a = new ConsultarIntervencionAsignadasCU07(u.getUsuario(), idgru);
 	    	a.setVisible(true);
 	    	this.dispose();
 	    }                                        
 
-	    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	       
+	    private void jButton4_RegistrarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	    	EjemploError i = new EjemploError("En produccion");
+    		i.setVisible(true);
 	    }                                        
 
-	    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-	    
+	    private void jButton6_BuscarClasifActionPerformed(java.awt.event.ActionEvent evt) {                                         
+	     	EjemploError i = new EjemploError("En produccion");
+    		i.setVisible(true);
 	    }                                   
 
 
@@ -214,9 +216,9 @@ import Modelo.Usuario;
 	   
              
 	    private javax.swing.JButton jButton1;
-	    private javax.swing.JButton jButton_Consultar;
-	    private javax.swing.JButton jButton4;
-	    private javax.swing.JButton jButton6;
+	    private javax.swing.JButton jButton3_Consultar;
+	    private javax.swing.JButton jButton4_Registrar;
+	    private javax.swing.JButton jButton6_BuscarClasif;
 	    private javax.swing.JLabel jLabel2;
 	    private javax.swing.JLabel jLabel3;
 	    private javax.swing.JLabel jLabelFondo;

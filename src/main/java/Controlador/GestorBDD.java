@@ -411,13 +411,12 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 	
 	public GrupoResolucion getgrupo(String grupo) {
 		GrupoResolucion grupoR;
-		String con = "FROM GrupoResolucion WHERE nom_grupo = '" + grupo + "'";
+		
 		
 		manager.getTransaction().begin();
 		grupoR = (GrupoResolucion) 
-				manager.createQuery(con).getSingleResult();
+				manager.createQuery("FROM GrupoResolucion WHERE nom_grupo = '" + grupo+"'").getSingleResult();
 		manager.getTransaction().commit();
-		
 		
 		
 		return grupoR;
@@ -485,6 +484,22 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		return resulI;
 	}
 	
+	public Intervencion getIntervencion (Integer idIntevercion) {
+		String consulta = "FROM Intervencion where id_Intervencion = " + idIntevercion;
+		manager.getTransaction().begin();
+		Intervencion intervencionEncontrada = (Intervencion) manager.createQuery(consulta).getSingleResult();
+		manager.getTransaction().commit();
+		return intervencionEncontrada;
+	}
+	
+	public List<Clasificacion> getClasificaciones() {
+		List<Clasificacion> clasificaciones;
+		manager.getTransaction().begin();
+		clasificaciones = (List<Clasificacion>) manager.createQuery("FROM Clasificacion").getResultList();
+		manager.getTransaction().commit();
+		return clasificaciones;
+		
+	}
 	/*
 	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 		

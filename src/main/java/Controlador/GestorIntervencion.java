@@ -11,6 +11,7 @@ import Modelo.Intervencion;
 import Modelo.IntervencionDTO;
 import Modelo.Ticket;
 import Modelo.Usuario;
+import ventanas.EjemploError;
 
 
 public class GestorIntervencion {
@@ -95,6 +96,8 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 }
 
 
+
+
 public ArrayList<IntervencionDTO> consultarIntervAsigna(Long numTicket, Integer numLeg, String estado, Date desde,
 		Date hasta) {
 	
@@ -141,7 +144,68 @@ public ArrayList<IntervencionDTO> consultarIntervAsigna(Long numTicket, Integer 
 	return intervenciones;
 }
 	
+public IntervencionDTO consultarI(Integer numISeleccionado, ArrayList<IntervencionDTO> listaIencontrados) {
+	IntervencionDTO intv = new IntervencionDTO();
+	Integer e= listaIencontrados.size();
+	System.out.println(e);
+	for(IntervencionDTO i : listaIencontrados) {
+		
+		if(i.getIdTicket() == numISeleccionado) {
+			intv = i;
+			
+			
+		}
+	}
+	return intv;
+}
+//TODO agregar
+
+public Ticket actualizarI(IntervencionDTO i, String nuevestado, String observ, Ticket ticket) {
+	Ticket tr = new Ticket();
 	
+	Intervencion inter= gestorBDD.getIntervencion(i.getIdI());
+	Date fechaAhora = new Date();   
+	
+	
+	if((((inter.getEstadointervencion() == EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.EN_ESPERA.toString()) || 
+	((inter.getEstadointervencion()== EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.TERMINADA.toString()))|| 
+((inter.getEstadointervencion()== EstadoIntervencion.ASIGNADO) && nuevestado == EstadoIntervencion.TRABAJANDO.toString())){
+		
+		//TODO va el cambio del historial de Intervencion,  se pone como fecha fin interv fechaAhora
+		
+		if((inter.getEstadointervencion()== EstadoIntervencion.ASIGNADO) && nuevestado == EstadoIntervencion.TRABAJANDO.toString()) {
+			inter.setEstadointervencion(EstadoIntervencion.TRABAJANDO);
+		}
+		else {
+			// TODO se le setea ahora la fecha al historial del cambio de estado ticket con fecha actual ya q se pasa a otro grupo
+			
+			if((inter.getEstadointervencion() == EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.EN_ESPERA.toString()) {
+				inter.setEstadointervencion(EstadoIntervencion.EN_ESPERA);
+			}
+			if((inter.getEstadointervencion() == EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.TERMINADA.toString()) {
+				inter.setEstadointervencion(EstadoIntervencion.TERMINADA);
+			}
+			
+			
+		}
+		
+		inter.setId_intervencion(ticket.getNum_ticket());
+		gestorBDD.actualizarIntervencion(inter);
+		tr = ticket;
+		
+		
+	}
+	else {
+		String e= "No es valido el nuevo estado de ticket";
+		EjemploError ia = new EjemploError(e);
+		ia.setVisible(true);
+	}
+	
+	
+	
+	
+	return tr;
+}	
 	
 	
 

@@ -40,7 +40,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	String claSeleccionada = new String("Seleccione un tipo...");
 	String descripcion = new String();
 	private Usuario u ;
-
+	private Integer num_t;
 	private JFrame frame;
 	private JFrame anterior;
     SimpleDateFormat fecha = new SimpleDateFormat ("dd-MM-yyyy");
@@ -56,7 +56,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         frame = this;
     	u=gu.getUsuario(user);
     	
-    	initComponents(u);
+    	initComponents();
         
         
         this.setLocationRelativeTo(null); 
@@ -65,7 +65,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 
     @SuppressWarnings({ "unchecked"})
 
-    private void initComponents(Usuario user) {
+    private void initComponents() {
       
     	
        
@@ -106,6 +106,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jLabel1.setText("N\u00famero de ticket:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
         Integer numTicket = gbdd.getTickets().size()+1;
+        num_t = numTicket;
         jTextFielNoEditable.setEditable(false);
         jTextFielNoEditable.setText(numTicket.toString());
         jTextFielNoEditable.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -144,15 +145,12 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 
         		try { 
         		    Robot robot = new Robot(); 
-
         		    robot.keyPress(KeyEvent.VK_TAB); 
         		} catch(Exception ex) {
-                	
-            		EjemploError error = new EjemploError(ex.getMessage());
+                	EjemploError error = new EjemploError(ex.getMessage());
             		error.setVisible(true); 
             	}
-        	}
-        	});
+        	}});
         
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 210, 240, 30));
 
@@ -217,7 +215,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jButton_Cerrar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
-                    jButton_Derivar.doClick();
+                    jButton_Cerrar.doClick();
                 }
             }
         });
@@ -364,22 +362,21 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         	 
         	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...") || descripcion.equalsIgnoreCase("Ingrese descripcion")) {
         	 		EjemploError error = new EjemploError("Datos invalidos");
-    			  	error.setVisible(true); 
-    		
-    			  	
+    			  	error.setVisible(true); 	
     			  		
         	 }
         	 else {
-        		// TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
+        		 System.out.println("long legajo: "+ longLegajo + " descripcion: " + descripcion + " clasificacion: " + claSeleccionada );
+        		 	// TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
         		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date);
         		 	
-        		 	GrupoResolucion g = new GrupoResolucion();
-        		 	g = gg.getGrupo("Mesa de Ayuda");
+        		 	GrupoResolucion g = gg.getGrupo("Mesa de Ayuda");
+        		 	System.out.println("Grupo : " + g.getNom_grupo());
         		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
-        		 			t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
-        		 			t.getEstadoticket() , u.getUsuario());
+        		 		t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
+        		 		t.getEstadoticket() , u.getUsuario());
         		 	
-                   CerrarTicketCU03 c = new CerrarTicketCU03(td);
+        		 	CerrarTicketCU03 c = new CerrarTicketCU03(td);
                     c.setAnterior(frame);
                     c.setVisible(true);
                     this.setVisible(false);
@@ -430,8 +427,8 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 			  		
     	 }
     	 else {
-    		 
     		 //TODO guarde en t tipo TICKET, cree TICKETDTO con los datos de t para pasarlo como parametro
+    		 System.out.println("legajo:"+legajo+" usuario:: "+ u.getUsuario());
     		 	Ticket t = gt.registrarTicket(legajo,claSeleccionada,descripcion, u,date);
     		
     		 	GrupoResolucion	g = gg.getGrupo("Mesa de Ayuda");
@@ -439,6 +436,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
     		 			t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
     		 			t.getEstadoticket() , u.getUsuario());
+    		 	System.out.println("datos ticket : num:"+td.getNumeroTicket()+ " legajo: "+td.getLegajo()+" clasificacion: "+ td.getCla().getNom_clasificacion());
     		 
     		 	
                 DerivarTicketCU04 r = new DerivarTicketCU04(td, u.getUsuario());

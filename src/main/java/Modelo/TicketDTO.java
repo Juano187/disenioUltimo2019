@@ -126,7 +126,9 @@ public class TicketDTO {
 	public void setEstado2(EstadoTicket estado) {
 		this.estado = estado;
 	}
-	
+	public Integer getLegajo () {
+		return this.numlegajo;
+	}
 
 	public String getDescripcion() {
 		return descrip_problema;
