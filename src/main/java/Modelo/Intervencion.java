@@ -83,6 +83,8 @@ public class Intervencion implements Serializable {
 	}
 	
 	
+	
+	
 	public Historial_Intervencion getUltimoHistorial( ) {
 		Historial_Intervencion result = new Historial_Intervencion();
 		for( Historial_Intervencion hi : this.listahistorial) {

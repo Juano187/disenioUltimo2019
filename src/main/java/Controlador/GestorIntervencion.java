@@ -5,7 +5,9 @@ import java.util.Date;
 
 import Modelo.ClasificacionDTO;
 import Modelo.EstadoIntervencion;
+import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
+import Modelo.HistorialTicket;
 import Modelo.Historial_Intervencion;
 import Modelo.Intervencion;
 import Modelo.IntervencionDTO;
@@ -164,7 +166,9 @@ public Ticket actualizarI(IntervencionDTO i, String nuevestado, String observ, T
 	Ticket tr = new Ticket();
 	
 	Intervencion inter= gestorBDD.getIntervencion(i.getIdI());
-	Date fechaAhora = new Date();   
+	System.out.println("interv q se consigio");
+	Date fechaAhora = new Date();  
+	System.out.println(inter.getId_intervencion());
 	
 	
 	if((((inter.getEstadointervencion() == EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.EN_ESPERA.toString()) || 
@@ -174,22 +178,32 @@ public Ticket actualizarI(IntervencionDTO i, String nuevestado, String observ, T
 		//TODO va el cambio del historial de Intervencion,  se pone como fecha fin interv fechaAhora
 		
 		if((inter.getEstadointervencion()== EstadoIntervencion.ASIGNADO) && nuevestado == EstadoIntervencion.TRABAJANDO.toString()) {
-			inter.setEstadointervencion(EstadoIntervencion.TRABAJANDO);
+			//inter.setEstadointervencion(EstadoIntervencion.TRABAJANDO);
+			System.out.println("entro a asig a trab");
+			cambiarEstadoI(inter, EstadoIntervencion.TRABAJANDO);
 		}
 		else {
 			// TODO se le setea ahora la fecha al historial del cambio de estado ticket con fecha actual ya q se pasa a otro grupo
 			
 			if((inter.getEstadointervencion() == EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.EN_ESPERA.toString()) {
-				inter.setEstadointervencion(EstadoIntervencion.EN_ESPERA);
+				System.out.println("entro a trab a en esepera");
+				cambiarEstadoI(inter, EstadoIntervencion.EN_ESPERA);
+				//inter.setEstadointervencion(EstadoIntervencion.EN_ESPERA);
 			}
 			if((inter.getEstadointervencion() == EstadoIntervencion.TRABAJANDO) && nuevestado == EstadoIntervencion.TERMINADA.toString()) {
-				inter.setEstadointervencion(EstadoIntervencion.TERMINADA);
+				//inter.setEstadointervencion(EstadoIntervencion.TERMINADA);
+				System.out.println("entro a trab a termianda");
+				cambiarEstadoI(inter, EstadoIntervencion.TERMINADA);
 			}
 			
 			
 		}
-		
-		inter.setId_intervencion(ticket.getNum_ticket());
+		System.out.println("salio de las comparaciones, tiene q setearweeeee");
+		System.out.println(inter.getEstadointervencion());
+		System.out.println(inter.getId_intervencion());
+		System.out.println(ticket.getNum_ticket());
+		inter.setTicket(ticket);
+
 		gestorBDD.actualizarIntervencion(inter);
 		tr = ticket;
 		
@@ -207,6 +221,23 @@ public Ticket actualizarI(IntervencionDTO i, String nuevestado, String observ, T
 	return tr;
 }	
 	
+public void cambiarEstadoI ( Intervencion i, EstadoIntervencion estado ) {
+	System.out.println("entro para cambiar histo y estado");
+	Historial_Intervencion ht = i.getUltimoHistorial();
+	System.out.println(ht.getIntervencion().getId_intervencion());
+	Date f = new Date();
+	ht.setfinal(f);
+	i.setEstadointervencion(estado);
+	Historial_Intervencion nuevo = new Historial_Intervencion(f, estado, i);
 	
+	 if(i.getListahistorial().contains(ht)) {
+         i.getListahistorial().set(i.getListahistorial().indexOf(ht), ht);
+     }
+     else {
+         i.getListahistorial().add(ht);
+     }
+	 
+	 i.getListahistorial().add(nuevo);
+}
 
 }

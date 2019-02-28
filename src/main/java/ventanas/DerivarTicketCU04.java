@@ -47,7 +47,7 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 	
 		grupos = cargarg(ticketselec.getCla());
 	
-	
+		Clasificacion cla= ticketselec.getCla();
 
         jLabel1 = new javax.swing.JLabel();
         jButton_Cancelar = new javax.swing.JButton();
@@ -211,8 +211,17 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                 		Clasificacion cs = (Clasificacion) combocalif.getSelectedItem();
                 		System.out.println("esta es la clasificacion:");
                 		System.out.println(cs.getNom_clasificacion());
-                		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodigo());
+                		
+                		Boolean a = false;
+                		if(((Clasificacion) combocalif.getSelectedItem()).getCodigo() == cla.getCodigo()) {
+                			
+                			gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodigo(), a);
+                		} else{
+                		 a = true;
+                		
+                		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodigo(), a);
                 		System.out.println("salio derivar");
+                		}
                 	}
 
                 	jButton_CancelarActionPerformed(evt);

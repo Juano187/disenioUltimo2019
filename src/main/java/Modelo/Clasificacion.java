@@ -132,7 +132,15 @@ public class Clasificacion implements Serializable {
 	}
 	
 
-
+	public HistorialClasificacion getUltimoHistoriaC( ) {
+		HistorialClasificacion result = new HistorialClasificacion();
+		for( HistorialClasificacion hc : this.listahistorial) {
+			if(hc.getFechaFin()== null ) {
+				result= hc;
+			}
+		}
+		return result;
+	}
 	
 	public int getCodigo() {
 		return codigo;

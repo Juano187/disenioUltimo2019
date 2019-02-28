@@ -1,10 +1,19 @@
 package Controlador;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
@@ -23,7 +32,9 @@ import Modelo.Ticket;
 
 import Modelo.TicketDTO;
 import Modelo.Usuario;
+import ventanas.EjemploAdvertencia;
 import ventanas.EjemploError;
+import ventanas.Noincumbe;
 
 public class GestorTicket {
 	public GestorClasificacion gc = new GestorClasificacion();
@@ -82,7 +93,7 @@ public class GestorTicket {
 	
 
 
-	public void derivarTicket(Integer numTicket, String observ, String grup , Usuario u , Integer idCla) {
+	public void derivarTicket(Integer numTicket, String observ, String grup , Usuario u , Integer idCla, Boolean a) {
 		System.out.println("entro a gestorti, nombre grup = ");
 		System.out.println(grup);
 		
@@ -129,6 +140,13 @@ public class GestorTicket {
 		System.out.println(i.getEstadointervencion());
 		
 		//el problema esta aca
+		
+		if(a) {
+			Clasificacion cls = gc.getClasificacion(ticket.getClasificacion().getNom_clasificacion());
+			gc.cambiarEstadoHC(cls);
+			ticket.setClasif(cls);
+			}
+		
 		
 	gestorBDD.actualizarTicket(ticket);
 	System.out.println(ticket.getNum_ticket());
@@ -310,7 +328,7 @@ public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String 
 		Ticket ticket = gestorBDD.buscarTicket(interv.getIdTicket());
 		ticket = gestorI.actualizarI(interv, nuevestado, observ, ticket );
 		
-		/*
+		
 		if(ticket!=null && !((interv.getEstadoI() == EstadoIntervencion.ASIGNADO) && (nuevestado == EstadoIntervencion.TRABAJANDO.toString()))) {
 			
 			// TODO como la funcion actulizarI solo se actualiza ticket cuando va a espera o terminada, si pasa a trabajando se sube el histoarial
@@ -320,10 +338,33 @@ public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String 
 			}
 			if(nuevestado == EstadoIntervencion.TERMINADA.toString()) {
 				//hacer la ventana para ver si es por asignacion incorrecta o no
+				Boolean a;
+				
+				JOptionPane pane = new JOptionPane();
+				pane.setBackground(new java.awt.Color(255, 150, 255));	
+				int da=JOptionPane.YES_NO_OPTION;
+						
+
+                
+				int dr = JOptionPane.showConfirmDialog (null, "¿Esta terminando la intervencion por una asignacion incorrecta?","Warning",da);
+				
+				if(dr == JOptionPane.YES_OPTION){
+					a=true;
+				}
+				else {
+					a=false;
+				}
 				
 				
-				if(si es incorrecta) {
-					ticket.setEstadoticket(1);
+			
+
+				System.out.println("interv abierttas____");
+				System.out.println(ticket.getIntervencionesAbiertas().SIZE);
+		
+				    	
+				   
+				if(a || ticket.getIntervencionesAbiertas()> 1) {
+					ticket.setEstadoticket(2);
 				}
 				else {
 					ticket.setEstadoticket(4);
@@ -333,10 +374,22 @@ public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String 
 				
 			}
 			
+			ticket.getListaintervenciones().get(ticket.getListaintervenciones().size()-1).setTicket(ticket);
 			
+			if(!cla.getNom_clasificacion().equalsIgnoreCase(ticket.getClasificacion().getNom_clasificacion())) {
+				// TODO aca va historial cla
+				Clasificacion cls = gc.getClasificacion(cla.getNom_clasificacion());
+				gc.cambiarEstadoHC(cls);
+				ticket.setClasif(cla);
+				
+			}
 			
-		}*/
-}
-	
-	}
+			gestorBDD.actualizarTicket(ticket);
+		}
+		}
 
+	
+	
+
+	
+}

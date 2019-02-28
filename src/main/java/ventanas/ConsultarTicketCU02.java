@@ -213,7 +213,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         JComboBox<GrupoResolucionDTO> combogrupo= new JComboBox<GrupoResolucionDTO>();
         combogrupo.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
 
-        for(int i=1 ; i < ultgrupos.size(); i++) {
+        for(int i=0 ; i < ultgrupos.size(); i++) {
         	combogrupo.addItem(ultgrupos.get(i));
         }
         getContentPane().add(combogrupo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, 270, 30));
@@ -297,8 +297,22 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		if(!numTicket.getText().isEmpty()) numTic = Long.valueOf(numTicket.getText());
         		if(!legajo.getText().isEmpty()) numLegajo = Integer.valueOf(legajo.getText());
         		estado = comboBox.getSelectedItem().toString();
-        		clasificacion = (ClasificacionDTO) jComboBox1.getSelectedItem();
+        		
+        		
+        		if( combogrupo.getSelectedIndex()== 0) {
+        			ultimoG = null;
+        		}
+        		else {
         		ultimoG = (GrupoResolucionDTO) combogrupo.getSelectedItem();
+        		}
+        		
+        		if( jComboBox1.getSelectedIndex()== 0) {
+        			clasificacion = null;
+        		}
+        		else {
+        			clasificacion = (ClasificacionDTO) jComboBox1.getSelectedItem();
+        		}
+        		
         		
         		boolean res=true;
         		
@@ -453,7 +467,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
                 jButton_CerrarTActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton_CerrarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 830, 140, 30));
+        getContentPane().add(jButton_CerrarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, /*830*/ 500, 140, 30));
         
         
         jButton_DerivarT.setBackground(new java.awt.Color(0, 51, 102));

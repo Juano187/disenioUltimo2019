@@ -118,6 +118,9 @@ public class GestorBDD {
 
 	
 	public Intervencion actualizarIntervencion (Intervencion intervencion) {
+		
+		System.out.println("llego a la base");
+		System.out.println(intervencion.getId_intervencion());
 		manager.getTransaction().begin();
 		intervencion = manager.merge(intervencion);
 		manager.persist(intervencion);

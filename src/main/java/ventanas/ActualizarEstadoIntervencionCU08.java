@@ -1,10 +1,19 @@
 package ventanas;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.InputVerifier;
 import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.text.BadLocationException;
 
 import Controlador.GestorClasificacion;
 import Controlador.GestorGrupoResolucion;
@@ -15,6 +24,7 @@ import Modelo.ClasificacionDTO;
 import Modelo.EstadoIntervencion;
 import Modelo.GrupoResolucion;
 import Modelo.IntervencionDTO;
+import Modelo.Ticket;
 
 
 
@@ -26,6 +36,10 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
 	private GestorUsuario gu = new GestorUsuario();
 	private Clasificacion[] clasificaciones;
 	private IntervencionDTO in;
+	private JFrame anterior;
+	 final int SCROLL_BUFFER_SIZE = 20;
+	private JTextArea textarea;
+	
 	
 //TODO PONER PARAMETROS
     public ActualizarEstadoIntervencionCU08(IntervencionDTO interv, String user, Integer idgrupo) {
@@ -37,14 +51,19 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
 
     private void initComponents(IntervencionDTO interv, String user, Integer idgrupo) {
 
+    	Ticket ticket = gestorT.getTicket(interv.getIdTicket());
     	GrupoResolucion grupo = gestorG.getGrupo(idgrupo);
     	clasificaciones = cargarClasificaciones(grupo.getNom_grupo());
     	
+    	jScrollPane1 = new javax.swing.JScrollPane();
+    	jScrollPane2 = new javax.swing.JScrollPane();
     	String cla = interv.getClas().getNombre();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        textDescrip = new javax.swing.JTextField();
+       jTextArea1 = new javax.swing.JTextArea();
+        jTextArea2 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
         comboestado = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
@@ -75,9 +94,40 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Descripci\u00f3n del problema:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, -1, -1));
+        
+       // textarea = new JTextArea(2, 2);
+      
+        	
+        jTextArea1.setColumns(5);
+        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 13)); 
+        jTextArea1.setRows(5);
+        jTextArea1.setTabSize(5);
+        jTextArea1.setText("Ingrese descripcion (max de caracteres 150)");
+        
+        
+        jTextArea1.setEditable(true);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setLineWrap(true);
+       jScrollPane1.setViewportView(jTextArea1);
+       
+        
+      //  textDescrip.setText(ticket.getDescrip_problema());
+        getContentPane().add(jTextArea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 890, 110));
+        
+        jTextArea1.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		
+        		super.keyTyped(e);
+        		if(jTextArea1 != null && jTextArea1.getText() != null && jTextArea1.getText().length() >= 150){
+        			
+        			e.setKeyChar((char) KeyEvent.VK_CLEAR);
+        		}
+        	}
+        }); 
+   
 
-        jTextField1.setEditable(false);
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 890, 110));
+       
+  
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,7 +158,17 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Observaciones:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, -1, -1));
-        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 170, 890, 100));
+        
+        
+        jTextArea2.setColumns(20);
+        jTextArea2.setFont(new java.awt.Font("Tahoma", 0, 13)); 
+        jTextArea2.setRows(5);
+              
+        jTextArea2.setEditable(false);
+        jTextArea2.setText(ticket.getDescrip_problema());
+       
+        jScrollPane2.setViewportView(jTextArea2);
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 155, 890, 100));
 
         jButtonCancelar.setBackground(new java.awt.Color(0, 51, 102));
         jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
@@ -147,7 +207,7 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
             		e.setVisible(true);
             	}
             	else {
-            		gestorT.actualizarEstadoI(interv, comboestado.getSelectedItem().toString(), jLabel6.getText(), (Clasificacion)comboClasificacion.getSelectedItem());
+            		gestorT.actualizarEstadoI(interv, comboestado.getSelectedItem().toString(), jTextField2.getText(), (Clasificacion)comboClasificacion.getSelectedItem());
             	}
             	
             	
@@ -190,7 +250,7 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); 
         jLabel13.setForeground(new java.awt.Color(0, 51, 102));
-        jLabel13.setText("'Estado Actual'");
+        jLabel13.setText(interv.getEstadoI().toString());
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 60, -1, 80));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); 
@@ -199,6 +259,7 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, -1, -1));
 
         jTextField3.setEditable(false);
+        jTextField3.setText(ticket.getNum_ticket().toString());
         getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 90, 210, 30));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg"))); 
@@ -233,13 +294,18 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
 
 
 	private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        System.exit(0);
+		
+	        anterior.setVisible(true);
+	        this.dispose();
+	    
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonAceptarActionPerformed
 
+   
+    
     /**
      * @param args the command line arguments
      */
@@ -290,6 +356,8 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAceptar;
     private javax.swing.JComboBox<String> comboestado;
     private javax.swing.JComboBox<String> comboClasificacion;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -304,7 +372,9 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelFondo;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;    
+    private javax.swing.JTextField textDescrip;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables

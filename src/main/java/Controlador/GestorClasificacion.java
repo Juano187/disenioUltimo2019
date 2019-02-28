@@ -1,11 +1,16 @@
 package Controlador;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import Modelo.Clasificacion;
 import Modelo.ClasificacionDTO;
+import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
+import Modelo.HistorialClasificacion;
+import Modelo.HistorialTicket;
+import Modelo.Ticket;
 
 public class GestorClasificacion {
 
@@ -47,6 +52,22 @@ public ArrayList<ClasificacionDTO> getClasificaciones() {
 			
 		}
 	return a;
+}
+public void cambiarEstadoHC ( Clasificacion c ) {
+	HistorialClasificacion ht = c.getUltimoHistoriaC();
+	Date f = new Date();
+	ht.setfinal(f);
+	
+	HistorialClasificacion nuevo = new HistorialClasificacion(f, c);
+	
+	 if(c.getListahistorial().contains(ht)) {
+         c.getListahistorial().set(c.getListahistorial().indexOf(ht), ht);
+     }
+     else {
+         c.getListahistorial().add(ht);
+     }
+	 
+	 c.getListahistorial().add(nuevo);
 }
 
 public ArrayList<Clasificacion> getclasificacionsDTO(String grupo) {

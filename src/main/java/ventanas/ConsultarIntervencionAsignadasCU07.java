@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 import Controlador.GestorGrupoResolucion;
@@ -25,6 +26,8 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
 	private GestorGrupoResolucion gestorR = new GestorGrupoResolucion();
 	ArrayList<IntervencionDTO> listaIencontrados;
 	DefaultTableModel TablaInterv;
+	private JFrame anterior;
+	private JFrame frame;
 	
 	IntervencionDTO InterSelec ;
 	
@@ -33,6 +36,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     	U=user;
         initComponents(user, idgrupo);
         this.setLocationRelativeTo(null);
+        frame = this;
     }
 
   
@@ -150,7 +154,12 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Volver a men\u00fa");
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 290, 170, 30));
-
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            	
+            			accionVolver(evt);
+            }
+            });
         
         
         
@@ -345,6 +354,11 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     private void fdesdeActionPerformed(java.awt.event.ActionEvent evt) {
         
     }
+    
+    private void accionVolver(java.awt.event.ActionEvent evt) {
+        anterior.setVisible(true);
+        this.dispose();
+    }
 
  // TODO PONER BOTON
     private void boton_modEstadActionPerformed(java.awt.event.ActionEvent evt) {  
@@ -354,7 +368,9 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     	a.setVisible(true);
     	this.dispose();
     } 
-    
+    public void setAnterior(JFrame anterior) {
+ 		this.anterior = anterior;
+ 	}
     
     public static void main(String args[]) {
       

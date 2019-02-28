@@ -22,7 +22,7 @@ import Modelo.Ticket;
 
 import Modelo.Usuario;
 import ventanas.ActualizarEstadoIntervencionCU08;
-import ventanas.EjemploConsulta;
+//import ventanas.EjemploConsulta;
 import ventanas.EjemploError;
 import ventanas.Inicializador01;
 import ventanas.IniciarSesionCU00;
@@ -38,11 +38,8 @@ public class Principal {
 
     public static void main(String[] args) throws InterruptedException {	
     
-    	EjemploConsulta a = new EjemploConsulta("Termina xq no le incumbe?");
-    	
-    	a.setVisible(true);
-    	
-  /*
+   
+  
     	System.out.println( "hola");
     	Inicializador01 cp = new Inicializador01();
     	
@@ -53,6 +50,6 @@ public class Principal {
      	//ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08();
       	cp.dispose();
        	
-      	b.setVisible(true);*/
+      	b.setVisible(true);
     }
 }

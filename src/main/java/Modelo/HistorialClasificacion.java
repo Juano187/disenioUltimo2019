@@ -23,7 +23,11 @@ public class HistorialClasificacion extends HistorialABS{
 	public HistorialClasificacion(Date f) {
 		super (f);
 	}
-	
+	public HistorialClasificacion(Date f, Clasificacion clasificacion) {
+		super (f);
+		this.clasificacion = clasificacion;
+		
+	}
 	
 	public HistorialClasificacion() {
 		

@@ -28,11 +28,19 @@ public class Historial_Intervencion extends HistorialABS {
 		
 	}
 
-	public Historial_Intervencion( Date f ,EstadoIntervencion est) {
+	public Historial_Intervencion( Date f ,EstadoIntervencion est, Intervencion intervencion) {
 			super(f);
 			this.estado=est;
+			this.intervencion = intervencion;
 
 	}
+	
+	public Historial_Intervencion( Date f ,EstadoIntervencion est) {
+		super(f);
+		this.estado=est;
+	
+
+}
 	
 	public void setIntervencion(Intervencion i) {
 		setIntervencion(i,true);

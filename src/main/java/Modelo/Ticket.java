@@ -237,17 +237,20 @@ public class Ticket implements  Serializable{
 	}
 	
 	
-
+	public Integer getIntervencionesAbiertas() {
+		Integer i = 0;
+		for (Intervencion intervencion : this.getListaintervenciones()) {
+			if (intervencion.getFecha_inicio()==null) {
+				i++;
+			}
+		}
+		
+		return i;
+	}
 	
 	public Intervencion ultimaIGrupo() {
 		Intervencion u = listaintervenciones.get(0);
 		for(Intervencion i: listaintervenciones) {
-			System.out.println("fecha");
-			System.out.println(i.getFecha_inicio());
-			System.out.println(i.getEstadointervencion());
-			System.out.println("fecha2");
-			System.out.println(u.getFecha_inicio());
-			System.out.println(u.getEstadointervencion());
 			
 			if(i.getFecha_inicio().compareTo(u.getFecha_inicio())>0) {
 				if(i.getEstadointervencion()!= EstadoIntervencion.TERMINADA) {
