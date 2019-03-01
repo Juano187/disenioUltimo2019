@@ -204,6 +204,9 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         
         comboBox.setModel(new DefaultComboBoxModel<>(EstadoTicket.values()));
         getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 410, 30));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
+        
+        
         List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
         JComboBox<ClasificacionDTO> jComboBox1= new JComboBox<ClasificacionDTO>();
         jComboBox1.setModel(new DefaultComboBoxModel(new String[] { "Todas" }));
@@ -300,7 +303,12 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         
         		if(!numTicket.getText().isEmpty()) numTic = Long.valueOf(numTicket.getText());
         		if(!legajo.getText().isEmpty()) numLegajo = Integer.valueOf(legajo.getText());
-        		estado = comboBox.getSelectedItem().toString();
+        		
+        		if(!(comboBox.getSelectedIndex()== 0)) {
+        			estado = comboBox.getSelectedItem().toString();
+        		}
+        		
+        	
         		
         		
         		if( combogrupo.getSelectedIndex()== 0) {
@@ -317,11 +325,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         			clasificacion = (ClasificacionDTO) jComboBox1.getSelectedItem();
         		}
         		
-        		
-        		boolean res=true;
-        	
-        		//error en validar fecha
-        	
+   	
        	
         		if(!fechaUltimo.getText().isEmpty()) {
         			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -341,10 +345,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		if(!fechaApertura.getText().isEmpty()) {
         			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             		fechaABien = LocalDate.parse(new String (fechaApertura.getText()), formatter);
-            		
-            		
-            		
-            		
+
             		if(fechaABien.isAfter(LocalDate.now())){
             			
             			ven.setVisible(true); //muestra ventana error

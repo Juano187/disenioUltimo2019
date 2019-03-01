@@ -140,6 +140,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         
         comboBox.setModel(new DefaultComboBoxModel<>(EstadoIntervencion.values()));
         getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 320, 30));
+        comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
         
         //desde
         fdesde.setEditable(true);
@@ -214,11 +215,13 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
             	ModelTablaInterv.setRowCount(0);
         		
         		//error en validar fecha
-        	
+            	if(!(comboBox.getSelectedIndex()== 0)) {
+        			estado = comboBox.getSelectedItem().toString();
+        		}
         		
         		
-        		if(!fhasta.toString().isEmpty()) {
-        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        		if(!fhasta.getText().isEmpty()) {
+        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             		
         			hasta = LocalDate.parse(new String (fhasta.toString()), formatter);
             		
@@ -232,8 +235,8 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         		
         		      		
         		
-        		if(!fdesde.toString().isEmpty()) {
-        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        		if(!fdesde.getText().isEmpty()) {
+        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         			desde = LocalDate.parse(new String (fdesde.toString()), formatter);
             		
             		
@@ -246,13 +249,11 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
             	}
         		
         		
-        		if((!fdesde.getText().isEmpty() && desde.compareTo(fechaA)>= 0) || (!fhasta.getText().isEmpty() && (hasta.compareTo(fechaA) >= 0 || (!fhasta.getText().isEmpty() && !fdesde.getText().isEmpty() && desde.compareTo(hasta)> 0)))){
+        	/*	if((!fdesde.getText().isEmpty() && desde.compareTo(fechaA)>= 0) || (!fhasta.getText().isEmpty() && (hasta.compareTo(fechaA) >= 0 || (!fhasta.getText().isEmpty() && !fdesde.getText().isEmpty() && desde.compareTo(hasta)> 0)))){
         			ven.setVisible(true);
-        		}
+        		}*/
         		
-        		
-        		
-        		
+  
         		
         		else {
         			if(!numTic.getText().isEmpty()) numTicket = Long.valueOf(numTic.getText());
