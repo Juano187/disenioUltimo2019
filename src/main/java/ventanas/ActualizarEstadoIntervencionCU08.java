@@ -99,7 +99,7 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
       
         	
         jTextArea1.setColumns(5);
-        jTextField2.setFont(new java.awt.Font("Tahoma", 0, 13)); 
+        jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); 
         jTextArea1.setRows(5);
         jTextArea1.setTabSize(5);
         jTextArea1.setText("Ingrese descripcion (max de caracteres 150)");
@@ -118,7 +118,7 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
         	public void keyTyped(KeyEvent e) {
         		
         		super.keyTyped(e);
-        		if(jTextArea1 != null && jTextArea1.getText() != null && jTextArea1.getText().length() >= 150){
+        		if(jTextArea1 != null && jTextArea1.getText() != null && jTextArea1.getText().length() >= 300){
         			
         			e.setKeyChar((char) KeyEvent.VK_CLEAR);
         		}

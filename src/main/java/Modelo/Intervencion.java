@@ -2,7 +2,8 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
+
 import java.util.List;
 
 import javax.persistence.Access;
@@ -40,10 +41,10 @@ public class Intervencion implements Serializable {
 	
 	
 	@Column(name = "FECHA_INICIO", nullable= true)
-	private Date fecha_inicio;
+	private LocalDate fecha_inicio;
 	
 	@Column(name = "FECHA_FIN", nullable= true)
-	private Date fecha_fin;
+	private LocalDate fecha_fin;
 	
 	@Column(name = "OBSERVACIONES", length = 5000)
 	private String observaciones;
@@ -74,7 +75,7 @@ public class Intervencion implements Serializable {
 		
 	}
 	
-	public Intervencion( String obs, Date fecha_inicio, EstadoIntervencion estadointervencion) {
+	public Intervencion( String obs, LocalDate fecha_inicio, EstadoIntervencion estadointervencion) {
 		
 		listahistorial =new ArrayList <>();
 		this.fecha_inicio = fecha_inicio;
@@ -154,19 +155,19 @@ public class Intervencion implements Serializable {
 		this.id_intervencion = id_intervencion;
 	}
 
-	public Date getFecha_inicio() {
+	public LocalDate getFecha_inicio() {
 		return fecha_inicio;
 	}
 
-	public void setFecha_inicio(Date fecha_inicio) {
+	public void setFecha_inicio(LocalDate fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
 	}
 
-	public Date getFecha_fin() {
+	public LocalDate getFecha_fin() {
 		return fecha_fin;
 	}
 
-	public void setFecha_fin(Date fecha_fin) {
+	public void setFecha_fin(LocalDate fecha_fin) {
 		this.fecha_fin = fecha_fin;
 	}
 

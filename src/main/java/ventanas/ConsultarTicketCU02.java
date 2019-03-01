@@ -6,10 +6,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import  java.time.LocalDate;
+
+import java.time.format.DateTimeFormatter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -33,6 +36,7 @@ import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
 import Modelo.TicketDTO;
 import Modelo.Usuario;
+
 
 
 
@@ -287,8 +291,8 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		model.setRowCount(0);
         		Long numTic = null;
         		Integer numLegajo = null;
-        		Date fechaABien = null;
-        		Date fechaUBien = null ;
+        		LocalDate fechaABien = null;
+        		LocalDate fechaUBien = null ;
         		//Date fechaAct = new Date();
         		String estado = null;
         		ClasificacionDTO clasificacion;
@@ -315,28 +319,35 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         		
         		
         		boolean res=true;
-        		
+        	
         		//error en validar fecha
         	
-        		if(!fechaApertura.getText().isEmpty()) {
-        			res= GestorTicket.validarFecha(fechaApertura.getText());		
-        
-            		if(res==true){
-            				fechaABien= GestorTicket.stringtodate(fechaApertura.getText());
-            				System.out.println(fechaABien);
-            				
-            		}else {
+       	
+        		if(!fechaUltimo.getText().isEmpty()) {
+        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            		
+            		fechaUBien = LocalDate.parse(new String (fechaUltimo.toString()), formatter);
+            		
+            		
+            		
+            		if(fechaUBien.isAfter(LocalDate.now())){
+            			
             			ven.setVisible(true); //muestra ventana error
             			}
-            	} 
+        		}
         		
-        		if(!fechaUltimo.getText().isEmpty()) {
-        			res=GestorTicket.validarFecha(fechaUltimo.getText());
-            		if(res==true){
-            			fechaUBien= GestorTicket.stringtodate(fechaUltimo.getText());
-        				System.out.println(fechaUBien);
-            		}else {
-            			ven.setVisible(true);
+        		      		
+        		
+        		if(!fechaApertura.getText().isEmpty()) {
+        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            		fechaABien = LocalDate.parse(new String (fechaApertura.getText()), formatter);
+            		
+            		
+            		
+            		
+            		if(fechaABien.isAfter(LocalDate.now())){
+            			
+            			ven.setVisible(true); //muestra ventana error
             			}
             	}
         		

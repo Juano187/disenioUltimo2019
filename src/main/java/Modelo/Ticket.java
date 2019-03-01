@@ -42,10 +42,10 @@ public class Ticket implements  Serializable{
 
 
 	@Column(name = "FECHA_APERTURA",nullable= true)
-	private Date fecha_apertura;
+	private LocalDate fecha_apertura;
 	
 	@Column(name = "FECHA_CIERRE",nullable= true)
-	private Date fecha_cierre;
+	private LocalDate fecha_cierre;
 	
 	
 	@Column(name = "DESCRIP_PROBLEMA",length = 5000)
@@ -83,7 +83,7 @@ public class Ticket implements  Serializable{
 	}
 
 
-	public Ticket(Date fecha_apertura, String descrip_problema,
+	public Ticket(LocalDate fecha_apertura, String descrip_problema,
 			EstadoTicket estadoticket) {
 		
 		listaintervenciones = new ArrayList<>();
@@ -287,22 +287,22 @@ public class Ticket implements  Serializable{
 	}*/
 
 
-	public Date getFecha_apertura() {
+	public LocalDate getFecha_apertura() {
 		return fecha_apertura;
 	}
 
 
-	public void setFecha_apertura(Date fecha_apertura) {
+	public void setFecha_apertura(LocalDate fecha_apertura) {
 		this.fecha_apertura = fecha_apertura;
 	}
 
 
-	public Date getFecha_cierre() {
+	public LocalDate getFecha_cierre() {
 		return fecha_cierre;
 	}
 
 
-	public void setFecha_cierre(Date fecha_cierre) {
+	public void setFecha_cierre(LocalDate fecha_cierre) {
 		this.fecha_cierre = fecha_cierre;
 	}
 /*

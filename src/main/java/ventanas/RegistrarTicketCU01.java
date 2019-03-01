@@ -3,11 +3,13 @@ package ventanas;
 
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.security.Guard;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import  java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -43,12 +45,13 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
 	private Integer num_t;
 	private JFrame frame;
 	private JFrame anterior;
-    SimpleDateFormat fecha = new SimpleDateFormat ("dd-MM-yyyy");
+    SimpleDateFormat fecha = new SimpleDateFormat ("yyyy-MM-dd");
     SimpleDateFormat hora = new SimpleDateFormat ("HH:mm");
-    Date date = new Date();
+    LocalDate date= LocalDate.now();
+    LocalTime time = LocalTime.now();
     
-    String fechaString = fecha.format(date);
-    String horaString = hora.format(date);
+   //String fechaString = fecha.format(date);
+   //String horaString = hora.format(date);
 
     
     public RegistrarTicketCU01(String user) {  
@@ -128,7 +131,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 210, -1, -1));
 
         jTextField1.setEditable(false);
-        jTextField1.setText(fechaString);
+        jTextField1.setText(date.toString());
         jTextField1.setPreferredSize(new java.awt.Dimension(52, 22));
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,7 +141,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 130, 230, 30));
 
         jTextField2.setEditable(false);
-        jTextField2.setText(horaString);
+        jTextField2.setText(time.toString());
         jTextField2.setPreferredSize(new java.awt.Dimension(52, 22));
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
@@ -268,7 +271,11 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); 
         jTextArea1.setRows(5);
-        jTextArea1.setText("Ingrese descripcion");
+        jTextArea1.setEditable(true);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setTabSize(5);
+        jTextArea1.setText("Ingrese descripcion (max de caracteres 150)");
         jTextArea1.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER || ke.getKeyCode() == KeyEvent.VK_TAB) {
@@ -278,6 +285,20 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         });
         
         jScrollPane1.setViewportView(jTextArea1);
+        
+        
+       
+        
+        jTextArea1.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		
+        		super.keyTyped(e);
+        		if(jTextArea1 != null && jTextArea1.getText() != null && jTextArea1.getText().length() >= 300){
+        			
+        			e.setKeyChar((char) KeyEvent.VK_CLEAR);
+        		}
+        	}
+        }); 
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 880, 150));
 

@@ -1,5 +1,5 @@
 package Modelo;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -30,10 +30,10 @@ abstract class HistorialABS {
 	private Integer id_historial;
 	
 	@Column(name = "FECHA_HORA_APERTURA", nullable= true)
-	private Date hora_fecha_ini;
+	private LocalDate hora_fecha_ini;
 	
 	@Column(name = "FECHA_HORA_FIN", nullable= true)
-	private Date hora_fecha_fin;
+	private LocalDate hora_fecha_fin;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
@@ -43,7 +43,7 @@ abstract class HistorialABS {
 		
 	}
 	
-	public HistorialABS( Date fecha) {
+	public HistorialABS( LocalDate fecha) {
 	
 		this.hora_fecha_ini= fecha;
 		this.hora_fecha_fin = null;
@@ -60,17 +60,17 @@ abstract class HistorialABS {
 		return this.usuario;
 	}
 
-	public Date getFechaFin() {
+	public LocalDate getFechaFin() {
 		return this.hora_fecha_fin;
 	}
-	public Date getFechaIni() {
+	public LocalDate getFechaIni() {
 		return this.hora_fecha_ini;
 	}
 	public int getIdHistorial() {
 		return this.id_historial;
 	}
 	
-	public void setfinal(Date a) {
+	public void setfinal(LocalDate a) {
 		this.hora_fecha_fin = a;
 	}
 }

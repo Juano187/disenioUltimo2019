@@ -12,8 +12,8 @@ public class TicketDTO {
 
 	private Integer numeroTicket;
 	private Integer numlegajo;
-	private Date fechaA;
-	private Date fechaU;
+	private LocalDate fechaA;
+	private LocalDate fechaU;
 	private Empleado empleado;
 	private Clasificacion cla;
 	private GrupoResolucion gru;
@@ -28,8 +28,8 @@ public class TicketDTO {
 	// TODO clasificacionDTO a clasificacion, y GrupoResolucionDTO a grupoResolucion 
 	
 	public TicketDTO(Integer numeroTicket, 
-			Integer numlegajo, Date fechaA, 	
-			Date fechaU , Clasificacion cla,
+			Integer numlegajo, LocalDate fechaA, 	
+			LocalDate fechaU , Clasificacion cla,
 			GrupoResolucion gru, 
 			EstadoTicket estado, String usuario) {
 		
@@ -52,12 +52,12 @@ public class TicketDTO {
 		this.usuario = string;
 	}
 
-	public Date getFechaU() {
+	public LocalDate getFechaU() {
 		
 		return fechaU;
 	}
 
-	public void setFechaU(Date fechaU) {
+	public void setFechaU(LocalDate fechaU) {
 		this.fechaU = fechaU;
 	}
 
@@ -73,10 +73,10 @@ public class TicketDTO {
 	public void setNumlegajo(Integer numlegajo) {
 		this.numlegajo = numlegajo;
 	}
-	public Date getFechaA() {
+	public LocalDate getFechaA() {
 		return fechaA;
 	}
-	public void setFechaA(Date fechaA) {
+	public void setFechaA(LocalDate fechaA) {
 		this.fechaA = fechaA;
 	}
 	

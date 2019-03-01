@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -28,14 +28,14 @@ public class Historial_Intervencion extends HistorialABS {
 		
 	}
 
-	public Historial_Intervencion( Date f ,EstadoIntervencion est, Intervencion intervencion) {
+	public Historial_Intervencion( LocalDate f ,EstadoIntervencion est, Intervencion intervencion) {
 			super(f);
 			this.estado=est;
 			this.intervencion = intervencion;
 
 	}
 	
-	public Historial_Intervencion( Date f ,EstadoIntervencion est) {
+	public Historial_Intervencion( LocalDate f ,EstadoIntervencion est) {
 		super(f);
 		this.estado=est;
 	

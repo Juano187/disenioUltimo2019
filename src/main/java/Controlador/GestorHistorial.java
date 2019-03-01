@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import Modelo.Clasificacion;
@@ -15,7 +16,7 @@ import Modelo.Usuario;
 public class GestorHistorial {
 	public GestorBDD gestorbdd = new GestorBDD(); 
 
-	public HistorialTicket crearHistorialT(Usuario u, EstadoTicket abiertoderivado, Ticket t, Date f, Date fecha) {
+	public HistorialTicket crearHistorialT(Usuario u, EstadoTicket abiertoderivado, Ticket t, LocalDate f, LocalDate fecha) {
 		
 		HistorialTicket ht1= new HistorialTicket(EstadoTicket.ABIERTODERIVADO ,f); 
 		//ht1.setTicket(t);
@@ -24,7 +25,7 @@ public class GestorHistorial {
 		return h;
 	}
 
-	public HistorialClasificacion crearHistorialC(Clasificacion c, Usuario u, Date f) {
+	public HistorialClasificacion crearHistorialC(Clasificacion c, Usuario u, LocalDate f) {
 		
 		
 		HistorialClasificacion hc1= new HistorialClasificacion(f);
@@ -35,7 +36,7 @@ public class GestorHistorial {
 		return h;
 	}
 
-	public Historial_Intervencion crearHistorialI(EstadoIntervencion i, int id ,Usuario u, Date f) {
+	public Historial_Intervencion crearHistorialI(EstadoIntervencion i, int id ,Usuario u, LocalDate f) {
 		System.out.println(i);
 		System.out.println(id);
 		System.out.println(u.getUsuario());

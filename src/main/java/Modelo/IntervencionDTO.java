@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class IntervencionDTO {
@@ -8,8 +9,8 @@ public class IntervencionDTO {
 	private Integer idI;
 	private Integer idTicket;
 	private Integer legajo;
-	private Date fechaAs;
-	private Date fechap;
+	private LocalDate fechaAs;
+	private LocalDate fechap;
 	private ClasificacionDTO clas;
 	private EstadoTicket estadoT;
 	private EstadoIntervencion estadoI;
@@ -22,7 +23,7 @@ public class IntervencionDTO {
 
    
 
-	public IntervencionDTO(Integer idI, Integer idTicket, Integer legajo, Date fechaAs, Date fechap, ClasificacionDTO clas,
+	public IntervencionDTO(Integer idI, Integer idTicket, Integer legajo, LocalDate fechaAs, LocalDate fechap, ClasificacionDTO clas,
 		EstadoTicket estadoT, EstadoIntervencion estadoI, GrupoResolucion grup, String observ) {
 	
 	this.idI = idI;
@@ -69,22 +70,22 @@ public class IntervencionDTO {
 	}
 
 
-	public Date getFechaAs() {
+	public LocalDate getFechaAs() {
 		return fechaAs;
 	}
 
 
-	public void setFechaAs(Date fechaAs) {
+	public void setFechaAs(LocalDate fechaAs) {
 		this.fechaAs = fechaAs;
 	}
 
 
-	public Date getFechap() {
+	public LocalDate getFechap() {
 		return fechap;
 	}
 
 
-	public void setFechap(Date fechap) {
+	public void setFechap(LocalDate fechap) {
 		this.fechap = fechap;
 	}
 

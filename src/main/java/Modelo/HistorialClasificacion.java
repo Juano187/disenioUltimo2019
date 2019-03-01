@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
@@ -20,10 +20,10 @@ public class HistorialClasificacion extends HistorialABS{
 	private Clasificacion clasificacion ;
 	
 	
-	public HistorialClasificacion(Date f) {
+	public HistorialClasificacion(LocalDate f) {
 		super (f);
 	}
-	public HistorialClasificacion(Date f, Clasificacion clasificacion) {
+	public HistorialClasificacion(LocalDate f, Clasificacion clasificacion) {
 		super (f);
 		this.clasificacion = clasificacion;
 		

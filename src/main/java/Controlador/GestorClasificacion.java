@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +56,7 @@ public ArrayList<ClasificacionDTO> getClasificaciones() {
 }
 public void cambiarEstadoHC ( Clasificacion c ) {
 	HistorialClasificacion ht = c.getUltimoHistoriaC();
-	Date f = new Date();
+	LocalDate f = LocalDate.now();
 	ht.setfinal(f);
 	
 	HistorialClasificacion nuevo = new HistorialClasificacion(f, c);

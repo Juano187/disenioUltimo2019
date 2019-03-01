@@ -2,7 +2,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -35,7 +35,7 @@ public class Clasificacion implements Serializable {
 	private int codigo;
 	
 	@Column(name = "FECHA_CREACION")
-	private Date fecha_Creacion;
+	private LocalDate fecha_Creacion;
 	
 	@Column(name = "DESCRIPCION", length = 5000)
     private String descripcion;
@@ -66,7 +66,7 @@ public class Clasificacion implements Serializable {
 		
 	}
 
-	public Clasificacion( Date fecha_Creacion, String descripcion, String nom_clasificacion) {
+	public Clasificacion( LocalDate fecha_Creacion, String descripcion, String nom_clasificacion) {
 		
 		this.fecha_Creacion = fecha_Creacion;
 		this.descripcion = descripcion;
@@ -150,11 +150,11 @@ public class Clasificacion implements Serializable {
 		this.codigo = codigo;
 	}
 
-	public Date getFecha_Creacion() {
+	public LocalDate getFecha_Creacion() {
 		return fecha_Creacion;
 	}
 
-	public void setFecha_Creacion(Date fecha_Creacion) {
+	public void setFecha_Creacion(LocalDate fecha_Creacion) {
 		this.fecha_Creacion = fecha_Creacion;
 	}
 

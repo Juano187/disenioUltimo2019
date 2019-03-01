@@ -1,6 +1,6 @@
 package Modelo;
 
-import java.util.Date;
+import java.time.LocalDate;
 import Modelo.EstadoTicket;
 
 import javax.persistence.CascadeType;
@@ -34,7 +34,7 @@ public class HistorialTicket extends HistorialABS {
 	
 	private String clasificacion;
 	
-	public HistorialTicket (EstadoTicket estado, Date f) {
+	public HistorialTicket (EstadoTicket estado, LocalDate f) {
 		super(f);
 		this.estado= estado;
 
@@ -48,7 +48,7 @@ public class HistorialTicket extends HistorialABS {
 		super.setUser(u);
 		u.addHT(this);
 	}
-	public HistorialTicket( Date f) {
+	public HistorialTicket( LocalDate f) {
 		super (f);
 	}
 	

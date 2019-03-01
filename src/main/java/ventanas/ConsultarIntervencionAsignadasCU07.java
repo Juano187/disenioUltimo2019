@@ -1,6 +1,8 @@
 
 package ventanas;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -200,9 +202,9 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         getContentPane().add(buttonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 290, 110, 30));
         buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-            	Date fechaA = new Date();
-            	Date desde = null;
-            	Date hasta = null;
+            	LocalDate fechaA = LocalDate.now();
+            	LocalDate desde = null;
+            	LocalDate hasta = null;
             	Long numTicket = null;
         		Integer numLeg = null; 
         		String estado = null;
@@ -213,31 +215,45 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         		
         		//error en validar fecha
         	
-        		if(!fdesde.getText().isEmpty()) {
-        			res= GestorTicket.validarFecha(fdesde.getText());		
-        
-            		if(res==true){
-            			desde= GestorTicket.stringtodate(fdesde.getText());
-            				System.out.println(desde);
-            				
-            		}else {
+        		
+        		
+        		if(!fhasta.toString().isEmpty()) {
+        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            		
+        			hasta = LocalDate.parse(new String (fhasta.toString()), formatter);
+            		
+            		
+            		
+            		if(hasta.isAfter(LocalDate.now())){
+            			
             			ven.setVisible(true); //muestra ventana error
             			}
-            	} 
+        		}
         		
-        		if(!fhasta.getText().isEmpty()) {
-        			res=GestorTicket.validarFecha(fhasta.getText());
-            		if(res==true){
-            			hasta= GestorTicket.stringtodate(fhasta.getText());
-        				System.out.println(hasta);
-            		}else {
-            			ven.setVisible(true);
+        		      		
+        		
+        		if(!fdesde.toString().isEmpty()) {
+        			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        			desde = LocalDate.parse(new String (fdesde.toString()), formatter);
+            		
+            		
+            		
+            		
+            		if(desde.isAfter(LocalDate.now())){
+            			
+            			ven.setVisible(true); //muestra ventana error
             			}
             	}
+        		
         		
         		if((!fdesde.getText().isEmpty() && desde.compareTo(fechaA)>= 0) || (!fhasta.getText().isEmpty() && (hasta.compareTo(fechaA) >= 0 || (!fhasta.getText().isEmpty() && !fdesde.getText().isEmpty() && desde.compareTo(hasta)> 0)))){
         			ven.setVisible(true);
         		}
+        		
+        		
+        		
+        		
+        		
         		else {
         			if(!numTic.getText().isEmpty()) numTicket = Long.valueOf(numTic.getText());
             		if(!numlegajo.getText().isEmpty()) numLeg = Integer.valueOf(numlegajo.getText());

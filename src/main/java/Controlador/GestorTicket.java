@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import  java.time.LocalDate;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -76,7 +77,8 @@ public class GestorTicket {
 	
 	public void cambiarEstadoH ( Ticket t, EstadoTicket estado ) {
 		HistorialTicket ht = t.getUltimoHistorial();
-		Date f = new Date();
+		//Date f = new Date();
+		LocalDate f= LocalDate.now();
 		ht.setfinal(f);
 		t.setEstadoticket(1);
 		HistorialTicket nuevo = new HistorialTicket(estado, f);
@@ -105,7 +107,7 @@ public class GestorTicket {
 		//aca se cambia el estado
 		cambiarEstadoH(ticket,EstadoTicket.ABIERTODERIVADO);
 		
-		Date fecha = new Date();
+		LocalDate fecha = LocalDate.now();
 		System.out.println("nuevo estado del ticket es : ");
 		System.out.println(ticket.getEstadoticket());
 		
@@ -149,25 +151,15 @@ public class GestorTicket {
 		
 		
 	gestorBDD.actualizarTicket(ticket);
-	System.out.println(ticket.getNum_ticket());
+	
 		
 	}
 
-	public static Date stringtodate(String fecha) {
-		Date f=null;
-        try {
-            SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-            formatoFecha.setLenient(false);
-            f= formatoFecha.parse(fecha);
-        } catch (ParseException e) {
-            return null;
-        }
-        return f;
-    }
+	
 	
 
 	
-	public Ticket registrarTicket(int legajo,String clasific, String descripcion,Usuario user,Date f) {
+	public Ticket registrarTicket(int legajo,String clasific, String descripcion,Usuario user,LocalDate f) {
 		Ticket t2= new Ticket();
 		try{
 			System.out.print("fecha: " + f);
@@ -247,7 +239,7 @@ public class GestorTicket {
 	
 
 
-public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fechaABien , Date fechaUBien , String estado,  ClasificacionDTO cla, GrupoResolucionDTO ugrupo){
+public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, LocalDate fechaABien , LocalDate fechaUBien , String estado,  ClasificacionDTO cla, GrupoResolucionDTO ugrupo){
 
 	
 		
@@ -305,7 +297,7 @@ public ArrayList<TicketDTO> consultarTicket(Long numTic, Integer legajo, Date fe
 		 Ticket ticket = gestorBDD.buscarTicket(numTicket);
 		 ticket.setEstadoticket(3);
 		 ticket.setDescrip_problema(obser);
-		 Date fecha = new Date();
+		 LocalDate fecha = LocalDate.now();
 		
 		 System.out.println(ticket.getEstadoticket());
 		

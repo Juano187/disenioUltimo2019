@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,7 +22,7 @@ public class GestorIntervencion {
 	GestorEmpleado gestorE = new GestorEmpleado();
 
 
-public Intervencion crearIntervencion(String descrip, Date f, Date a, EstadoIntervencion e ,  
+public Intervencion crearIntervencion(String descrip, LocalDate f, LocalDate a, EstadoIntervencion e ,  
 			Usuario user) {
 		
 	
@@ -45,7 +46,7 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 	System.out.println(observ);
 	System.out.println(grup.getNom_grupo());
 	
-	Date fecha = new Date();
+	LocalDate fecha = LocalDate.now();
 	
 
 	Intervencion i2;
@@ -73,7 +74,7 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 	else {
 		System.out.println("no es nulo asiq se actualiza");
 	
-		Date fechafin = new Date();
+		LocalDate fechafin = LocalDate.now();
 		Historial_Intervencion nuevo = new Historial_Intervencion(fecha,EstadoIntervencion.ASIGNADO);
 		Historial_Intervencion hi = newi.getUltimoHistorial();
 		hi.setfinal(fechafin);
@@ -100,8 +101,8 @@ public Intervencion cambioInterv(Integer numTicket, String observ, GrupoResoluci
 
 
 
-public ArrayList<IntervencionDTO> consultarIntervAsigna(Long numTicket, Integer numLeg, String estado, Date desde,
-		Date hasta) {
+public ArrayList<IntervencionDTO> consultarIntervAsigna(Long numTicket, Integer numLeg, String estado, LocalDate desde,
+		LocalDate hasta) {
 	
 	System.out.println("entro a consutar inter");
 	Integer idg = gestorE.getGrupo(numLeg);
@@ -225,7 +226,7 @@ public void cambiarEstadoI ( Intervencion i, EstadoIntervencion estado ) {
 	System.out.println("entro para cambiar histo y estado");
 	Historial_Intervencion ht = i.getUltimoHistorial();
 	System.out.println(ht.getIntervencion().getId_intervencion());
-	Date f = new Date();
+	LocalDate f = LocalDate.now();
 	ht.setfinal(f);
 	i.setEstadointervencion(estado);
 	Historial_Intervencion nuevo = new Historial_Intervencion(f, estado, i);

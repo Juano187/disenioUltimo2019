@@ -1,6 +1,7 @@
 package Controlador;
 
 import java.lang.Exception;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -240,7 +241,7 @@ public ArrayList<Historial>getHistoriales(){
 	}
 	
 	@SuppressWarnings("unchecked")
-	public ArrayList<Ticket> getTicket(Long numTic, Integer legajo,Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
+	public ArrayList<Ticket> getTicket(Long numTic, Integer legajo,LocalDate fechaABien, LocalDate fechaUBien, String estado, ClasificacionDTO cla,  GrupoResolucionDTO ugrupo){
 	ArrayList<Ticket> T = new ArrayList<Ticket>();
 	manager.getTransaction().begin();
 	T = (ArrayList<Ticket>)	manager.createQuery("Select t FROM Ticket t").getResultList();
@@ -279,12 +280,9 @@ public ArrayList<Historial>getHistoriales(){
 	/*cami*/
 
 
-public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien, Date fechaUBien, String estado, ClasificacionDTO cla  , GrupoResolucionDTO ugrupo){
-		
-	System.out.println("bdd");
-		System.out.println("fecha : " + fechaABien);
-		System.out.println(ugrupo.getNombre());
-		
+public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fechaABien, LocalDate fechaUBien, String estado, ClasificacionDTO cla  , GrupoResolucionDTO ugrupo){
+	System.out.println("fechas");
+		System.out.println(fechaABien);
 		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
@@ -305,7 +303,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		}
 		
 		if(!(fechaUBien== null)) {
-			sql+= " and t.FECHA_HORA_CIERRE = " + fechaUBien;
+			sql+= " and t.fecha_cierre = '" + fechaUBien + "'";
 		}
 		
 		if(!(estado== null)) {
@@ -324,6 +322,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		
 		
 		System.out.println(sql);
+	
 		
 		manager.getTransaction().begin();
 		tickets = (ArrayList<Ticket>) 
@@ -331,10 +330,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		manager.getTransaction().commit();
 		
 		System.out.println(tickets.size());
-		System.out.println(tickets.get(0).getClasificacion().getNom_clasificacion());
 		
-		System.out.println(tickets.get(0).getEstadoticket());
-		System.out.println(tickets.get(0).getEmpleado().getLegajo());
 		
 		//System.out.println(tickets.get(0).getIntervencion(2).getId_intervencion()); 
 		//System.out.println(tickets.get(0).ultimaIGrupo().toString()); 
@@ -345,58 +341,6 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 
 	
 	
-	
-	public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien /*Date fechaUBien*/, String estado, ClasificacionDTO cla  /*GrupoResolucionDTO ugrupo*/){
-		
-		
-		System.out.println("fecha : " + fechaABien);
-		
-		
-		ArrayList<Ticket> tickets = new ArrayList<>();
-		
-		
-		String sql = "Select distinct t FROM Ticket t, Clasificacion cf WHERE" ;
-		
-		
-		if(!(numTic== null)) {
-			sql+= " t.num_ticket = " + numTic;
-		}
-		
-		if(!(legajo== null)) {
-			sql+= " and t.empleado = " + legajo;
-		}
-		
-		if(!(fechaABien== null)) {
-			sql+= " and t.fecha_apertura = '" + fechaABien + "'";
-		}
-		
-		/*if(!(fechaUBien== null)) {
-			sql+= " and t.FECHA_HORA_CIERRE = " + fechaUBien;
-		}*/
-		
-		if(!(estado== null)) {
-			sql+= " and t.estadoticket = '" + estado + "'";
-		}
-		
-		if(!(cla== null)) {
-			sql+= " and cf.nom_clasificacion = '" + cla+ "'";
-		}
-		
-		
-		System.out.println(sql);
-		/*if(!(ugrupo== null)) {
-			sql+= " and g.nom_grupo = '" + ugrupo+ "'";
-		}*/
-		
-		
-		manager.getTransaction().begin();
-		tickets = (ArrayList<Ticket>) 
-				manager.createQuery(sql).getResultList();
-		manager.getTransaction().commit();
-		
-		
-		return tickets;
-	}
 	public Direccion getDireccion(int legajo) {
 			Direccion direccion;
 			String c = "FROM Direccion Where legajo = " + legajo;
@@ -452,8 +396,8 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, Date fechaABien
 		
 		return ticket;	
 	}
-	public ArrayList<Intervencion> consultarItervencion(Long numTicket, Integer numLeg, String estado, Date desde,
-			Date hasta , Integer idgrup) {
+	public ArrayList<Intervencion> consultarItervencion(Long numTicket, Integer numLeg, String estado, LocalDate desde,
+			LocalDate hasta , Integer idgrup) {
 		ArrayList<Intervencion> resulI = new ArrayList<Intervencion>();
 		
 		String csql = "Select distinct i FROM Intervencion i, Ticket t WHERE i.ticket = t and i.gruporesolucion = " + idgrup;

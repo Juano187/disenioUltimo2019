@@ -2,6 +2,7 @@
 
 package ventanas;
 
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
@@ -85,8 +86,30 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 13)); 
         jTextArea1.setRows(5);
-        jTextArea1.setText("Ingrese texto...");
+       
         jScrollPane1.setViewportView(jTextArea1);
+        
+      
+        jTextArea1.setTabSize(5);
+        jTextArea1.setText("Ingrese descripcion (max de caracteres 150)");
+        
+        
+        jTextArea1.setEditable(true);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setLineWrap(true);
+  
+  
+        
+        jTextArea1.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		
+        		super.keyTyped(e);
+        		if(jTextArea1 != null && jTextArea1.getText() != null && jTextArea1.getText().length() >= 300){
+        			
+        			e.setKeyChar((char) KeyEvent.VK_CLEAR);
+        		}
+        	}
+        }); 
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 840, 180));
 
