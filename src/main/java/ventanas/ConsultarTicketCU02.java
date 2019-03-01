@@ -31,6 +31,7 @@ import Controlador.GestorGrupoResolucion;
 import Controlador.GestorTicket;
 import Controlador.GestorUsuario;
 import Modelo.ClasificacionDTO;
+import Modelo.EstadoIntervencion;
 import Modelo.EstadoTicket;
 import Modelo.GrupoResolucion;
 import Modelo.GrupoResolucionDTO;
@@ -200,11 +201,17 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
             
             
             
-        JComboBox<EstadoTicket> comboBox = new JComboBox<>();
-        
-        comboBox.setModel(new DefaultComboBoxModel<>(EstadoTicket.values()));
+       
+        JComboBox<EstadoTicket> comboBox = new JComboBox<EstadoTicket>();
+        //  comboBox.add("Todos");
+          comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
+          EstadoTicket[] tipoEN = EstadoTicket.values();
+          for(EstadoTicket ei: tipoEN) {
+          	comboBox.addItem(ei);
+          }
+           
         getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 410, 30));
-        comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
+
         
         
         List<ClasificacionDTO> clasificaciones= gestorC.getClasificaciones();
@@ -284,7 +291,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
       
         ErrorFormatoFecha ven = new ErrorFormatoFecha();
         ErrorCamposVacios ven1 = new ErrorCamposVacios();
-       ; 
+       
         jButton_Buscar.addActionListener(new ActionListener() {
         
         	public void actionPerformed(ActionEvent ae) {	

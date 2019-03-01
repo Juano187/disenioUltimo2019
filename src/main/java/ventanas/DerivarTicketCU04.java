@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -228,11 +229,24 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
             }
         });
 
-        jTextArea2.setEditable(false);
+        jTextArea2.setEditable(true);
+        jTextArea1.setWrapStyleWord(true);
+        jTextArea1.setLineWrap(true);
+        jTextArea1.setTabSize(5);
+        jTextArea1.setText("Ingrese observacion (max de caracteres 150)");
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
-
+        jTextArea2.addKeyListener(new KeyAdapter() {
+        	public void keyTyped(KeyEvent e) {
+        		
+        		super.keyTyped(e);
+        		if(jTextArea2 != null && jTextArea2.getText() != null && jTextArea2.getText().length() >= 300){
+        			
+        			e.setKeyChar((char) KeyEvent.VK_CLEAR);
+        		}
+        	}
+        });
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 620, 120));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24));

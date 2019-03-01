@@ -3,6 +3,7 @@ package ventanas;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -30,6 +31,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
 	DefaultTableModel TablaInterv;
 	private JFrame anterior;
 	private JFrame frame;
+	private EstadoIntervencion[] estados;
 	
 	IntervencionDTO InterSelec ;
 	
@@ -135,12 +137,20 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         });
         getContentPane().add(fhasta, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 200, 200, 30));
 
-        
-        JComboBox<EstadoIntervencion> comboBox = new JComboBox<>();
-        
-        comboBox.setModel(new DefaultComboBoxModel<>(EstadoIntervencion.values()));
-        getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 320, 30));
+        // TODO AGREGAR COMBOOOOOOOOOOOOOOOX 
+        JComboBox<EstadoIntervencion> comboBox = new JComboBox<EstadoIntervencion>();
+      //  comboBox.add("Todos");
         comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
+        EstadoIntervencion[] tipoEN = EstadoIntervencion.values();
+        for(EstadoIntervencion ei: tipoEN) {
+        	comboBox.addItem(ei);
+        }
+         
+        
+     //   comboBox.setModel(new DefaultComboBoxModel<>(EstadoIntervencion.values()));
+        
+        getContentPane().add(comboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 320, 30));
+       // comboBox.setModel(new DefaultComboBoxModel(new String[] { "Todos" }));
         
         //desde
         fdesde.setEditable(true);
@@ -213,21 +223,17 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
             	
             	DefaultTableModel ModelTablaInterv = (DefaultTableModel) jTable1.getModel();
             	ModelTablaInterv.setRowCount(0);
-        		
-        		//error en validar fecha
-            	if(!(comboBox.getSelectedIndex()== 0)) {
+        	
+            	
+            	if(!(comboBox.getSelectedItem().toString().equals("Todos"))) {
         			estado = comboBox.getSelectedItem().toString();
         		}
         		
         		
         		if(!fhasta.getText().isEmpty()) {
         			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            		
         			hasta = LocalDate.parse(new String (fhasta.toString()), formatter);
-            		
-            		
-            		
-            		if(hasta.isAfter(LocalDate.now())){
+               		if(hasta.isAfter(LocalDate.now())){
             			
             			ven.setVisible(true); //muestra ventana error
             			}
@@ -238,11 +244,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         		if(!fdesde.getText().isEmpty()) {
         			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         			desde = LocalDate.parse(new String (fdesde.toString()), formatter);
-            		
-            		
-            		
-            		
-            		if(desde.isAfter(LocalDate.now())){
+             		if(desde.isAfter(LocalDate.now())){
             			
             			ven.setVisible(true); //muestra ventana error
             			}
@@ -253,18 +255,12 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         			ven.setVisible(true);
         		}*/
         		
-  
-        		
-        		else {
         			if(!numTic.getText().isEmpty()) numTicket = Long.valueOf(numTic.getText());
             		if(!numlegajo.getText().isEmpty()) numLeg = Integer.valueOf(numlegajo.getText());
-            		estado = comboBox.getSelectedItem().toString();
-        			
-        		}
-        		
+   		
+        	
         		listaIencontrados = gestorI.consultarIntervAsigna(numTicket , numLeg, estado, desde, hasta );
-        		System.out.println("tamaño");
-        		System.out.println(listaIencontrados.size());
+  
         		
         		if(listaIencontrados.size() > 0) {
             		
@@ -274,9 +270,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     			else {
     				EjemploError e = new EjemploError("No existen tickets que cumplan con los criterios ingresados.");
             		e.setVisible(true);  }
-            	
-            
-              
+           
             }
         });
         

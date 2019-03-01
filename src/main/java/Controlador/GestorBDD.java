@@ -286,12 +286,12 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fecha
 		
 		ArrayList<Ticket> tickets = new ArrayList<>();
 		
-		
-		String sql = "Select distinct t FROM Ticket t, Clasificacion cf , GrupoResolucion g WHERE" ;
+	//	SELECT DISTINCT * FROM ticket t, clasificacion cf , grupo_clasificacion gr WHERE t.CODIGO= cf.CODIGO and cf.CODIGO = gr.codigo
+		String sql = "Select distinct t FROM Ticket t, Clasificacion cf , GrupoResolucion g WHERE t.clasificacion= cf.codigo and cf.codigo = g " ;
 		
 		
 		if(!(numTic== null)) {
-			sql+= " t.num_ticket = " + numTic;
+			sql+= " and t.num_ticket = " + numTic;
 		}
 		
 		if(!(legajo== null)) {
@@ -400,9 +400,14 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fecha
 			LocalDate hasta , Integer idgrup) {
 		ArrayList<Intervencion> resulI = new ArrayList<Intervencion>();
 		
+		
+		
 		String csql = "Select distinct i FROM Intervencion i, Ticket t WHERE i.ticket = t and i.gruporesolucion = " + idgrup;
 		
-		
+		System.out.println("estado:" + estado);
+		System.out.println("desde" + desde);
+		System.out.println("num ticjet" + numTicket);
+		System.out.println("legajo" + numLeg);
 
 		if(!(numTicket== null)) {
 			csql+= " and t.num_ticket = " + numTicket;
@@ -420,6 +425,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fecha
 		if(!(estado== null)) {
 			csql+= " and i.estadointervencion = '" + estado + "'";
 		}
+		
 		
 		manager.getTransaction().begin();
 		resulI = (ArrayList<Intervencion>) 

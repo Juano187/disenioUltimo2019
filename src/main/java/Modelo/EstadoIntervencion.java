@@ -16,6 +16,7 @@ public enum EstadoIntervencion {
 		
 	}
 	
+	
 	public String getParamName() {
         return paramName;
     }
