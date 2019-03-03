@@ -65,15 +65,13 @@ public class GestorEmpleado {
 	
 	public ArrayList<Empleado> getEmpleados (){
 		ArrayList<Empleado> empleados = gestorBDD.getEmpleado();
-		System.out.println("tamaño empleados:::");
-		System.out.println(empleados.size());
+		
 		return empleados;
 	}
 	
 	
 	public Integer getGrupo(Integer le) {
-		System.out.println("id grupo:::");
-		System.out.println(this.getEmpleado(le).getUsuario().getGruporesolucion().getId_grupo());
+		
 		return this.getEmpleado(le).getUsuario().getGruporesolucion().getId_grupo();
 	}
 }

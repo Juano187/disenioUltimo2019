@@ -19,7 +19,7 @@ import Modelo.Usuario;
 	JFrame anterior;
 	JFrame frame;
     public MenuGrupoResolucion(String user) {
-    	u=gu.getUsuario(user);
+    	u=gu.getUsuario(user); 
     	idgru = u.getGruporesolucion().getId_grupo();
     	frame = this;
         initComponents(user, idgru);
@@ -173,6 +173,7 @@ import Modelo.Usuario;
 	    	
 	    	ConsultarIntervencionAsignadasCU07 a = new ConsultarIntervencionAsignadasCU07(u.getUsuario(), idgru);
 	    	a.setVisible(true);
+	    	a.setAnterior(this);
 	    	this.dispose();
 	    }                                        
 

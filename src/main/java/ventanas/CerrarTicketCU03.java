@@ -23,7 +23,7 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
         initComponents(td);
         this.setLocationRelativeTo(null);
     }
-
+ 
    
     private void initComponents(TicketDTO td) {
 
@@ -97,6 +97,13 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
         jTextArea1.setEditable(true);
         jTextArea1.setWrapStyleWord(true);
         jTextArea1.setLineWrap(true);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER || ke.getKeyCode() == KeyEvent.VK_TAB) {
+                    jButton_Cancelar.requestFocus();
+                }
+            }
+        });
   
   
         
@@ -181,9 +188,16 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
     }
 
     private void jButton_ConfirmarActionPerformed(java.awt.event.ActionEvent evt) {
-    	EjemploExito e = new EjemploExito("Ticket Cerrado ",frame,u);
+    	 String descripcion = jTextArea1.getText();
+    	 if( descripcion.equalsIgnoreCase("Ingrese descripcion (max de caracteres 150)")) {
+ 	 		EjemploError error = new EjemploError("Ingrese una observaci\u00f3n");
+			  	error.setVisible(true); 	
+			  		
+ 	 }else {
+    	EjemploExito e = new EjemploExito("Ticket Cerrado ",u,this);
     	e.setVisible(true);
- 
+    	
+ 	 }
     	
     }
     public String getUser() {
@@ -230,3 +244,4 @@ public class CerrarTicketCU03 extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
 
 }
+

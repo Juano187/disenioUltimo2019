@@ -29,7 +29,7 @@ import ventanas.IniciarSesionCU00;
 
 
 public class Principal {
-	static GestorBDD gestorBDD = new GestorBDD();
+ 
 	static GestorClasificacion gc = new GestorClasificacion();
 	static GestorGrupoResolucion ggr = new GestorGrupoResolucion();
 	static GestorUsuario gu = new GestorUsuario();
@@ -50,6 +50,6 @@ public class Principal {
      	//ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08();
       	cp.dispose();
        	
-      	b.setVisible(true);
+      	b.setVisible(true); 
     }
 }

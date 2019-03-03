@@ -2,6 +2,9 @@
 package ventanas;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Vector;
+
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -10,6 +13,7 @@ import Controlador.GestorBDD;
 import Controlador.GestorTicket;
 import Controlador.GestorUsuario;
 import Modelo.Empleado;
+import Modelo.EstadoTicket;
 import Modelo.HistorialTicket;
 import Modelo.Ticket;
 import Modelo.TicketDTO;
@@ -24,17 +28,20 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
 	private GestorUsuario gu = new GestorUsuario();
 	private GestorTicket gt = new GestorTicket();
 	private Empleado e;
+	private TicketDTO selected ;
+	private Ticket t2;
+
 	public DetalleTicketCU02(String u2, TicketDTO tdo) {
-		
+		t2= gt.getTicket(tdo.getNumeroTicket());
 		u = gu.getUsuario(u2);
 		e = tdo.getEmpleado();
-		Ticket t = gt.getTicket(tdo.getNumeroTicket());
-        initComponents(u, t);
+		selected = tdo;
+        initComponents(u, selected);
         this.setLocationRelativeTo(null);
         frame = this;
     }
-	
-    private void initComponents(Usuario u, Ticket t) {
+	 
+    private void initComponents(Usuario u, TicketDTO t) {
     	
     			//System.out.println(ticketselec.getEmpleado().getDescripcioncargo().toString());
     	
@@ -109,7 +116,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, -1, -1));
 
         jTextFielNoEditable.setEditable(false);
-        jTextFielNoEditable.setText(t.getNum_ticket().toString());
+        jTextFielNoEditable.setText(t2.getNum_ticket().toString());
         jTextFielNoEditable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFielNoEditableActionPerformed(evt);
@@ -173,6 +180,15 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jButton_Cerrar.setFont(new java.awt.Font("Tahoma", 1, 14)); 
         jButton_Cerrar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Cerrar.setText("Cerrar");
+        jButton_Cerrar.addActionListener(new java.awt.event.ActionListener() {
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+        		   
+    			jButton_CerrarActionPerformed(evt);
+ 
+    		
+    	
+    }
+});
         jButton_Cerrar.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
         		jButton_Cerrar.setBackground(new java.awt.Color(0, 10	, 30));
@@ -188,10 +204,14 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         jButton_Derivar.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Derivar.setText("Derivar");
         jButton_Derivar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_DerivarActionPerformed(evt);
-            }
-        });
+        	public void actionPerformed(java.awt.event.ActionEvent evt) {
+   
+        			jButton_DerivarActionPerformed(evt);
+     
+        		
+        	
+        }
+    });
         jButton_Derivar.addKeyListener(new java.awt.event.KeyAdapter(){
             public void keyPressed(java.awt.event.KeyEvent ke) {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -260,7 +280,7 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
        DefaultTableModel tablaTickets = new DefaultTableModel(columnas,0);
        jTable1.setModel(tablaTickets);
        
-       for(HistorialTicket i: t.getListahistorial()) {
+       for(HistorialTicket i: t2.getListahistorial()) {
     	 
     	   tablaTickets.addRow( new String[] {	 
     			   i.getFechaIni().toString(),
@@ -316,9 +336,24 @@ public class DetalleTicketCU02 extends javax.swing.JFrame {
         this.dispose();
     }
 	
+    private void jButton_CerrarActionPerformed(java.awt.event.ActionEvent evt) {  
+    	  try {
+    	        
+          	DerivarTicketCU04 d = new DerivarTicketCU04(selected, u.getUsuario());
+              d.setAnterior(frame);
+              d.setVisible(true);
+              this.setVisible(false);
+              
+              }catch(Exception ex) {
+              	
+              	EjemploError error = new EjemploError(ex.getMessage());
+          	  	error.setVisible(true); }
+              }  
+    	
+    
     private void jButton_DerivarActionPerformed(java.awt.event.ActionEvent evt) {                                         
         try {
-            DerivarTicketCU04 d = new DerivarTicketCU04(null, null);
+            DerivarTicketCU04 d = new DerivarTicketCU04(selected,u.getUsuario());
             d.setAnterior(frame);
             d.setVisible(true);
             this.setVisible(false);

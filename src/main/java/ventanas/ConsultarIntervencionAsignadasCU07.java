@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 import Controlador.GestorGrupoResolucion;
 import Controlador.GestorIntervencion;
 import Controlador.GestorTicket;
+import Controlador.GestorUsuario;
 import Modelo.EstadoIntervencion;
 import Modelo.GrupoResolucion;
 import Modelo.IntervencionDTO;
@@ -27,6 +28,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
 	private Integer idgru;
 	private GestorIntervencion gestorI = new GestorIntervencion();
 	private GestorGrupoResolucion gestorR = new GestorGrupoResolucion();
+	private GestorUsuario gestorU = new GestorUsuario();
 	ArrayList<IntervencionDTO> listaIencontrados;
 	DefaultTableModel TablaInterv;
 	private JFrame anterior;
@@ -41,7 +43,7 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         initComponents(user, idgrupo);
         this.setLocationRelativeTo(null);
         frame = this;
-    }
+    } 
 
   
 
@@ -258,8 +260,8 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
         			if(!numTic.getText().isEmpty()) numTicket = Long.valueOf(numTic.getText());
             		if(!numlegajo.getText().isEmpty()) numLeg = Integer.valueOf(numlegajo.getText());
    		
-        	
-        		listaIencontrados = gestorI.consultarIntervAsigna(numTicket , numLeg, estado, desde, hasta );
+            		Integer numLeg2 = gestorU.getUsuario(user).getEmpleado().getLegajo();
+        		listaIencontrados = gestorI.consultarIntervAsigna(numTicket , numLeg2, estado, desde, hasta );
   
         		
         		if(listaIencontrados.size() > 0) {
@@ -376,8 +378,9 @@ public class ConsultarIntervencionAsignadasCU07 extends javax.swing.JFrame {
     	System.out.println("id grupo a act");
     	System.out.println(idgru);
     	ActualizarEstadoIntervencionCU08 a = new ActualizarEstadoIntervencionCU08(InterSelec, U, idgru);
+    	a.setAnterior(this);
     	a.setVisible(true);
-    	this.dispose();
+    	this.setVisible(false);
     } 
     public void setAnterior(JFrame anterior) {
  		this.anterior = anterior;

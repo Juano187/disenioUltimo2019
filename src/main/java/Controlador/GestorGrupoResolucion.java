@@ -22,7 +22,7 @@ public class GestorGrupoResolucion {
 	}
 	
 	public GrupoResolucion getGrupo(String grupo) {
-		return gBDD.getgrupo(grupo);
+		return gBDD.getgrupo(grupo); 
 	}
 	
 	//Agregado para los combobox CAMI

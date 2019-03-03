@@ -54,7 +54,7 @@ public class Historial_Intervencion extends HistorialABS {
 	}
 	
 	public void setUser(Usuario u) {
-		super.setUser(u);
+		super.setUser(u); 
 		u.addHI(this);
 	}
 	public EstadoIntervencion getEstadoI() {

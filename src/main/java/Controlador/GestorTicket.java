@@ -326,7 +326,7 @@ public void actualizarEstadoI(IntervencionDTO interv, String nuevestado, String 
 			// TODO como la funcion actulizarI solo se actualiza ticket cuando va a espera o terminada, si pasa a trabajando se sube el histoarial
 			
 			if(nuevestado == EstadoIntervencion.EN_ESPERA.toString()) {
-				ticket.setEstadoticket(1); 
+				ticket.setEstadoticket(1);  
 			}
 			if(nuevestado == EstadoIntervencion.TERMINADA.toString()) {
 				//hacer la ventana para ver si es por asignacion incorrecta o no

@@ -25,6 +25,7 @@ import Modelo.EstadoIntervencion;
 import Modelo.GrupoResolucion;
 import Modelo.IntervencionDTO;
 import Modelo.Ticket;
+import Modelo.Usuario;
 
 
 
@@ -39,16 +40,18 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
 	private JFrame anterior;
 	 final int SCROLL_BUFFER_SIZE = 20;
 	private JTextArea textarea;
+	private Usuario u;
 	
 	
 //TODO PONER PARAMETROS
     public ActualizarEstadoIntervencionCU08(IntervencionDTO interv, String user, Integer idgrupo) {
+    	u = gu.getUsuario(user);
     	in=interv;
         initComponents(interv, user, idgrupo);
         this.setLocationRelativeTo(null);
     }
 
-
+ 
     private void initComponents(IntervencionDTO interv, String user, Integer idgrupo) {
 
     	Ticket ticket = gestorT.getTicket(interv.getIdTicket());
@@ -291,18 +294,23 @@ public class ActualizarEstadoIntervencionCU08 extends javax.swing.JFrame {
      	 }
 		return clasificaciones;
 	}
+    
+    public void setAnterior (JFrame a) {
+    	this.anterior = a;
+
+    }
 
 
 	private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-		
-	        anterior.setVisible(true);
-	        this.dispose();
-	    
+		EjemploExito e = new EjemploExito("Cambio Cancelado ",u.getUsuario(),this,true);
+    	e.setVisible(true);
+
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAceptarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonAceptarActionPerformed
+    	EjemploExito e = new EjemploExito("Cambio Realizado ",u.getUsuario(),this,true);
+    	e.setVisible(true);
+	        }//GEN-LAST:event_jButtonAceptarActionPerformed
 
    
     

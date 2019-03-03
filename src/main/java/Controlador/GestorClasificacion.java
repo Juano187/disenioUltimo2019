@@ -46,7 +46,7 @@ public ArrayList<ClasificacionDTO> getClasificaciones() {
 	ArrayList<ClasificacionDTO> a = new ArrayList<ClasificacionDTO>();
 	for (int i=0; i<gd.size(); i++) {
 			String nom = gd.get(i).getNom_clasificacion();
-			ClasificacionDTO c = new ClasificacionDTO();
+			ClasificacionDTO c = new ClasificacionDTO(); 
 			c.setNombre(nom);
 			
 				a.add(c);

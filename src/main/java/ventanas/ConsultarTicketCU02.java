@@ -447,7 +447,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
                 }
             }
         });
-        getContentPane().add(jButton_Detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 110, 30));//330, 830, 110, 30));
+        getContentPane().add(jButton_Detalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 830, 110, 30));//330, 830, 110, 30));
 
         jButton_ConfigReporte.setBackground(new java.awt.Color(0, 51, 102));
         jButton_ConfigReporte.setFont(new java.awt.Font("Tahoma", 1, 14)); 
@@ -482,11 +482,23 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         jButton_CerrarT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
             	Integer numTSeleccionado = Integer.valueOf(((Vector) TablaTickets.getDataVector().elementAt(jTable1.getSelectedRow())).elementAt(0).toString());
+            	
             	ticketselec = gestorT.consultarTicket(numTSeleccionado, listaTencontrados);
-                jButton_CerrarTActionPerformed(evt);
+            	
+            	if(ticketselec.getEstado().toString() == EstadoTicket.SOLUCIONADOALAESPERAOK.toString() ) {
+            		jButton_CerrarTActionPerformed(evt);	
+            	}
+            	else {
+            		EjemploError e = new EjemploError("No se puede cerrar en este estado");
+            		e.setVisible(true);
+            	}
+            	
+            	
+            	
+                
             }
         });
-        getContentPane().add(jButton_CerrarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, /*830*/ 500, 140, 30));
+        getContentPane().add(jButton_CerrarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(880,830, 140, 30));
         
         
         jButton_DerivarT.setBackground(new java.awt.Color(0, 51, 102));
@@ -532,7 +544,7 @@ public class ConsultarTicketCU02 extends javax.swing.JFrame {
         	jButton_DerivarT.setBackground(new java.awt.Color(0, 51, 102));	
           }
         });
-        getContentPane().add(jButton_DerivarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 20 /*830*/, 140, 30));
+        getContentPane().add(jButton_DerivarT, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 830, 140, 30));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/orig_83357.jpg"))); 
         jLabelFondo.setPreferredSize(new java.awt.Dimension(1100, 650));

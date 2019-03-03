@@ -69,7 +69,7 @@ public class Ticket implements  Serializable{
 	//@Fetch(value = FetchMode.SUBSELECT)
 	//@JoinColumn(name = "numero")
 	
-	private List<Intervencion> listaintervenciones = new ArrayList<>();
+	private List<Intervencion> listaintervenciones = new ArrayList<>(); 
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "ticket")
 	//	@Fetch(value = FetchMode.SUBSELECT)

@@ -50,7 +50,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     LocalDate date= LocalDate.now();
     LocalTime time = LocalTime.now();
     
-   //String fechaString = fecha.format(date);
+   //String fechaString = fecha.format(date); 
    //String horaString = hora.format(date);
 
     
@@ -141,7 +141,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 130, 230, 30));
 
         jTextField2.setEditable(false);
-        jTextField2.setText(time.toString());
+        jTextField2.setText(time.toString()); 
         jTextField2.setPreferredSize(new java.awt.Dimension(52, 22));
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
         	public void focusGained(java.awt.event.FocusEvent e) {
@@ -381,7 +381,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
       
         	 System.out.println("long legajo: "+ longLegajo + " descripcion: " + descripcion + " clasificacion: " + claSeleccionada );
         	 
-        	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...") || descripcion.equalsIgnoreCase("Ingrese descripcion")) {
+        	 if(longLegajo != 5 || claSeleccionada.equalsIgnoreCase("Seleccione un tipo...") || descripcion.equalsIgnoreCase("Ingrese descripcion (max de caracteres 150)")) {
         	 		EjemploError error = new EjemploError("Datos invalidos");
     			  	error.setVisible(true); 	
     			  		
@@ -395,7 +395,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
         		 	System.out.println("Grupo : " + g.getNom_grupo());
         		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
         		 		t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
-        		 		t.getEstadoticket() , u.getUsuario());
+        		 		t.getEstadoticket() , u.getUsuario(),descripcion);
         		 	
         		 	CerrarTicketCU03 c = new CerrarTicketCU03(td);
                     c.setAnterior(frame);
@@ -456,7 +456,7 @@ public class RegistrarTicketCU01 extends javax.swing.JFrame {
     		 	
     		 	TicketDTO td = new TicketDTO(t.getNum_ticket(), t.getEmpleado().getLegajo() ,
     		 			t.getFecha_apertura() , t.getFecha_cierre() , t.getClasificacion() , g ,
-    		 			t.getEstadoticket() , u.getUsuario());
+    		 			t.getEstadoticket() , u.getUsuario(),descripcion);
     		 	System.out.println("datos ticket : num:"+td.getNumeroTicket()+ " legajo: "+td.getLegajo()+" clasificacion: "+ td.getCla().getNom_clasificacion());
     		 
     		 	

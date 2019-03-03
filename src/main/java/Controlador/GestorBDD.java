@@ -291,7 +291,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fecha
 		
 		
 		if(!(numTic== null)) {
-			sql+= " and t.num_ticket = " + numTic;
+			sql+= " and t.num_ticket = " + numTic; 
 		}
 		
 		if(!(legajo== null)) {
@@ -359,7 +359,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fecha
 	public GrupoResolucion getgrupo(String grupo) {
 		GrupoResolucion grupoR;
 		
-		
+		 
 		manager.getTransaction().begin();
 		grupoR = (GrupoResolucion) 
 				manager.createQuery("FROM GrupoResolucion WHERE nom_grupo = '" + grupo+"'").getSingleResult();
@@ -404,10 +404,7 @@ public ArrayList<Ticket> getTickets(Long numTic, Integer legajo, LocalDate fecha
 		
 		String csql = "Select distinct i FROM Intervencion i, Ticket t WHERE i.ticket = t and i.gruporesolucion = " + idgrup;
 		
-		System.out.println("estado:" + estado);
-		System.out.println("desde" + desde);
-		System.out.println("num ticjet" + numTicket);
-		System.out.println("legajo" + numLeg);
+		
 
 		if(!(numTicket== null)) {
 			csql+= " and t.num_ticket = " + numTicket;

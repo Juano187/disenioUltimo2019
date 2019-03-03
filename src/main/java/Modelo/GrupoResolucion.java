@@ -41,7 +41,7 @@ public class GrupoResolucion implements  Serializable{
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "gruporesolucion")
 	//@Fetch(value = FetchMode.SUBSELECT)
-	private List<Usuario> listausuario = new ArrayList<>(); 
+	private List<Usuario> listausuario = new ArrayList<>();  
 	
 	@OneToMany(cascade = CascadeType.ALL,mappedBy = "gruporesolucion")
 	//@Fetch(value = FetchMode.SUBSELECT)

@@ -1,4 +1,4 @@
-package ventanas;
+ package ventanas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -93,6 +93,11 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                 if (ke.getKeyCode() == KeyEvent.VK_ENTER) {
                 	jButton_Cancelar.doClick();
                 }
+            }
+        });
+        jButton_Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_CancelarActionPerformed(evt);
             }
         });
         getContentPane().add(jButton_Cancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 565, 100, 30));
@@ -192,8 +197,13 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
          
         jButton_Confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-           
-           	 	System.out.println("rasta");
+           	 String descripcion = jTextArea2.getText();
+        	 if( descripcion.equalsIgnoreCase("Ingrese descripcion (max de caracteres 150)")) {
+     	 		EjemploError error = new EjemploError("Ingrese una observaci\u00f3n");
+    			  	error.setVisible(true); 	}
+        	 else {
+    			  		
+  
                 	if(jLabel10.getText().isEmpty()) {
                 		String e= "Error Observaciones vacio";
             			EjemploError i = new EjemploError(e);
@@ -207,33 +217,37 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
                 	else {
                 		
                 		GrupoResolucion gr = (GrupoResolucion) ultgrupos.getSelectedItem();
-                		System.out.println("Se apreto bton derivar gila y este es el grupo q se seleccionó");
+      //          		System.out.println("Se apreto bton derivar gila y este es el grupo q se seleccionó");
                 		System.out.println(gr.getNom_grupo());
                 		Clasificacion cs = (Clasificacion) combocalif.getSelectedItem();
-                		System.out.println("esta es la clasificacion:");
+        //        		System.out.println("esta es la clasificacion:");
                 		System.out.println(cs.getNom_clasificacion());
                 		
                 		Boolean a = false;
                 		if(((Clasificacion) combocalif.getSelectedItem()).getCodigo() == cla.getCodigo()) {
                 			
                 			gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodigo(), a);
+                			exito ();
                 		} else{
                 		 a = true;
                 		
                 		gestorT.derivarTicket(ticketselec.getNumeroTicket(),jTextArea2.getText() , gr.getNom_grupo(), u, cs.getCodigo(), a);
-                		System.out.println("salio derivar");
+      //          		System.out.println("salio derivar");
+                		exito ();
+
                 		}
                 	}
 
-                	jButton_CancelarActionPerformed(evt);
-            }
+                
+            }}
         });
 
         jTextArea2.setEditable(true);
-        jTextArea1.setWrapStyleWord(true);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setTabSize(5);
-        jTextArea1.setText("Ingrese observacion (max de caracteres 150)");
+        jTextArea2.setWrapStyleWord(true);
+        jTextArea2.setLineWrap(true);
+        jTextArea2.setTabSize(5);
+       
+        jTextArea2.setText("Ingrese observacion (max de caracteres 150)");
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
         jScrollPane2.setViewportView(jTextArea2);
@@ -246,6 +260,13 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
         			e.setKeyChar((char) KeyEvent.VK_CLEAR);
         		}
         	}
+        });
+        jTextArea2.addKeyListener(new java.awt.event.KeyAdapter(){
+            public void keyPressed(java.awt.event.KeyEvent ke) {
+                if (ke.getKeyCode() == KeyEvent.VK_ENTER || ke.getKeyCode() == KeyEvent.VK_TAB) {
+                    jButton_Cancelar.requestFocus();
+                }
+            }
         });
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 460, 620, 120));
 
@@ -345,14 +366,14 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 					g[1] = gestorG.getGrupo("Mesa de Ayuda");
 					g[2] = gestorG.getGrupo("Soporte");
 					g[3] = gestorG.getGrupo("Administrador SUSE Linux");
-					g[4] = gestorG.getGrupo("Administrador DEBIA");}
+					g[4] = gestorG.getGrupo("Administrador DEBIAN");}
     					
     	
 				else {
 						if(cl.getNom_clasificacion().equalsIgnoreCase("Solicitud de instalación de aplicaciones")){
 							n=7;
 							g = new GrupoResolucion[n+1];
-							g[1] = gestorG.getGrupo("Mesa de Ayuda");
+							g[1] = gestorG.getGrupo("Mesa de ayuda");
 							g[2] = gestorG.getGrupo("Soporte");
 							g[3] = gestorG.getGrupo("Administrador SUSE Linux");
 							g[4] = gestorG.getGrupo("Administrador de base de datos");
@@ -368,14 +389,14 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 								g[1] = gestorG.getGrupo("Mesa de Ayuda");
 								g[2] = gestorG.getGrupo("Soporte");
 								g[3] = gestorG.getGrupo("Administrador SUSE Linux");
-								g[4] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+								g[4] = gestorG.getGrupo("Administrador proxy y correo electronico");
 								g[5] = gestorG.getGrupo("Desarrollo sistema comercial");
 								g[6] = gestorG.getGrupo("Desarrollo Sistema RRHH");
 								g[7] = gestorG.getGrupo("Desarrollo sistema de reclamos");
 							}
 							else {
 								
-									if(cl.getNom_clasificacion().equalsIgnoreCase("Problemas en la autenticacion en los distintos sistemas")) {
+									if(cl.getNom_clasificacion().equalsIgnoreCase("Problemas en la autenticación en los distintos sistemas")) {
 										n=6;
 										g = new GrupoResolucion[n+1];
 										g[1] = gestorG.getGrupo("Mesa de Ayuda");
@@ -392,8 +413,8 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 											g[1] = gestorG.getGrupo("Mesa de Ayuda");
 											g[2] = gestorG.getGrupo("Soporte");
 											g[3] = gestorG.getGrupo("Servicio tecnico");
-											g[4] = gestorG.getGrupo("Administrador Proxy y correo electronico");
-											g[5] = gestorG.getGrupo("Redes LAN");	
+											g[4] = gestorG.getGrupo("Administrador proxy y correo electronico");
+											g[5] = gestorG.getGrupo("Redes Lan");	
 											g[6] = gestorG.getGrupo("Comunicaciones");	
 										}
 										else {
@@ -403,23 +424,23 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 												g[1] = gestorG.getGrupo("Mesa de Ayuda");
 												g[2] = gestorG.getGrupo("Soporte");
                     							g[3] = gestorG.getGrupo("Administrador SUSE Linux");
-                    							g[4] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+                    							g[4] = gestorG.getGrupo("Administrador proxy y correo electronico");
 											}
     		
 											else {
-												if(cl.getNom_clasificacion().equalsIgnoreCase( "Problemas con el correo electronico")) {
+												if(cl.getNom_clasificacion().equalsIgnoreCase( "Problemas con el correo electrónico")) {
 													n=3;
 													g = new GrupoResolucion[n+1];
 													g[1] = gestorG.getGrupo("Mesa de Ayuda");
-													g[2] = gestorG.getGrupo("Unidades de soporte");
-													g[3] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+													g[2] = gestorG.getGrupo("Soporte");
+													g[3] = gestorG.getGrupo("Administrador proxy y correo electronico");
 												}	
 												else {
-													if(cl.getNom_clasificacion().equalsIgnoreCase( "Solicitud de cuentas de correo electronico")) {
+													if(cl.getNom_clasificacion().equalsIgnoreCase( "Solicitud de cuentas de correo electrónico")) {
 														n=2;
 														g = new GrupoResolucion[n+1];
 														g[1] = gestorG.getGrupo("Mesa de Ayuda");
-														g[2] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+														g[2] = gestorG.getGrupo("Administrador proxy y correo electronico");
 													}
 													else {
 														if(cl.getNom_clasificacion().equalsIgnoreCase("Solicitud de nuevos puestos de trabajo")) {
@@ -429,14 +450,14 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 															g[2] = gestorG.getGrupo("Soporte");
 														}
 														else {
-															if(cl.getNom_clasificacion().equalsIgnoreCase( "Solicitud de soporte en el uso de alguna aplicacion o sistema")) {
+															if(cl.getNom_clasificacion().equalsIgnoreCase( "Solicitud soporte en el uso de alguna aplicación o sistema")) {
 																n=2;
 																g = new GrupoResolucion[n+1];
 																g[1] = gestorG.getGrupo("Mesa de Ayuda");
 																g[2] = gestorG.getGrupo("Soporte");
-																g[3] = gestorG.getGrupo("Administrador de Base de Datos");
+																g[3] = gestorG.getGrupo("Administrador de base de datos");
 																g[4] = gestorG.getGrupo("Administrador SUSE Linux");
-																g[5] = gestorG.getGrupo("Administrador Proxy y correo electronico");
+																g[5] = gestorG.getGrupo("Administrador proxy y correo electronico");
 																g[5] = gestorG.getGrupo("Desarrollo sistema comercial");
 																g[6] = gestorG.getGrupo("Desarrollo sistema RRHH");
 																g[7] = gestorG.getGrupo("Desarrollo sistema de reclamos");
@@ -469,13 +490,19 @@ public class DerivarTicketCU04 extends javax.swing.JFrame {
 
 
     private void jButton_CancelarActionPerformed(java.awt.event.ActionEvent evt) {
-        anterior.setVisible(true);
-        this.dispose();
+    	EjemploExito e = new EjemploExito("Derivaci\u00f3n cancelada ",u.getUsuario(),this);
+    	e.setVisible(true);
     }
 
+    private void exito() {
+    	EjemploExito e = new EjemploExito("Ticket Derivado ",u.getUsuario(),this);
+    	e.setVisible(true);
+    	
+    }
     private void jTextFielNoEditableActionPerformed(java.awt.event.ActionEvent evt) {
       
     }
+    
     
  	public void setAnterior(JFrame anterior) {
  		this.anterior = anterior;

@@ -43,7 +43,7 @@ public class MenuMesaDeAyuda extends javax.swing.JFrame {
         jButton_Consultar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton_Salir = new javax.swing.JButton();
-        jLabelFondo = new javax.swing.JLabel();
+        jLabelFondo = new javax.swing.JLabel(); 
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

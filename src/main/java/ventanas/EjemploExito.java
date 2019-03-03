@@ -9,17 +9,30 @@ import javax.swing.JFrame;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Object;
 
 public class EjemploExito extends javax.swing.JFrame {
-	JFrame anterior = null;
+
 	private String u; 
- 
+	private JFrame anterior;
+	public Boolean abc = false;
+	public EjemploExito(String s,String user, JFrame a, Boolean b) {
+		if(b) {
+		
+			Toolkit.getDefaultToolkit().beep();
+			abc = true;
+			anterior =a ;
+	        u= user;
+	    	initComponents(s);
+	        this.setLocationRelativeTo(null);
+		}
+		
+	}
     public EjemploExito(String s) {
     	Toolkit.getDefaultToolkit().beep();
         initComponents(s);
         this.setLocationRelativeTo(null);
     }
-    public EjemploExito(String s, JFrame a,String user) {
+    public EjemploExito(String s,String user,JFrame a) { 
     	Toolkit.getDefaultToolkit().beep();
-        anterior = a;
+    	anterior =a ;
         u= user;
     	initComponents(s);
         this.setLocationRelativeTo(null);
@@ -27,7 +40,7 @@ public class EjemploExito extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
 
     private void initComponents(String a) {
-
+ 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton_Confirmar = new javax.swing.JButton();
@@ -80,13 +93,18 @@ public class EjemploExito extends javax.swing.JFrame {
     }
     
     private void jButton_ConfirmarActionPerformed() {
-    if(anterior.getClass() == CerrarTicketCU03.class ) {
-    	RegistrarTicketCU01 a = new RegistrarTicketCU01(u);
-    	a.setVisible(true);
-    }
+    	if(abc) {
+    		anterior.dispose();
+        	this.dispose();
+        	MenuGrupoResolucion m = new MenuGrupoResolucion(u);
+        	m.setVisible(true);
+    	}else {
     	anterior.dispose();
     	this.dispose();
-    }
+    	MenuMesaDeAyuda m = new MenuMesaDeAyuda(u);
+    	m.setVisible(true);
+    	}
+ }
     public static void main(String args[]) {
         
         try {
@@ -115,3 +133,4 @@ public class EjemploExito extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
  
 }
+

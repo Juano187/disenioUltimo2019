@@ -30,8 +30,8 @@ public class TicketDTO {
 	public TicketDTO(Integer numeroTicket, 
 			Integer numlegajo, LocalDate fechaA, 	
 			LocalDate fechaU , Clasificacion cla,
-			GrupoResolucion gru, 
-			EstadoTicket estado, String usuario) {
+			GrupoResolucion gru,  
+			EstadoTicket estado, String usuario,String des) {
 		
 		this.numeroTicket = numeroTicket;
 		this.numlegajo = numlegajo;
@@ -41,6 +41,7 @@ public class TicketDTO {
 		this.gru = gru;
 		this.estado = estado;
 		this.usuario= usuario;
+		this.descrip_problema= des;
 	}
 	
 	
